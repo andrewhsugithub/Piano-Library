@@ -1,2 +1,1 @@
 # Piano Transcription
-## motivation
