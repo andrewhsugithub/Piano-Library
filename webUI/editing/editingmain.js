@@ -14,7 +14,6 @@ const CELL_HEIGHT = 20;
 const CELL_WIDTH = 30;
 const CELL_NOHOVER_COLOR = "darkblue";
 const CELL_HOVER_COLOR = "aquamarine";
-const CELL_BORDER = "1px solid rgb(97, 51, 247)";
 
 
 /* line param */
@@ -30,18 +29,13 @@ const LINE_TOP = TOP_MARGIN-LINE_MORE;
 const BAR_TOP = TOP_MARGIN-BAR_MORE;
 const MEASURE_TOP = TOP_MARGIN-MEASURE_MORE;
 
-const LINE_COLOR = "white";
-const BAR_COLOR = "yellow";
-const MEASURE_COLOR = "red";
-
 
 /* souond param */
-const SOUND_COLOR = "magenta";
-const SOUND_BORDER = "1px solid peachpuff";
+const SOUND_COLOR = "magenta"
 
 
 /* [note, start, end] */
-let SOUND_LIST = [[2, 10, 20], [6, 15, 19]]
+let SOUND_LIST = []
 
 /*************************************************************************************************** */
 /** Class */
@@ -112,10 +106,10 @@ class ClickAndHold {
 const MakeGrid = (beats) => {
     for(let i=1;i<=beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR;i++){
 
-    CreateNewLine(i); // draw vertical lines
+    Create_new_line(i); // draw vertical lines
     for(let j=1;j<=88;j++){
 
-        CreateNewCell(i, j); // create cells
+        Create_new_cell(i, j); // create cells
         // console.log(i.toString()+"_"+j.toString())
         }
     }
@@ -123,7 +117,7 @@ const MakeGrid = (beats) => {
     
 
 /* Create cells */
-function CreateNewCell(x, y){
+function Create_new_cell(x, y){
 
     let new_div = document.createElement("div");    // create div
 
@@ -136,9 +130,9 @@ function CreateNewCell(x, y){
     new_div.style.height = CELL_HEIGHT.toString()+"px";     // height
     new_div.style.backgroundColor = CELL_NOHOVER_COLOR;     // color
     new_div.style.boxSizing = "border-box";     // flip border inside 
-    new_div.style.borderTop = CELL_BORDER;      // border on the top
-    new_div.style.borderBottom = CELL_BORDER;   // border on the bottom
-    new_div.style.zIndex = "1";      
+    new_div.style.borderTop = "1px solid rgb(97, 51, 247)";     // border on the top
+    new_div.style.borderBottom = "1px solid rgb(97, 51, 247)";
+    new_div.style.zIndex = "1";      // border on the bottom
     new_div.setAttribute("draggable", false);
 
     /* position */
@@ -168,7 +162,7 @@ function CreateNewCell(x, y){
 
 
 /* Draw Line */
-function CreateNewLine(x){
+function Create_new_line(x){
 
     let new_line = document.createElement("div");       // create div
 
@@ -176,7 +170,7 @@ function CreateNewLine(x){
     new_line.classList.add('line');
 
     /* style */
-    new_line.style.backgroundColor = LINE_COLOR; 
+    new_line.style.backgroundColor = "white"; 
     new_line.style.width = "2px";
     new_line.style.height = LINE_LENGTH.toString()+"px";
     new_line.style.zIndex = "2";
@@ -192,13 +186,13 @@ function CreateNewLine(x){
     /* distinct beat and measure */
     if(x%BEAT_DIVITION == 0){   // one beat
         new_line.style.height = BAR_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = BAR_COLOR;
+        new_line.style.backgroundColor = "yellow";
         new_line.style.top = BAR_TOP.toString()+"px";
     }
 
     if(x%(BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR) == 0){    // one measure
         new_line.style.height = MEASURE_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = MEASURE_COLOR;
+        new_line.style.backgroundColor = "red";
         new_line.style.top = MEASURE_TOP.toString()+"px";
     }
 
@@ -212,13 +206,13 @@ function CreateNewLine(x){
 
 
 /* Create sound */
-const CreateSoundDiv = (x, y, width) =>{
+const createSoundDiv = (x, y, width) =>{
 
     let new_sound = document.createElement("div")
 
     /* style */
     new_sound.style.backgroundColor = SOUND_COLOR;
-    new_sound.style.width = width.toString()+"px";
+    new_sound.style.width = width+"px";
     new_sound.style.height = CELL_HEIGHT.toString()+"px";
     new_sound.style.zIndex = "3";
     new_sound.setAttribute("draggable", false);
@@ -227,7 +221,6 @@ const CreateSoundDiv = (x, y, width) =>{
     new_sound.style.position = "absolute";
     new_sound.style.left = x;
     new_sound.style.top = y;
-    new_sound.style.border = SOUND_BORDER;
 
     // append to body
     console.log("("+x+","+y+")", "width:", width);
@@ -260,20 +253,12 @@ const NewSoundDiv = (start_pageX, start_pageY, end_pageX) =>{
         // console.log("("+mousedown_cell_column.toString()+","+mousedown_cell_row.toString()+")", mouseup_cell_column, new_sound_width);
         
         /* create sound */
-        CreateSoundDiv(new_sound_x, new_sound_y, new_sound_width);
+        createSoundDiv(new_sound_x, new_sound_y, new_sound_width);
 
     }
 }
 
-/* [note, start, end] to [x, y, width] */
-const DecodeSoundRecordtoPosition = (note, start, end) =>{
-    let head_cell = document.getElementById(start.toString()+"_"+note.toString()); // the cell when at the head
-    let x = head_cell.style.left;
-    let y = head_cell.style.top;
-    let width = (end - start)*CELL_WIDTH;
-    // console.log(x, y, width);
-    return [x, y, width];
-}
+
 
 /*************************************************************************************************** */
 /** Main */
@@ -286,10 +271,6 @@ const DecodeSoundRecordtoPosition = (note, start, end) =>{
         /* make grid */
         MakeGrid(beats);
 
-        /* put sound on */
-        for( const sound of SOUND_LIST){
-            CreateSoundDiv(...DecodeSoundRecordtoPosition(...sound));
-        }
         // add new sound
         ClickAndHold.apply(document.body, NewSoundDiv);
     }
