@@ -14,6 +14,7 @@ const CELL_HEIGHT = 20;
 const CELL_WIDTH = 30;
 const CELL_NOHOVER_COLOR = "darkblue";
 const CELL_HOVER_COLOR = "aquamarine";
+const CELL_BORDER = "1px solid rgb(97, 51, 247)";
 
 
 /* line param */
@@ -29,13 +30,22 @@ const LINE_TOP = TOP_MARGIN-LINE_MORE;
 const BAR_TOP = TOP_MARGIN-BAR_MORE;
 const MEASURE_TOP = TOP_MARGIN-MEASURE_MORE;
 
+const LINE_COLOR = "white";
+const BAR_COLOR = "yellow";
+const MEASURE_COLOR = "red";
+
 
 /* souond param */
-const SOUND_COLOR = "magenta"
+const SOUND_COLOR = "magenta";
+const SOUND_BORDER = "1px solid peachpuff";
 
 
 /* [note, start, end] */
-let SOUND_LIST = []
+let SOUND_LIST = [[2, 10, 20], [6, 15, 19]] // from midi
+
+/* lookup table */
+let table = new Array(88).fill(0).map(() => new Array(0));
+ 
 
 /*************************************************************************************************** */
 /** Class */
@@ -63,13 +73,14 @@ class ClickAndHold {
             this.target.addEventListener(type, this._onHoldStart.bind(this));
         });
 
-        ["mouseup", "mouseleave", "touchend", "touchcancel"].forEach(type =>{
+        ["mouseup", "touchend", "touchcancel"].forEach(type =>{
             this.target.addEventListener(type, this._onHoldEnd.bind(this));
         });
     }
 
     _onHoldStart(e){
         this.isHold = true;
+        console.log("event:   ", e);
 
         // console.log(e.pageX, e.pageY);
         this.start_pageX = e.pageX;
@@ -79,6 +90,7 @@ class ClickAndHold {
     
     _onHoldEnd(e){
         this.isHold = false;
+        console.log("event:   ", e);
 
         // console.log(e.pageX, e.pageY);
         if(this.start_pageX != null && this.start_pageY != null){
@@ -106,10 +118,10 @@ class ClickAndHold {
 const MakeGrid = (beats) => {
     for(let i=1;i<=beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR;i++){
 
-    Create_new_line(i); // draw vertical lines
+    CreateNewLine(i); // draw vertical lines
     for(let j=1;j<=88;j++){
 
-        Create_new_cell(i, j); // create cells
+        CreateNewCell(i, j); // create cells
         // console.log(i.toString()+"_"+j.toString())
         }
     }
@@ -117,7 +129,7 @@ const MakeGrid = (beats) => {
     
 
 /* Create cells */
-function Create_new_cell(x, y){
+function CreateNewCell(x, y){
 
     let new_div = document.createElement("div");    // create div
 
@@ -130,9 +142,9 @@ function Create_new_cell(x, y){
     new_div.style.height = CELL_HEIGHT.toString()+"px";     // height
     new_div.style.backgroundColor = CELL_NOHOVER_COLOR;     // color
     new_div.style.boxSizing = "border-box";     // flip border inside 
-    new_div.style.borderTop = "1px solid rgb(97, 51, 247)";     // border on the top
-    new_div.style.borderBottom = "1px solid rgb(97, 51, 247)";
-    new_div.style.zIndex = "1";      // border on the bottom
+    new_div.style.borderTop = CELL_BORDER;      // border on the top
+    new_div.style.borderBottom = CELL_BORDER;   // border on the bottom
+    new_div.style.zIndex = "1";      
     new_div.setAttribute("draggable", false);
 
     /* position */
@@ -162,7 +174,7 @@ function Create_new_cell(x, y){
 
 
 /* Draw Line */
-function Create_new_line(x){
+function CreateNewLine(x){
 
     let new_line = document.createElement("div");       // create div
 
@@ -170,7 +182,7 @@ function Create_new_line(x){
     new_line.classList.add('line');
 
     /* style */
-    new_line.style.backgroundColor = "white"; 
+    new_line.style.backgroundColor = LINE_COLOR; 
     new_line.style.width = "2px";
     new_line.style.height = LINE_LENGTH.toString()+"px";
     new_line.style.zIndex = "2";
@@ -186,13 +198,13 @@ function Create_new_line(x){
     /* distinct beat and measure */
     if(x%BEAT_DIVITION == 0){   // one beat
         new_line.style.height = BAR_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = "yellow";
+        new_line.style.backgroundColor = BAR_COLOR;
         new_line.style.top = BAR_TOP.toString()+"px";
     }
 
     if(x%(BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR) == 0){    // one measure
         new_line.style.height = MEASURE_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = "red";
+        new_line.style.backgroundColor = MEASURE_COLOR;
         new_line.style.top = MEASURE_TOP.toString()+"px";
     }
 
@@ -206,13 +218,13 @@ function Create_new_line(x){
 
 
 /* Create sound */
-const createSoundDiv = (x, y, width) =>{
+const CreateSoundDiv = (x, y, width) =>{
 
     let new_sound = document.createElement("div")
 
     /* style */
     new_sound.style.backgroundColor = SOUND_COLOR;
-    new_sound.style.width = width+"px";
+    new_sound.style.width = width.toString()+"px";
     new_sound.style.height = CELL_HEIGHT.toString()+"px";
     new_sound.style.zIndex = "3";
     new_sound.setAttribute("draggable", false);
@@ -221,22 +233,22 @@ const createSoundDiv = (x, y, width) =>{
     new_sound.style.position = "absolute";
     new_sound.style.left = x;
     new_sound.style.top = y;
+    new_sound.style.border = SOUND_BORDER;
 
     // append to body
     console.log("("+x+","+y+")", "width:", width);
     document.body.appendChild(new_sound);
+
 }
 
+
 /* Draw new sound */
-const NewSoundDiv = (start_pageX, start_pageY, end_pageX) =>{
+const NewSoundDiv = (mousedown_cell_column, mousedown_cell_row, mouseup_cell_column) =>{
 
     /* calculate which cell is on when mousedown, mouseup */
-    let body_x = document.body.getBoundingClientRect().x;   // body x
-    let body_y = document.body.getBoundingClientRect().y;   // body y
-    let mousedown_cell_column = Math.floor((start_pageX - body_x - LEFT_MARGIN) / CELL_WIDTH) + 1;  // the nth column(time) when mousedown
-    let mousedown_cell_row = Math.floor((start_pageY - body_y - TOP_MARGIN) / CELL_HEIGHT) + 1; // the mth row(note)
-    let mouseup_cell_column = Math.floor((end_pageX - body_x - LEFT_MARGIN) / CELL_WIDTH) + 1;  // the nth column(time) when mouseup
-    let mousedown_cell = document.getElementById(mousedown_cell_column.toString()+"_"+mousedown_cell_row.toString()); // the cell when mousedown
+    let id = mousedown_cell_column.toString()+"_"+mousedown_cell_row.toString();
+    let mousedown_cell = document.getElementById(id); // the cell when mousedown
+    console.log(id)
     
     /* new sound length */
     let new_sound_width = (mouseup_cell_column - mousedown_cell_column + 1) * CELL_WIDTH;
@@ -246,17 +258,141 @@ const NewSoundDiv = (start_pageX, start_pageY, end_pageX) =>{
 
         /* record sound */
         SOUND_LIST.push([mousedown_cell_row, mousedown_cell_column, mouseup_cell_column]);
-        
+        console.log(SOUND_LIST);
         /* new sound position */
         let new_sound_x = mousedown_cell.style.left;
         let new_sound_y = mousedown_cell.style.top;
+        // mousedown_cell.style.backgroundColor = "yellowgreen";
         // console.log("("+mousedown_cell_column.toString()+","+mousedown_cell_row.toString()+")", mouseup_cell_column, new_sound_width);
         
         /* create sound */
-        createSoundDiv(new_sound_x, new_sound_y, new_sound_width);
+        CreateSoundDiv(new_sound_x, new_sound_y, new_sound_width);
+        
+        /* add new sound to lookup table */
+        LookupTableInsert(mousedown_cell_row, mousedown_cell_column, mouseup_cell_column);
 
     }
 }
+
+
+/* [note, start, end] to [x, y, width] */
+const DecodeSoundRecordtoPosition = (note, start, end) =>{
+    let head_cell = document.getElementById(start.toString()+"_"+note.toString()); // the cell when at the head
+    let x = head_cell.style.left;
+    let y = head_cell.style.top;
+    let width = (end - start + 1)*CELL_WIDTH;
+    // console.log(x, y, width);
+    return [x, y, width];
+}
+
+
+/* calculate which cell given position */
+const PageXYtoCellColumnRow = (pageX, pageY) =>{
+    let body_x = document.body.getBoundingClientRect().x;   // body x
+    let body_y = document.body.getBoundingClientRect().y;   // body y
+    let cell_column = Math.floor((pageX - 0 - LEFT_MARGIN) / CELL_WIDTH) + 1;  // the nth column(time) when mousedown
+    let cell_row = Math.floor((pageY - 0 - TOP_MARGIN) / CELL_HEIGHT) + 1; // the mth row(note)
+    console.log("cell_column = Math.floor((", pageX," - ",body_x," - ", LEFT_MARGIN,"), / ", CELL_WIDTH, ") + 1 = ", cell_column);
+    console.log("cell_row = Math.floor((", pageY," - ",body_y," - ", TOP_MARGIN,"), / ", CELL_HEIGHT, ") + 1 = ", cell_row);
+    return [cell_column, cell_row];
+}
+
+
+/* select which action to take */
+const WhichAction = (start_pageX, start_pageY, end_pageX, end_pageY) => {
+
+    let [mousedown_cell_column, mousedown_cell_row] = PageXYtoCellColumnRow(start_pageX, start_pageY);
+    let [mouseup_cell_column, mouseup_cell_row] = PageXYtoCellColumnRow(end_pageX, end_pageY);
+    console.log("start: ", mousedown_cell_column, mousedown_cell_row);
+    console.log("end: ", mouseup_cell_column, mouseup_cell_row);
+    // console.log(lowerBound(table[mousedown_cell_row-1], mousedown_cell_column));
+    if(!isSound(mousedown_cell_row, mousedown_cell_column)){
+        console.log("_____________________________________________");
+        NewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column);
+    }
+    // NewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column);
+}
+
+
+/* insert note to lookup table */
+const LookupTableInsert = (note, start, end) => {
+    // console.log(note, n1, n2);
+    table[note-1].push([start, end])
+    table[note-1].sort(function(a, b){return a[0] - b[0]});
+}
+
+
+/* whether the cell has occupied by sound */
+const isSound = (cell_row, cell_column) => {
+    let upperBound_result = upperBound(table[cell_row-1], cell_column);
+    if( upperBound_result == 0) return false;   // no sound in that note(upperBound return the array length which equal to 0) or
+                                                // no sound before the new sound(the upperBound index is 0)
+    let previous_sound = table[cell_row-1][upperBound_result-1];    // find the sound before new sound
+    console.log("new: ", cell_column, "  pre: ", previous_sound[0], previous_sound[1])
+    return cell_column < previous_sound[1]; // whether the previous sound ends before the new sound starts
+}
+
+
+/* costume binary search */
+// about the list of list to compare about the first element of inside list
+const CostumeBinarySearch = (array, pred) => {
+    let low = -1, hight = array.length;
+    while (1 + low < hight) {
+        const middle = low + ((hight - low) >> 1);
+        if (pred(array[middle][0])){
+            hight = middle;
+        } else {
+            low = middle;
+        }
+    }
+    return hight;
+}
+
+/* upperbound */
+const upperBound = (array, item) => {
+    return CostumeBinarySearch(array, j => item < j);
+}
+
+
+/* 
+  &---REFERENCE---&
+/** 
+ * https://stackoverflow.com/questions/22697936/binary-search-in-javascript
+ * 
+ * Return 0 <= i <= array.length such that !pred(array[i - 1]) && pred(array[i]).
+ *
+ * 
+ function binarySearch(array, pred) {
+    let lo = -1, hi = array.length;
+    while (1 + lo < hi) {
+        const mi = lo + ((hi - lo) >> 1);
+        if (pred(array[mi])) {
+            hi = mi;
+        } else {
+            lo = mi;
+        }
+    }
+    return hi;
+}
+
+/**
+ * Return i such that array[i - 1] < item <= array[i].
+ *
+function lowerBound(array, item) { 
+    if(array.length == 0){
+        console.log("zero");
+        return 0;
+    }
+    return binarySearch(array, j => item <= j);
+}
+
+/**
+ * Return i such that array[i - 1] <= item < array[i].
+ *
+function upperBound(array, item) {
+    return binarySearch(array, j => item < j);
+}
+*/
 
 
 
@@ -268,11 +404,23 @@ const NewSoundDiv = (start_pageX, start_pageY, end_pageX) =>{
         let beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
         console.log("This is measures" + measures.toString());
 
+        
         /* make grid */
         MakeGrid(beats);
 
+        /* put sound on */
+        for( const sound of SOUND_LIST){
+            CreateSoundDiv(...DecodeSoundRecordtoPosition(...sound));
+
+            /* put sound list to lookup array */
+            LookupTableInsert(sound[0], sound[1], sound[2]);
+        }
+        console.log(table[1]);
+        console.log(table[10]);
+        
+
         // add new sound
-        ClickAndHold.apply(document.body, NewSoundDiv);
+        ClickAndHold.apply(document.body, WhichAction);
     }
 )();
 
