@@ -306,9 +306,11 @@ const WhichAction = (start_pageX, start_pageY, end_pageX, end_pageY) => {
     console.log("start: ", mousedown_cell_column, mousedown_cell_row);
     console.log("end: ", mouseup_cell_column, mouseup_cell_row);
     // console.log(lowerBound(table[mousedown_cell_row-1], mousedown_cell_column));
-    if(!isSound(mousedown_cell_row, mousedown_cell_column)){
+    let [is_sound, next_start] = isSound(mousedown_cell_row, mousedown_cell_column);
+    console.log("is_sound: ", is_sound, "  next_start: ", next_start);
+    if(!is_sound){
         console.log("_____________________________________________");
-        NewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column);
+        NewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column < next_start ? mouseup_cell_column : next_start-1);
     }
     // NewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column);
 }
@@ -323,13 +325,20 @@ const LookupTableInsert = (note, start, end) => {
 
 
 /* whether the cell has occupied by sound */
-const isSound = (cell_row, cell_column) => {
-    let upperBound_result = upperBound(table[cell_row-1], cell_column);
-    if( upperBound_result == 0) return false;   // no sound in that note(upperBound return the array length which equal to 0) or
-                                                // no sound before the new sound(the upperBound index is 0)
+const isSound = (cell_row, cell_column) => { 
+
+    if(table[cell_row-1].length == 0) return [false, Infinity]; // no sound in that note(upperBound return the array length which equal to 0)
+
+    let upperBound_result = upperBound(table[cell_row-1], cell_column); 
+    
     let previous_sound = table[cell_row-1][upperBound_result-1];    // find the sound before new sound
-    console.log("new: ", cell_column, "  pre: ", previous_sound[0], previous_sound[1])
-    return cell_column < previous_sound[1]; // whether the previous sound ends before the new sound starts
+    let next_sound = table[cell_row-1][upperBound_result];      // find the sound after new sound
+
+    if (upperBound_result == 0) return [false, next_sound[0]]; // no sound before the new sound(the upperBound index is 0) 
+
+    console.log("new: ", cell_column, "  pre: ", previous_sound[0], previous_sound[1]);
+    // if (upperBound_result == table[cell_row-1].length) return 
+    return [cell_column < previous_sound[1], next_sound === undefined ? Infinity : next_sound[0]]; // whether the previous sound ends before the new sound starts
 }
 
 
