@@ -686,13 +686,16 @@ const ModeSwitch = () => {
         // console.log(e.code);
         if(e.shiftKey && e.code === "KeyV"){
             let mode_div = document.getElementById("mousecheck");
+            let black_mask = document.getElementById("blackmask");
             if(MODE === "EDIT_MODE"){
                 MODE = "VELOCITY_MODE";
                 mode_div.innerHTML = "V";
+                black_mask.style.display = "block";
 
             } else {
                 MODE = "EDIT_MODE";
                 mode_div.innerHTML = "E";
+                black_mask.style.display = "none";
             }
         }
     })
