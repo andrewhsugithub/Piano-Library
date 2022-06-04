@@ -1,7 +1,11 @@
 
+
+/* Control */
+var MODE = "EDIT_MODE"
+
 /* time para*/
-BEAT_DIVITION = 4;
-TIME_SIGNATURE_NUMERATOR = 4;
+const BEAT_DIVITION = 4;
+const TIME_SIGNATURE_NUMERATOR = 4;
 
 
 /* margin param */
@@ -41,8 +45,8 @@ const SOUND_BORDER = "1px solid peachpuff";
 const SOUND_BORDER_LR = "2px solid seagreen";
 
 
-/* [note, start, end] */
-let SOUND_LIST = [[2, 10, 20], [6, 15, 19]] // from midi
+/* [note, start, end, velocity] */
+let SOUND_LIST = [[2, 10, 20, 30], [6, 15, 19, 90]] // from midi
 
 /* lookup table */
 let table = new Array(88).fill(0).map(() => new Array(0));
@@ -82,22 +86,32 @@ class ClickAndHold {
     }
 
     _onHoldStart(e){
-        this.isHold = true;
-        console.log("event:   ", e);
 
-        // console.log(e.pageX, e.pageY);
-        this.start_pageX = e.pageX;
-        this.start_pageY = e.pageY;
+        let mousecheck = document.getElementById("mousecheck");
+        mousecheck.style.backgroundColor = "red";
+
+        if(MODE === "EDIT_MODE"){
+            //console.log("event:   ", e.);
+            console.log("No shift");
+            this.isHold = true;
+            // console.log(e.pageX, e.pageY);
+            this.start_pageX = e.pageX;
+            this.start_pageY = e.pageY;
+        }
+        
 
     }
     
     _onHoldEnd(e){
-        this.isHold = false;
+        
         console.log("event:   ", e);
 
-        // console.log(e.pageX, e.pageY);
-        if(this.start_pageX != null && this.start_pageY != null){
+        let mousecheck = document.getElementById("mousecheck");
+        mousecheck.style.backgroundColor = "chartreuse";
 
+        // console.log(e.pageX, e.pageY);
+        if(this.start_pageX != null && this.start_pageY != null && this.isHold){
+            this.isHold = false;
             this.callback(this.start_pageX, this.start_pageY, e.pageX, e.pageY);
         }
 
@@ -262,6 +276,7 @@ function CreateNewCell(x, y){
     new_div.style.position = "absolute";        // position relation
     new_div.style.left = left.toString()+"px";  // absolute position from left in parent element
     new_div.style.top = top.toString()+"px";    // absolute position from top in parent elenent
+    
 
     /* event */
     new_div.addEventListener("mouseover", (e) => {     // change color when cell being hover
@@ -327,12 +342,12 @@ function CreateNewLine(x){
 
 
 /* Create sound */
-const CreateSoundDiv = (note, start, end) =>{
+const CreateSoundDiv = (note, start, end, velocity=60) =>{
 
     /* calculate which cell is on when mousedown, mouseup */
     const id = start.toString()+"_"+note.toString();
     const mousedown_cell = document.getElementById(id); // the cell when mousedown
-    console.log(id)
+    console.log("end:", end)
     
     /* new sound length */
     let width = (end - start + 1) * CELL_WIDTH;
@@ -347,11 +362,12 @@ const CreateSoundDiv = (note, start, end) =>{
     /* identity information */
     new_sound.id = note.toString()+"_" + start.toString() + "_" + end.toString();
 
+    const soundrgb = CalculateColor(velocity).map(x => x.toString());
     /* style */
-    new_sound.style.backgroundColor = SOUND_COLOR;
+    new_sound.style.backgroundColor = `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
     new_sound.style.width = width.toString()+"px";
     new_sound.style.height = CELL_HEIGHT.toString()+"px";
-    new_sound.style.zIndex = "3";
+    new_sound.style.zIndex = "4";
     new_sound.setAttribute("draggable", false);
     new_sound.style.border = SOUND_BORDER;
     new_sound.style.borderLeft = SOUND_BORDER_LR;
@@ -362,7 +378,89 @@ const CreateSoundDiv = (note, start, end) =>{
     new_sound.style.position = "absolute";
     new_sound.style.left = x;
     new_sound.style.top = y;
-    
+
+    /* extra data */
+    new_sound.dataset.lookuptable_index = null; 
+
+    /* velocity toolbox */
+    let velocity_toolbox = document.createElement("div");
+    velocity_toolbox.style.display = "none";
+    velocity_toolbox.style.position = "absolute";
+    velocity_toolbox.style.bottom = "100%";
+    velocity_toolbox.style.left = "20px";
+    velocity_toolbox.style.margin = "0px";
+    velocity_toolbox.style.padding = "0px"
+    velocity_toolbox.style.backgroundColor = "#e5e5e5";
+    velocity_toolbox.style.boxShadow = "0px 5px 10px 0px rgba(0,0,0,0.2)";
+    velocity_toolbox.style.zIndex = "5";
+    velocity_toolbox.style.width = (CELL_WIDTH*10).toString()+"px";
+    velocity_toolbox.style.height = (CELL_HEIGHT*0.75).toString()+"px";
+    velocity_toolbox.style.border = "1px solid darkgoldenrod";
+
+    /* range bar */
+    let range_bar = document.createElement("input");
+    range_bar.type = "range";
+    range_bar.min = "0";
+    range_bar.max = "127";
+    range_bar.value = "60";
+    range_bar.step = "1";
+    range_bar.style.width = "100%";
+    range_bar.style.height = "100%";
+
+
+    /* number_box */
+    let number_box = document.createElement("div");
+    number_box.style.display = "inline-block";
+    number_box.style.position = "absolute";
+    number_box.style.bottom = "0px";
+    number_box.style.left = "-20px";
+    number_box.style.widows = "30px";
+    number_box.style.height = "100%";
+    number_box.style.margin = "0px";
+    number_box.style.padding = "0px";
+    number_box.innerHTML = "60";
+    number_box.style.zIndex = "5";
+    number_box.style.backgroundColor = "#e6e6e6";
+
+
+    velocity_toolbox.appendChild(number_box);
+    velocity_toolbox.appendChild(range_bar);
+    new_sound.appendChild(velocity_toolbox);
+
+    new_sound.addEventListener("mouseover", (e) => {
+        if(MODE === "VELOCITY_MODE"){
+            velocity_toolbox.style.display = "block";
+            
+            // let node_start_end = new_sound.id.split("_").map(x => parseInt(x));
+            // console.log("NOTE:  ",node_start_end);
+            let index = upperBound(table[note-1], start) - 1;
+            new_sound.dataset.lookuptable_index = index.toString();
+            console.log("INDEX:  ", new_sound.dataset.lookuptable_index)
+
+        }
+    })
+
+    new_sound.addEventListener("mouseout", (e) => {
+        // setTimeout(()=>{velocity_toolbox.style.display = "none";}, 10000);
+        console.log(JSON.stringify(table[note-1]));
+    })
+
+    range_bar.addEventListener("input", (e) => {
+        let velocity = range_bar.value;
+        number_box.innerHTML = velocity;
+        let [red, green, blue] = CalculateColor(parseInt(velocity)).map(x => x.toString());
+        new_sound.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        new_sound.style.Color = `rgb(${red}, ${green}, ${blue})`;
+        table[note-1][new_sound.dataset.lookuptable_index][2] = parseInt(velocity);
+    })
+
+    range_bar.addEventListener("mouseout", (e) => {
+        setTimeout(()=>{velocity_toolbox.style.display = "none";}, 7000);
+        
+        console.log(JSON.stringify(table[note-1]));
+
+    })
+
 
     // append to body
     console.log("("+x+","+y+")", "width:", width);
@@ -390,7 +488,7 @@ const AddNewSoundDiv = (note, start, end, bound_above, bound_below) =>{
     CreateSoundDiv(note, start, end);
     
     /* add new sound to lookup table */
-    LookupTableInsert(note, start, end);
+    LookupTableInsert(note, start, end, 60);
 
 }
 
@@ -455,18 +553,31 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
         RemoveSound(mousedown_point_at.current_sound);
 
     }else {
+        if (mousedown_point_at.current_sound.start == mousedown_point_at.current_sound.end){
+            
+            if (mouseup_cell_column < mousedown_point_at.cell_column){
+                console.log("______HEAD_______1");
+                ChangeSoundLength( mousedown_point_at.current_sound, "head", mouseup_cell_column, bound_below);
+            }else{
+                console.log("______TAIL_______1");
+                ChangeSoundLength( mousedown_point_at.current_sound, "tail", mouseup_cell_column, bound_above);
+            }
 
-        /* move head of sound if mousedowm at head and move to elsewhere */
-        if (mousedown_point_at.cell_column == mousedown_point_at.current_sound.start) {
-            console.log("______HEAD_______");
-            ChangeSoundLength( mousedown_point_at.current_sound, "head", mouseup_cell_column, bound_below);
+        } else {
+            /* move head of sound if mousedowm at head and move to elsewhere */
+            if (mousedown_point_at.cell_column == mousedown_point_at.current_sound.start) {
+                console.log("______HEAD_______");
+                ChangeSoundLength( mousedown_point_at.current_sound, "head", mouseup_cell_column, bound_below);
+            }
+
+            /* move tail of sound if mousedowm at tail and move to elsewhere */
+            if (mousedown_point_at.cell_column == mousedown_point_at.current_sound.end){
+                console.log("______TAIL_______");
+                ChangeSoundLength( mousedown_point_at.current_sound, "tail", mouseup_cell_column, bound_above);
+            }
         }
 
-        /* move tail of sound if mousedowm at tail and move to elsewhere */
-        if (mousedown_point_at.cell_column == mousedown_point_at.current_sound.end){
-            console.log("______TAIL_______");
-            ChangeSoundLength( mousedown_point_at.current_sound, "tail", mouseup_cell_column, bound_above);
-        }
+        
     }
 
     console.log("==============================================================");
@@ -480,8 +591,8 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
 const ChangeSoundLength = ( current_sound, mode, end, bound) => {
 
     const current_sound_div = document.getElementById(current_sound.note+"_"+current_sound.start+"_"+current_sound.end);
-
-    if(mode === "head") {
+    console.log("end CHANGE:", end)
+    if(mode === "head" ) {
 
         /* bounds below by bound_below and above by current sound end */
         const new_start = end > bound ? (end < current_sound.end ? end : current_sound.end) : bound+1;
@@ -529,7 +640,7 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
 const RemoveSound = (current_sound) => {
     const current_sound_div = document.getElementById(current_sound.note+"_"+current_sound.start+"_"+current_sound.end);
     current_sound_div.remove();
-    table[current_sound.note-1][current_sound.index].splice(current_sound.index, 1)
+    table[current_sound.note-1].splice(current_sound.index, 1)
 }
 
 
@@ -556,10 +667,35 @@ const upperBound = (array, item) => {
 
 
 /* insert note to lookup table */
-const LookupTableInsert = (note, start, end) => {
+const LookupTableInsert = (note, start, end, velocity) => {
     // console.log(note, n1, n2);
-    table[note-1].push([start, end])
+    table[note-1].push([start, end, velocity]);
     table[note-1].sort(function(a, b){return a[0] - b[0]});
+}
+
+/* calculate color */
+const CalculateColor = (velocity) => {
+    let red = velocity >= 64 ? Math.ceil(-(255/(63.5**2))*((velocity-127)**2)) +255 : 0;
+    let green = velocity >= 64 ? Math.ceil((255/(63.5**2))*((velocity-127)**2)) : Math.ceil((255/(63.5**2))*((velocity)**2));
+    let blue = velocity <= 63 ? Math.ceil(-(255/(63.5**2))*((velocity)**2)) +255 : 0;
+    return [red, green, blue];
+}
+
+const ModeSwitch = () => {
+    document.addEventListener("keydown",(e) => {
+        // console.log(e.code);
+        if(e.shiftKey && e.code === "KeyV"){
+            let mode_div = document.getElementById("mousecheck");
+            if(MODE === "EDIT_MODE"){
+                MODE = "VELOCITY_MODE";
+                mode_div.innerHTML = "V";
+
+            } else {
+                MODE = "EDIT_MODE";
+                mode_div.innerHTML = "E";
+            }
+        }
+    })
 }
 
 
@@ -568,10 +704,13 @@ const LookupTableInsert = (note, start, end) => {
 
 (
     function main(){
+
+
+
         let beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
         console.log("This is measures" + measures.toString());
 
-        
+        ModeSwitch();
         /* make grid */
         MakeGrid(beats);
 
@@ -590,8 +729,6 @@ const LookupTableInsert = (note, start, end) => {
         ClickAndHold.apply(document.body, Act);
     }
 )();
-
-
 
 
 
