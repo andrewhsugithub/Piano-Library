@@ -9,22 +9,22 @@ const TIME_SIGNATURE_NUMERATOR = 4;
 
 
 /* margin param */
-const TOP_MARGIN = 50;
-const LEFT_MARGIN = 50;
+const TOP_MARGIN = 300;
+const LEFT_MARGIN = 100;
 
 
 /* cell param */
 const CELL_HEIGHT = 20;
-const CELL_WIDTH = 30;
+const CELL_WIDTH = 50;
 const CELL_NOHOVER_COLOR = "darkblue";
 const CELL_HOVER_COLOR = "aquamarine";
 const CELL_BORDER = "1px solid rgb(97, 51, 247)";
 
 
 /* line param */
-const LINE_MORE = 3;
-const BEAT_MORE = 7;
-const BAR_MORE = 10;
+const LINE_MORE = 5;
+const BEAT_MORE = 15;
+const BAR_MORE = 30;
 
 const LINE_LENGTH = CELL_HEIGHT*88+2*LINE_MORE;
 const BEAT_LENGTH = CELL_HEIGHT*88+2*BEAT_MORE;
@@ -38,6 +38,13 @@ const LINE_COLOR = "white";
 const BEAT_COLOR = "yellow";
 const BAR_COLOR = "red";
 
+const MEASURE_NUMBER_HEIGHT = 50;
+const MEASURE_NUMBER_WIDTH = 75;
+const MEASURE_NUMBER_BACKGROUNDCOLOR = "rgba(255, 255, 255, 0.7)";
+const MEASURE_NUMBER_FONTCOLOR = "purple";
+const MEASURE_NUMBER_FONTSIZE = 30;
+const MEASURE_NUMBER_SPACE = 10;
+const MEASURE_NUMBER_BORDERRADIUS = "45%";
 
 /* souond param */
 const SOUND_COLOR = "magenta";
@@ -325,11 +332,33 @@ function CreateNewLine(x){
         new_line.style.backgroundColor = BEAT_COLOR;
         new_line.style.top = BEAT_TOP.toString()+"px";
     }
-
+    
     if((x-1)%(BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR) == 0){    // one measure
         new_line.style.height = BAR_LENGTH.toString()+"px";
         new_line.style.backgroundColor = BAR_COLOR;
         new_line.style.top = BAR_TOPP.toString()+"px";
+        const measure_number = document.createElement("div");
+
+        const p_number = document.createElement("p");
+        p_number.innerHTML = (x-1)/(BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR);
+        p_number.style.color = MEASURE_NUMBER_FONTCOLOR;
+        p_number.style.fontSize = MEASURE_NUMBER_FONTSIZE.toString()+"px";
+        p_number.style.position = "relative";
+        p_number.style.bottom = "45%";
+        p_number.style.textAlign = "center";
+        p_number.style.fontWeight = "bold";
+
+        measure_number.style.width = MEASURE_NUMBER_WIDTH.toString()+"px";
+        measure_number.style.height = MEASURE_NUMBER_HEIGHT.toString()+"px";
+        measure_number.style.display = "block";
+        measure_number.style.position = "absolute";
+        measure_number.style.top = (-(MEASURE_NUMBER_HEIGHT+MEASURE_NUMBER_SPACE)).toString()+"px";
+        measure_number.style.left = (-(MEASURE_NUMBER_WIDTH/2)).toString()+"px";
+        measure_number.style.backgroundColor = MEASURE_NUMBER_BACKGROUNDCOLOR;
+        measure_number.style.borderRadius = MEASURE_NUMBER_BORDERRADIUS;
+        measure_number.style.zIndex = "4";
+        measure_number.appendChild(p_number);
+        new_line.appendChild(measure_number);
     }
 
     /* append to body */
