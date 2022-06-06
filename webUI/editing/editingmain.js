@@ -14,17 +14,19 @@ const LEFT_MARGIN = 100;
 
 
 /* cell param */
-const CELL_HEIGHT = 20;
+const CELL_HEIGHT = 25;
 const CELL_WIDTH = 50;
-const CELL_NOHOVER_COLOR = "darkblue";
-const CELL_HOVER_COLOR = "aquamarine";
-const CELL_BORDER = "1px solid rgb(97, 51, 247)";
+// const CELL_NOHOVER_COLOR = "rgb(0, 0, 25)";
+// const CELL_HOVER_COLOR = "aquamarine";
+// const CELL_BORDER = "1px solid rgb(97, 51, 247)";
+const H_LINE_COLOR = "rgb(97, 51, 247)";
+const CELL_COLOR = "rgb(0, 0, 25)";
 
 
 /* line param */
-const LINE_MORE = 5;
-const BEAT_MORE = 15;
-const BAR_MORE = 30;
+const LINE_MORE = 10;
+const BEAT_MORE = 30;
+const BAR_MORE = 60;
 
 const LINE_LENGTH = CELL_HEIGHT*88+2*LINE_MORE;
 const BEAT_LENGTH = CELL_HEIGHT*88+2*BEAT_MORE;
@@ -35,8 +37,8 @@ const BEAT_TOP = TOP_MARGIN-BEAT_MORE;
 const BAR_TOPP = TOP_MARGIN-BAR_MORE;
 
 const LINE_COLOR = "white";
-const BEAT_COLOR = "yellow";
-const BAR_COLOR = "red";
+const BEAT_COLOR = "rgb(255, 255, 200)";
+const BAR_COLOR = "rgb(255, 200, 200)";
 
 const MEASURE_NUMBER_HEIGHT = 50;
 const MEASURE_NUMBER_WIDTH = 75;
@@ -47,9 +49,14 @@ const MEASURE_NUMBER_SPACE = 10;
 const MEASURE_NUMBER_BORDERRADIUS = "45%";
 
 /* souond param */
-const SOUND_COLOR = "magenta";
-const SOUND_BORDER = "1px solid peachpuff";
-const SOUND_BORDER_LR = "2px solid seagreen";
+// const SOUND_COLOR = "magenta";
+// const SOUND_BORDER = "1px solid peachpuff";
+// const SOUND_BORDER_LR = "2px solid seagreen";
+const SOUND_BORDERRADIUS = "10px";
+const SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER = 3;
+const SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER = 12;
+const SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER = 5;
+const SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER = 15;
 
 
 /* [note, start, end, velocity] */
@@ -246,18 +253,24 @@ class PointAt {
 
 /* Make grid */
 const MakeGrid = (beats) => {
-    for(let i=1;i<=beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR;i++){
 
-    CreateNewLine(i); // draw vertical lines
-    for(let j=1;j<=88;j++){
+    /* draw panel */
+    DrawPanel(beats);
 
-        CreateNewCell(i, j); // create cells
+    /* draw vertical lines */
+    for(let i=1;i<=beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR;i++) DrawVerticalLine(i);
+
+    /* draw horizontal lines */
+    for(let j=1;j<=89;j++) DrawHorizontalLine(j, beats);
+
+        // CreateNewCell(i, j); // create cells
         // console.log(i.toString()+"_"+j.toString())
-        }
-    }
 }
-    
 
+
+
+let nouse = 
+`
 /* Create cells */
 function CreateNewCell(x, y){
 
@@ -302,41 +315,107 @@ function CreateNewCell(x, y){
     }
     
 }
+`
+const DrawPanel = (beats) => {
+    let panel = document.createElement("div");
+
+    /* identity information */
+    panel.classList.add('panel');      // add class
+
+    /* style */
+    panel.style.backgroundColor = CELL_COLOR; 
+    panel.style.width = (beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH).toString()+"px";
+    panel.style.height = (CELL_HEIGHT*88).toString()+"px";
+    panel.setAttribute("draggable", false);
+
+    /* position */
+    panel.style.position = "absolute";
+    panel.style.left = LEFT_MARGIN.toString()+"px";
+    panel.style.top = TOP_MARGIN.toString()+"px";
+    panel.style.zIndex = "0";
+
+    /* prevent drag */
+    panel.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    })
+
+    /* appnd to body */
+    document.body.appendChild(panel);
+
+}
+
+
+const DrawHorizontalLine = (y, beats) => {
+
+    let H_line = document.createElement("div");    // create div
+
+    /* identity information */
+    H_line.classList.add('H_line');      // add class
+
+    /* style */
+    H_line.style.backgroundColor = H_LINE_COLOR; 
+    H_line.style.width = (beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH).toString()+"px";
+    H_line.style.height = "2px";
+    H_line.setAttribute("draggable", false);
+
+    /* position */
+    H_line.style.position = "absolute";
+    H_line.style.left = LEFT_MARGIN.toString()+"px";
+    H_line.style.top = ((y-1)*CELL_HEIGHT+TOP_MARGIN).toString()+"px";
+    H_line.style.zIndex = "1";
+
+    /* prevent drag */
+    H_line.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    })
+
+    /* appnd to body */
+    if(scroll == null){
+        console.log("scroll is null");
+    }else{
+        document.body.appendChild(H_line);
+    }
+
+}
+
 
 
 /* Draw Line */
-function CreateNewLine(x){
+const DrawVerticalLine = (x) => {
 
-    let new_line = document.createElement("div");       // create div
+    let V_line = document.createElement("div");       // create div
 
     /* identity information */
-    new_line.classList.add('line');
+    V_line.classList.add('line');
 
     /* style */
-    new_line.style.backgroundColor = LINE_COLOR; 
-    new_line.style.width = "2px";
-    new_line.style.height = LINE_LENGTH.toString()+"px";
-    new_line.style.zIndex = "2";
-    new_line.setAttribute("draggable", false);
+    V_line.style.backgroundColor = LINE_COLOR; 
+    V_line.style.width = "2px";
+    V_line.style.height = LINE_LENGTH.toString()+"px";
+    V_line.setAttribute("draggable", false);
 
     /* position */
     let left = (x-1)*CELL_WIDTH-1+LEFT_MARGIN;
     let top = LINE_TOP;
-    new_line.style.position = "absolute";
-    new_line.style.left = left.toString()+"px";
-    new_line.style.top = top.toString()+"px";
+    V_line.style.position = "absolute";
+    V_line.style.left = left.toString()+"px";
+    V_line.style.top = top.toString()+"px";
+    V_line.style.zIndex = "2";
 
     /* distinct beat and measure */
     if((x-1)%BEAT_DIVITION == 0){   // one beat
-        new_line.style.height = BEAT_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = BEAT_COLOR;
-        new_line.style.top = BEAT_TOP.toString()+"px";
+        V_line.style.height = BEAT_LENGTH.toString()+"px";
+        V_line.style.backgroundColor = BEAT_COLOR;
+        V_line.style.top = BEAT_TOP.toString()+"px";
     }
     
     if((x-1)%(BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR) == 0){    // one measure
-        new_line.style.height = BAR_LENGTH.toString()+"px";
-        new_line.style.backgroundColor = BAR_COLOR;
-        new_line.style.top = BAR_TOPP.toString()+"px";
+        V_line.style.height = BAR_LENGTH.toString()+"px";
+        V_line.style.backgroundColor = BAR_COLOR;
+        V_line.style.top = BAR_TOPP.toString()+"px";
+        V_line.style.left = (left-1).toString()+"px";
+        V_line.style.width = "4px";
+
         const measure_number = document.createElement("div");
 
         const p_number = document.createElement("p");
@@ -358,14 +437,19 @@ function CreateNewLine(x){
         measure_number.style.borderRadius = MEASURE_NUMBER_BORDERRADIUS;
         measure_number.style.zIndex = "4";
         measure_number.appendChild(p_number);
-        new_line.appendChild(measure_number);
+        V_line.appendChild(measure_number);
     }
+
+    /* prevent drag */
+    V_line.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    })
 
     /* append to body */
     if(scroll == null){
         console.log("scroll is null");
     }else{
-        document.querySelector("body").appendChild(new_line);
+        document.body.appendChild(V_line);
     }
 }
 
@@ -374,39 +458,45 @@ function CreateNewLine(x){
 const CreateSoundDiv = (note, start, end, velocity=60) =>{
 
     /* calculate which cell is on when mousedown, mouseup */
-    const id = start.toString()+"_"+note.toString();
-    const mousedown_cell = document.getElementById(id); // the cell when mousedown
-    console.log("end:", end)
+    // const id = start.toString()+"_"+note.toString();
+    // const mousedown_cell = document.getElementById(id); // the cell when mousedown
+    // console.log("end:", end)
     
     /* new sound length */
     let width = (end - start + 1) * CELL_WIDTH;
 
     /* new sound position */
-    let x = mousedown_cell.style.left;
-    let y = mousedown_cell.style.top;
+    // let x = mousedown_cell.style.left;
+    // let y = mousedown_cell.style.top;
 
     /* create element */
     let new_sound = document.createElement("div")
 
     /* identity information */
     new_sound.id = note.toString()+"_" + start.toString() + "_" + end.toString();
+    new_sound.classList.add('sound'); 
 
     const soundrgb = CalculateColor(velocity).map(x => x.toString());
+    console.log(`rgb:  ${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]}`)
+
     /* style */
-    new_sound.style.backgroundColor = `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
+    // new_sound.style.backgroundColor = `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
+    new_sound.style.background = SquareGradientColor(soundrgb[0], soundrgb[1], soundrgb[2], width);
     new_sound.style.width = width.toString()+"px";
     new_sound.style.height = CELL_HEIGHT.toString()+"px";
     new_sound.style.zIndex = "4";
-    new_sound.setAttribute("draggable", false);
-    new_sound.style.border = SOUND_BORDER;
-    new_sound.style.borderLeft = SOUND_BORDER_LR;
-    new_sound.style.borderRight = SOUND_BORDER_LR;
+    new_sound.draggable = false;
+    new_sound.style.border = "1px solid "+`rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
+    // new_sound.style.borderLeft = SOUND_BORDER_LR;
+    // new_sound.style.borderRight = SOUND_BORDER_LR;
+    new_sound.style.borderRadius = SOUND_BORDERRADIUS;
+    
 
 
     /* position */
     new_sound.style.position = "absolute";
-    new_sound.style.left = x;
-    new_sound.style.top = y;
+    new_sound.style.left = ((start-1)*CELL_WIDTH+LEFT_MARGIN).toString()+"px";
+    new_sound.style.top = ((note-1)*CELL_HEIGHT+TOP_MARGIN).toString()+"px";
 
     /* extra data */
     new_sound.dataset.lookuptable_index = null; 
@@ -424,7 +514,8 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
     velocity_toolbox.style.zIndex = "5";
     velocity_toolbox.style.width = (CELL_WIDTH*10).toString()+"px";
     velocity_toolbox.style.height = (CELL_HEIGHT*0.75).toString()+"px";
-    velocity_toolbox.style.border = "1px solid darkgoldenrod";
+    velocity_toolbox.style.border = "0px"//"1px solid darkgoldenrod";
+    velocity_toolbox.style.borderRadius = "5px";
 
     /* range bar */
     let range_bar = document.createElement("input");
@@ -433,8 +524,10 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
     range_bar.max = "127";
     range_bar.value = "60";
     range_bar.step = "1";
-    range_bar.style.width = "100%";
+    range_bar.style.width = "95%";
     range_bar.style.height = "100%";
+    range_bar.style.left = "2%";
+    range_bar.style.borderRadius = "5px";
 
 
     /* number_box */
@@ -450,6 +543,8 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
     number_box.innerHTML = "60";
     number_box.style.zIndex = "5";
     number_box.style.backgroundColor = "#e6e6e6";
+    number_box.style.textAlign = "center";
+    number_box.style.borderRadius = "10%";
 
 
     velocity_toolbox.appendChild(number_box);
@@ -478,9 +573,19 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
         let velocity = range_bar.value;
         number_box.innerHTML = velocity;
         let [red, green, blue] = CalculateColor(parseInt(velocity)).map(x => x.toString());
-        new_sound.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-        new_sound.style.Color = `rgb(${red}, ${green}, ${blue})`;
+        // new_sound.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+        new_sound.style.border = "1px solid "+ `rgb(${red}, ${green}, ${blue})`;
+        new_sound.style.background = SquareGradientColor(red, green, blue, new_sound.style.width);
+
+        number_box.style.Color = `rgb(${red}, ${green}, ${blue})`;
+        
+
         table[note-1][new_sound.dataset.lookuptable_index][2] = parseInt(velocity);
+    })
+
+    /* prevent drag */
+    new_sound.addEventListener('dragstart', (e) => {
+        e.preventDefault();
     })
 
     range_bar.addEventListener("mouseout", (e) => {
@@ -492,7 +597,7 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
 
 
     // append to body
-    console.log("("+x+","+y+")", "width:", width);
+    // console.log("("+x+","+y+")", "width:", width);
     document.body.appendChild(new_sound);
 
 }
@@ -522,15 +627,15 @@ const AddNewSoundDiv = (note, start, end, bound_above, bound_below) =>{
 }
 
 
-/* [note, start, end] to [x, y, width] */
-const DecodeSoundRecordtoPosition = (note, start, end) =>{
-    let head_cell = document.getElementById(start.toString()+"_"+note.toString()); // the cell when at the head
-    let x = head_cell.style.left;
-    let y = head_cell.style.top;
-    let width = (end - start + 1)*CELL_WIDTH;
-    // console.log(x, y, width);
-    return [x, y, width];
-}
+// /* [note, start, end] to [x, y, width] */
+// const DecodeSoundRecordtoPosition = (note, start, end) =>{
+//     let head_cell = document.getElementById(start.toString()+"_"+note.toString()); // the cell when at the head
+//     let x = head_cell.style.left;
+//     let y = head_cell.style.top;
+//     let width = (end - start + 1)*CELL_WIDTH;
+//     // console.log(x, y, width);
+//     return [x, y, width];
+// }
 
 
 /* calculate which cell given position */
@@ -629,11 +734,12 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
         /* new width */
         const new_width = ( current_sound.end - new_start + 1) * CELL_WIDTH;
 
-        const end_cell_div = document.getElementById(new_start.toString()+"_"+current_sound.note.toString());
+        // const end_cell_div = document.getElementById(new_start.toString()+"_"+current_sound.note.toString());
 
         /* style */
-        current_sound_div.style.left = end_cell_div.style.left;
+        current_sound_div.style.left = ((new_start-1)*CELL_WIDTH+LEFT_MARGIN).toString()+"px";
         current_sound_div.style.width = new_width + "px";
+        current_sound_div.style.background = SquareGradientColor(...CalculateColor(table[current_sound.note-1][current_sound.index][2]), new_width);
 
         /* identity information */
         current_sound_div.id = current_sound.note.toString() + "_" + new_start.toString() + "_" + current_sound.end.toString();
@@ -653,6 +759,7 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
         
         /* style */
         current_sound_div.style.width = new_width + "px";
+        current_sound_div.style.background = SquareGradientColor(...CalculateColor(table[current_sound.note-1][current_sound.index][2]), new_width);
 
         /* identity information */
         current_sound_div.id = current_sound.note.toString() + "_" + current_sound.start.toString() + "_" + new_end.toString();
@@ -731,16 +838,33 @@ const ModeSwitch = () => {
 }
 
 
+const SquareGradientColor = (red, green, blue, width) => {
+    return `
+    linear-gradient(to top, rgba(${red}, ${green}, ${blue}, 1) ${SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER}px,
+                            rgba(${red}, ${green}, ${blue}, 0) ${SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER}px, 
+                            rgba(${red}, ${green}, ${blue}, 0) ${(CELL_HEIGHT-SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER).toString()}px,
+                            rgba(${red}, ${green}, ${blue}, 1) ${(CELL_HEIGHT-SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER).toString()}px),
+    linear-gradient(to right, rgba(${red}, ${green}, ${blue}, 1) ${SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER}px, 
+                            rgba(${red}, ${green}, ${blue}, 0) ${SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER}px, 
+                            rgba(${red}, ${green}, ${blue}, 0) ${(width-SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER).toString()}px,
+                            rgba(${red}, ${green}, ${blue}, 1) ${(width-SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER).toString()}px),
+    white
+    `
+}
+
+
 /*************************************************************************************************** */
 /** Main */
 
 (
     function main(){
 
-
-
         let beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
         console.log("This is measures" + measures.toString());
+
+        let black_mask = document.getElementById("blackmask");
+        black_mask.style.width = (2*LEFT_MARGIN+beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH).toString()+"px";
+        black_mask.style.height = (2*TOP_MARGIN+CELL_HEIGHT*88).toString()+"px";
 
         ModeSwitch();
         /* make grid */
