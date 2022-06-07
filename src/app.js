@@ -1,3 +1,8 @@
+import { JumbotronContainer } from "./containers/jumbotron";
 export default function App() {
-  return <div> Learn React </div>;
+  return (
+    <>
+      <JumbotronContainer />
+    </>
+  );
 }

@@ -1,0 +1,37 @@
+﻿[{
+        "id": 1,
+        "heading": "PERFACT DESIGN",
+        "title": "It’s Everything You’ll Ever Need.",
+        "subTitle": "Create custom landing pages with Landik that converts more visitors than any website. With lots of unique blocks, you can easily build a page without coding.",
+        "image": "/images/landing-page/features-one.png",
+        "alt": "feature-one",
+        "direction": "row"
+    },
+    {
+        "id": 2,
+        "heading": "USER INTERFACE",
+        "title": "Unlimited Features Awaiting For You.",
+        "subTitle": "Create custom landing pages with Landik that converts more visitors than any website. With lots of unique blocks, you can easily build a page without coding.",
+        "image": "/images/landing-page/features-two.png",
+        "alt": "feature-two",
+        "direction": "row-reverse"
+    },
+    {
+        "id": 3,
+        "heading": "PERFACT DESIGN",
+        "title": "Your Favorite Music",
+        "subTitle": "Create custom landing pages with Landik that converts more visitors than any website. With lots of unique blocks, you can easily build a page without coding.",
+        "image": "/images/landing-page/features-three.png",
+        "alt": "pop/anime/classical music/k-pop",
+        "direction": "row"
+    },
+    {
+        "id": 4,
+        "heading": "USER INTERFACE",
+        "title": "Into Music Notes",
+        "subTitle": "Create custom landing pages with Landik that converts more visitors than any website. With lots of unique blocks, you can easily build a page without coding.",
+        "image": "/images/landing-page/features-four.png",
+        "alt": "music notes",
+        "direction": "row-reverse"
+    }
+]
