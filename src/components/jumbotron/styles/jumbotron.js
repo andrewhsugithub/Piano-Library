@@ -4,7 +4,7 @@
 export const Inner = styled.div `
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-direction: ${({ direction }) => direction};
     max-width: 1100px;
     margin: auto;
@@ -15,7 +15,8 @@ export const Inner = styled.div `
   }`;
 
 export const Pane = styled.div `
-    width: 50%;
+    width: 45%;
+    margin: 0, 20px;
     @media (max-width: 1000px) {
     width: 100%;
     padding: 0 45px;
@@ -61,7 +62,8 @@ export const Image = styled.img `
 
 export const Item = styled.div `
     display: flex;
-    border-bottom: 8px solid #222;
+    justify-content: space-between;
+    border-bottom: 3px solid rgb(241 241 241);
     padding: 50px 5%;
     color: black;
     overflow: hidden;
@@ -76,15 +78,16 @@ export const Container = styled.div `
 
 export const MainTitle = styled.h2 `
     z-index: 1;
-    position: relative;
-    font-size: 38px;
+    text-align: center;
+    font-size: 64px;
     font-weight: 600;
     text-transform: capitalize;
-    line-height: 1.4;
+    line-height: 1.0;
+    margin-bottom: 8px;
 `;
 
 export const MainSubTitle = styled.p `
-    max-width: 500px;
+    text-align: center;
     color: #94989a;
     --bs-text-opacity: 1;
  `;

@@ -1,13 +1,16 @@
 ﻿import {
     Container,
     MainTitle,
+    SubTitle,
     Item,
+    IdPackage,
     Inner,
     Pane,
     Link,
     Email,
     Image,
     Icon,
+    IconLink,
     Name
 } from "./styles/contact";
 
@@ -31,6 +34,10 @@ Contact.MainTitle = function ContactMainTitle({ children, ...restProps }) {
     return <MainTitle {...restProps}>{children}</MainTitle>;
 };
 
+Contact.SubTitle = function ContactSubTitle({ children, ...restProps }) {
+    return <SubTitle {...restProps}>{children}</SubTitle>;
+};
+
 
 Contact.Pane = function ContactPane({ children, ...restProps }) {
     return <Pane {...restProps}>{children}</Pane>;
@@ -52,6 +59,14 @@ Contact.Icon = function ContactIcon({ ...restProps }) {
     return <Icon {...restProps} />;
 };
 
+Contact.IconLink = function ContactIcon({ children, ...restProps }) {
+    return <IconLink {...restProps}>{children}</IconLink>;
+};
+
 Contact.Name = function ContactName({ children, ...restProps }) {
     return <Name {...restProps}>{children}</Name>;
+};
+
+Contact.IdPackage = function ContactIdPackage({ children, ...restProps }) {
+    return <IdPackage {...restProps}>{children}</IdPackage>;
 };
