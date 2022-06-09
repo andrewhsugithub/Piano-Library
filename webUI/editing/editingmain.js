@@ -10,7 +10,7 @@ const TIME_SIGNATURE_NUMERATOR = 4;
 
 /* margin param */
 const TOP_MARGIN = 300;
-const LEFT_MARGIN = 100;
+const LEFT_MARGIN = 300;
 
 
 /* cell param */
@@ -20,7 +20,7 @@ const CELL_WIDTH = 50;
 // const CELL_HOVER_COLOR = "aquamarine";
 // const CELL_BORDER = "1px solid rgb(97, 51, 247)";
 const H_LINE_COLOR = "rgb(97, 51, 247)";
-const CELL_COLOR = "rgb(0, 0, 25)";
+const CELL_COLOR = "rgb(255, 255, 230)";
 
 
 /* line param */
@@ -36,13 +36,13 @@ const LINE_TOP = TOP_MARGIN-LINE_MORE;
 const BEAT_TOP = TOP_MARGIN-BEAT_MORE;
 const BAR_TOPP = TOP_MARGIN-BAR_MORE;
 
-const LINE_COLOR = "white";
-const BEAT_COLOR = "rgb(255, 255, 200)";
-const BAR_COLOR = "rgb(255, 200, 200)";
+const LINE_COLOR = "rgb(150, 150, 150)"; // "white";
+const BEAT_COLOR = "rgb(0, 0, 50)"; // "rgb(255, 255, 200)";
+const BAR_COLOR = "rgb(200, 15, 15)";// "rgb(255, 200, 200)";
 
 const MEASURE_NUMBER_HEIGHT = 50;
 const MEASURE_NUMBER_WIDTH = 75;
-const MEASURE_NUMBER_BACKGROUNDCOLOR = "rgba(255, 255, 255, 0.7)";
+const MEASURE_NUMBER_BACKGROUNDCOLOR = "rgba(255, 255, 255, 0.9)";
 const MEASURE_NUMBER_FONTCOLOR = "purple";
 const MEASURE_NUMBER_FONTSIZE = 30;
 const MEASURE_NUMBER_SPACE = 10;
@@ -52,7 +52,7 @@ const MEASURE_NUMBER_BORDERRADIUS = "45%";
 // const SOUND_COLOR = "magenta";
 // const SOUND_BORDER = "1px solid peachpuff";
 // const SOUND_BORDER_LR = "2px solid seagreen";
-const SOUND_BORDERRADIUS = "10px";
+const SOUND_BORDERRADIUS = "12px";
 const SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER = 3;
 const SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER = 12;
 const SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER = 5;
@@ -101,8 +101,8 @@ class ClickAndHold {
 
     _onHoldStart(e){
 
-        let mousecheck = document.getElementById("mousecheck");
-        mousecheck.style.backgroundColor = "red";
+        let modeviewer = document.getElementById("mode-viewer");
+        modeviewer.style.backgroundColor = "red";
 
         if(MODE === "EDIT_MODE"){
             //console.log("event:   ", e.);
@@ -120,11 +120,11 @@ class ClickAndHold {
         
         console.log("event:   ", e);
 
-        let mousecheck = document.getElementById("mousecheck");
-        mousecheck.style.backgroundColor = "chartreuse";
+        let modeviewer = document.getElementById("mode-viewer");
+        modeviewer.style.backgroundColor = "chartreuse";
 
         // console.log(e.pageX, e.pageY);
-        if(this.start_pageX != null && this.start_pageY != null && this.isHold){
+        if(this.start_pageX != null && this.start_pageY != null && this.isHold && isInPanel(this.start_pageX, this.start_pageY)){
             this.isHold = false;
             this.callback(this.start_pageX, this.start_pageY, e.pageX, e.pageY);
         }
@@ -268,54 +268,6 @@ const MakeGrid = (beats) => {
 }
 
 
-
-let nouse = 
-`
-/* Create cells */
-function CreateNewCell(x, y){
-
-    let new_div = document.createElement("div");    // create div
-
-    /* identity information */
-    new_div.id = x.toString()+"_"+y.toString();     // id: x_y
-    new_div.classList.add('cell');      // add class
-    
-    /* style */
-    new_div.style.width = CELL_WIDTH.toString()+"px";       // width
-    new_div.style.height = CELL_HEIGHT.toString()+"px";     // height
-    new_div.style.backgroundColor = CELL_NOHOVER_COLOR;     // color
-    new_div.style.boxSizing = "border-box";     // flip border inside 
-    new_div.style.borderTop = CELL_BORDER;      // border on the top
-    new_div.style.borderBottom = CELL_BORDER;   // border on the bottom
-    new_div.style.zIndex = "1";      
-    new_div.setAttribute("draggable", false);
-
-    /* position */
-    let left = (x-1)*CELL_WIDTH+LEFT_MARGIN; 
-    let top = (y-1)*CELL_HEIGHT+TOP_MARGIN; 
-    new_div.style.position = "absolute";        // position relation
-    new_div.style.left = left.toString()+"px";  // absolute position from left in parent element
-    new_div.style.top = top.toString()+"px";    // absolute position from top in parent elenent
-    
-
-    /* event */
-    new_div.addEventListener("mouseover", (e) => {     // change color when cell being hover
-        e.target.style.backgroundColor = CELL_HOVER_COLOR;
-    })
-
-    new_div.addEventListener("mouseout", (e) => {     // change back color when cell not being hover
-        e.target.style.backgroundColor = CELL_NOHOVER_COLOR;
-    })
-    
-    /* append to body */
-    if(scroll == null){
-        console.log("scroll is null");
-    }else{
-        document.querySelector("body").appendChild(new_div);
-    }
-    
-}
-`
 const DrawPanel = (beats) => {
     let panel = document.createElement("div");
 
@@ -339,8 +291,8 @@ const DrawPanel = (beats) => {
         e.preventDefault();
     })
 
-    /* appnd to body */
-    document.body.appendChild(panel);
+    /* appnd to editer-container */
+    document.getElementById("editer-container").appendChild(panel);
 
 }
 
@@ -369,11 +321,11 @@ const DrawHorizontalLine = (y, beats) => {
         e.preventDefault();
     })
 
-    /* appnd to body */
+    /* appnd to editer-container */
     if(scroll == null){
         console.log("scroll is null");
     }else{
-        document.body.appendChild(H_line);
+        document.getElementById("editer-container").appendChild(H_line);
     }
 
 }
@@ -445,11 +397,11 @@ const DrawVerticalLine = (x) => {
         e.preventDefault();
     })
 
-    /* append to body */
+    /* append to editer-container */
     if(scroll == null){
         console.log("scroll is null");
     }else{
-        document.body.appendChild(V_line);
+        document.getElementById("editer-container").appendChild(V_line);
     }
 }
 
@@ -481,7 +433,7 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
 
     /* style */
     // new_sound.style.backgroundColor = `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
-    new_sound.style.background = SquareGradientColor(soundrgb[0], soundrgb[1], soundrgb[2], width);
+    new_sound.style.background = SquareGradientColor(`rgba(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]}, 1)`, `rgba(255, 255, 255, 0.9)`);
     new_sound.style.width = width.toString()+"px";
     new_sound.style.height = CELL_HEIGHT.toString()+"px";
     new_sound.style.zIndex = "4";
@@ -573,9 +525,8 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
         let velocity = range_bar.value;
         number_box.innerHTML = velocity;
         let [red, green, blue] = CalculateColor(parseInt(velocity)).map(x => x.toString());
-        // new_sound.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
         new_sound.style.border = "1px solid "+ `rgb(${red}, ${green}, ${blue})`;
-        new_sound.style.background = SquareGradientColor(red, green, blue, new_sound.style.width);
+        new_sound.style.background = SquareGradientColor(`rgba(${red}, ${green}, ${blue}, 0.9)`, `rgba(255, 255, 255, 0.9)`);
 
         number_box.style.Color = `rgb(${red}, ${green}, ${blue})`;
         
@@ -596,9 +547,9 @@ const CreateSoundDiv = (note, start, end, velocity=60) =>{
     })
 
 
-    // append to body
+    // append to editer-container
     // console.log("("+x+","+y+")", "width:", width);
-    document.body.appendChild(new_sound);
+    document.getElementById("editer-container").appendChild(new_sound);
 
 }
 
@@ -640,13 +591,29 @@ const AddNewSoundDiv = (note, start, end, bound_above, bound_below) =>{
 
 /* calculate which cell given position */
 const PageXYtoCellColumnRow = (pageX, pageY) =>{
-    let body_x = document.body.getBoundingClientRect().x;   // body x
-    let body_y = document.body.getBoundingClientRect().y;   // body y
-    let cell_column = Math.floor((pageX - 0 - LEFT_MARGIN) / CELL_WIDTH) + 1;  // the nth column(time) when mousedown
-    let cell_row = Math.floor((pageY - 0 - TOP_MARGIN) / CELL_HEIGHT) + 1; // the mth row(note)
-    // console.log("cell_column = Math.floor((", pageX," - ",body_x," - ", LEFT_MARGIN,"), / ", CELL_WIDTH, ") + 1 = ", cell_column);
-    // console.log("cell_row = Math.floor((", pageY," - ",body_y," - ", TOP_MARGIN,"), / ", CELL_HEIGHT, ") + 1 = ", cell_row);
+
+    let editercontainerX_relateto_body = document.getElementById("editer-container").getBoundingClientRect().left - document.body.getBoundingClientRect().left;   // editer-container x
+    let editercontainerY_relateto_body = document.getElementById("editer-container").getBoundingClientRect().top - document.body.getBoundingClientRect().top;   // editer-container y
+    let cell_column = Math.floor((pageX - editercontainerX_relateto_body - LEFT_MARGIN) / CELL_WIDTH) + 1;  // the nth column(time) when mousedown
+    let cell_row = Math.floor((pageY - editercontainerY_relateto_body - TOP_MARGIN) / CELL_HEIGHT) + 1; // the mth row(note)
+    // console.log("cell_column = Math.floor((", pageX," - ",editercontainer_x," - ", LEFT_MARGIN,"), / ", CELL_WIDTH, ") + 1 = ", cell_column);
+    // console.log("cell_row = Math.floor((", pageY," - ",editercontainer_y," - ", TOP_MARGIN,"), / ", CELL_HEIGHT, ") + 1 = ", cell_row);
     return [cell_column, cell_row];
+}
+
+/* check wheter xy out of panel */
+const isInPanel = (pageX, pageY) => {
+    const editercontainerX_relateto_body = document.getElementById("editer-container").getBoundingClientRect().left - document.body.getBoundingClientRect().left;   // editer-container x
+    const editercontainerY_relateto_body = document.getElementById("editer-container").getBoundingClientRect().top - document.body.getBoundingClientRect().top; 
+    const x_relate = pageX - editercontainerX_relateto_body - LEFT_MARGIN;
+    const y_relate = pageY - editercontainerY_relateto_body - TOP_MARGIN;
+    // console.log(x_relate, y_relate);
+    if ( x_relate > 0 && x_relate < beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH 
+        && y_relate > 0 && y_relate < CELL_HEIGHT*88){
+            return true;
+        }
+    console.log("outside");
+    return false;
 }
 
 
@@ -658,7 +625,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
     
     
     /* get mousedown info */
-    const mousedown_point_at = new PointAt(start_pageX, start_pageY);
+    let mousedown_point_at = new PointAt(start_pageX, start_pageY);
     mousedown_point_at.set_up();
 
 
@@ -713,7 +680,9 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
 
         
     }
-
+    /* let garbage collection */
+    mousedown_point_at = null; 
+    
     console.log("==============================================================");
     console.log(JSON.stringify(table));
     console.log("==============================================================");
@@ -726,6 +695,8 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
 
     const current_sound_div = document.getElementById(current_sound.note+"_"+current_sound.start+"_"+current_sound.end);
     console.log("end CHANGE:", end)
+    const color = CalculateColor(table[current_sound.note-1][current_sound.index][2]);
+
     if(mode === "head" ) {
 
         /* bounds below by bound_below and above by current sound end */
@@ -739,7 +710,7 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
         /* style */
         current_sound_div.style.left = ((new_start-1)*CELL_WIDTH+LEFT_MARGIN).toString()+"px";
         current_sound_div.style.width = new_width + "px";
-        current_sound_div.style.background = SquareGradientColor(...CalculateColor(table[current_sound.note-1][current_sound.index][2]), new_width);
+        current_sound_div.style.background = SquareGradientColor(`rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`, `rgba(255, 255, 255, 0.9)`);
 
         /* identity information */
         current_sound_div.id = current_sound.note.toString() + "_" + new_start.toString() + "_" + current_sound.end.toString();
@@ -759,7 +730,7 @@ const ChangeSoundLength = ( current_sound, mode, end, bound) => {
         
         /* style */
         current_sound_div.style.width = new_width + "px";
-        current_sound_div.style.background = SquareGradientColor(...CalculateColor(table[current_sound.note-1][current_sound.index][2]), new_width);
+        current_sound_div.style.background = SquareGradientColor(`rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`, `rgba(255, 255, 255, 0.9)`);
 
         /* identity information */
         current_sound_div.id = current_sound.note.toString() + "_" + current_sound.start.toString() + "_" + new_end.toString();
@@ -821,16 +792,16 @@ const ModeSwitch = () => {
     document.addEventListener("keydown",(e) => {
         // console.log(e.code);
         if(e.shiftKey && e.code === "KeyV"){
-            let mode_div = document.getElementById("mousecheck");
+            let mode_div = document.getElementById("mode-viewer");
             let black_mask = document.getElementById("blackmask");
             if(MODE === "EDIT_MODE"){
                 MODE = "VELOCITY_MODE";
-                mode_div.innerHTML = "V";
+                mode_div.children[0].innerHTML = "V";
                 black_mask.style.display = "block";
 
             } else {
                 MODE = "EDIT_MODE";
-                mode_div.innerHTML = "E";
+                mode_div.children[0].innerHTML = "E";
                 black_mask.style.display = "none";
             }
         }
@@ -838,20 +809,58 @@ const ModeSwitch = () => {
 }
 
 
-const SquareGradientColor = (red, green, blue, width) => {
+const SquareGradientColor = (rgba_outside, rgba_inside) => {
+    const transparentcolor = rgba_outside.replace(/(\d+)(?!.*\d)/i, "0");
+    // console.log(transparentcolor);
+
     return `
-    linear-gradient(to top, rgba(${red}, ${green}, ${blue}, 1) ${SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER}px,
-                            rgba(${red}, ${green}, ${blue}, 0) ${SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER}px, 
-                            rgba(${red}, ${green}, ${blue}, 0) ${(CELL_HEIGHT-SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER).toString()}px,
-                            rgba(${red}, ${green}, ${blue}, 1) ${(CELL_HEIGHT-SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER).toString()}px),
-    linear-gradient(to right, rgba(${red}, ${green}, ${blue}, 1) ${SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER}px, 
-                            rgba(${red}, ${green}, ${blue}, 0) ${SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER}px, 
-                            rgba(${red}, ${green}, ${blue}, 0) ${(width-SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER).toString()}px,
-                            rgba(${red}, ${green}, ${blue}, 1) ${(width-SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER).toString()}px),
-    white
+    linear-gradient(to top, ${rgba_outside} ${SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER}px,
+                            ${transparentcolor} ${SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER}px),
+    linear-gradient(to bottom, ${rgba_outside} ${SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER}px,
+                            ${transparentcolor} ${SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER}px),
+    linear-gradient(to right, ${rgba_outside} ${SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER}px, 
+                            ${transparentcolor} ${SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER}px),
+    linear-gradient(to left, ${rgba_outside} ${SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER}px, 
+                            ${transparentcolor} ${SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER}px),
+    ${rgba_inside}
     `
 }
 
+const modeviewer_resize = () => {
+    let mode_div = document.getElementById("mode-viewer");
+    let size1 = Math.min(window.innerHeight, window.innerWidth);
+    mode_div.style.height = Math.ceil(size1*(0.1)).toString()+"px";
+    mode_div.style.width = Math.ceil(size1*(0.1)).toString()+"px";
+    mode_div.children[0].style.fontSize = Math.ceil(size1*(0.06)).toString()+"px";
+    // mode_div.children[0].style.textAlign = "top";
+    console.log(size1)
+    
+    window.addEventListener("resize", (e) => {
+        let s = Math.min(window.innerHeight, window.innerWidth);
+        mode_div.style.height = Math.ceil(s*(0.1)).toString()+"px";
+        mode_div.style.width = Math.ceil(s*(0.1)).toString()+"px";
+        mode_div.children[0].style.fontSize = Math.ceil(s*(0.06)).toString()+"px";
+    });
+}
+
+
+
+const PlacePiano = () => {
+    let piano = document.getElementById("piano");
+
+    piano.style.height = (CELL_HEIGHT*88).toString()+"px";
+    piano.style.width = "250px";
+    piano.style.margin = "0px";
+    piano.style.padding = "0px";
+
+    piano.style.position = "relative";
+    piano.style.left = "50px";
+    piano.style.top = TOP_MARGIN.toString()+"px";
+    piano.style.boxShadow = "-2px 1px 5px black";
+    // piano.style.border = "5px solid red";
+
+
+}
 
 /*************************************************************************************************** */
 /** Main */
@@ -859,14 +868,23 @@ const SquareGradientColor = (red, green, blue, width) => {
 (
     function main(){
 
-        let beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
+        beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
         console.log("This is measures" + measures.toString());
 
         let black_mask = document.getElementById("blackmask");
         black_mask.style.width = (2*LEFT_MARGIN+beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH).toString()+"px";
         black_mask.style.height = (2*TOP_MARGIN+CELL_HEIGHT*88).toString()+"px";
 
+        document.getElementById("editer-container").style.width = (2*LEFT_MARGIN+beats*BEAT_DIVITION*TIME_SIGNATURE_NUMERATOR*CELL_WIDTH).toString()+"px";
+        /* mode veiwer */
         ModeSwitch();
+
+        /* mode veiwer resize */
+        modeviewer_resize();
+
+        /* piano */
+        PlacePiano();
+
         /* make grid */
         MakeGrid(beats);
 
@@ -956,4 +974,53 @@ const isSound = (cell_row, cell_column) => {
     //          previous_sound_info,  // prevois_sound === table[cell_row-1][-1] === undifined if no sound before the new sound
     //          next_sound === undefined ? Infinity : next_sound[0] ]; // next_sound ===  table[cell_row-1][{the length}] === undifined if on sound after the new sound
 }
+*/
+
+/* let nouse = 
+`
+/* Create cells 
+function CreateNewCell(x, y){
+
+    let new_div = document.createElement("div");    // create div
+
+    /* identity information
+    new_div.id = x.toString()+"_"+y.toString();     // id: x_y
+    new_div.classList.add('cell');      // add class
+    
+    /* style 
+    new_div.style.width = CELL_WIDTH.toString()+"px";       // width
+    new_div.style.height = CELL_HEIGHT.toString()+"px";     // height
+    new_div.style.backgroundColor = CELL_NOHOVER_COLOR;     // color
+    new_div.style.boxSizing = "border-box";     // flip border inside 
+    new_div.style.borderTop = CELL_BORDER;      // border on the top
+    new_div.style.borderBottom = CELL_BORDER;   // border on the bottom
+    new_div.style.zIndex = "1";      
+    new_div.setAttribute("draggable", false);
+
+    /* position 
+    let left = (x-1)*CELL_WIDTH+LEFT_MARGIN; 
+    let top = (y-1)*CELL_HEIGHT+TOP_MARGIN; 
+    new_div.style.position = "absolute";        // position relation
+    new_div.style.left = left.toString()+"px";  // absolute position from left in parent element
+    new_div.style.top = top.toString()+"px";    // absolute position from top in parent elenent
+    
+
+    /* event 
+    new_div.addEventListener("mouseover", (e) => {     // change color when cell being hover
+        e.target.style.backgroundColor = CELL_HOVER_COLOR;
+    })
+
+    new_div.addEventListener("mouseout", (e) => {     // change back color when cell not being hover
+        e.target.style.backgroundColor = CELL_NOHOVER_COLOR;
+    })
+    
+    /* append to body 
+    if(scroll == null){
+        console.log("scroll is null");
+    }else{
+        document.querySelector("body").appendChild(new_div);
+    }
+    
+}
+`
 */
