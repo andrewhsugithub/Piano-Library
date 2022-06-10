@@ -8,6 +8,10 @@ export const Inner = styled.div`
   max-width: 1000px;
   margin: auto;
   width: 100%;
+  height: 250px;
+  // border: 1px solid black;
+  border-radius: 50px;
+  background-color: turquoise;
 
   @media (max-width: 1000px) {
     flex-direction: column;
@@ -27,16 +31,19 @@ export const Pane = styled.div`
 export const Description = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     @media (max-width: 1000px) {
         flex-direction: column;
 `;
 
 export const Image = styled.img`
-  width: 150px;
+  // width: 50px;
 
-  border-radius: 200px;
-  max-width: 100%;
+  max-width: 25%;
+  border-radius: 9999px;
+  margin: 0 15px;
 `;
 
 export const Item = styled.div`
@@ -44,27 +51,33 @@ export const Item = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  padding-right: 20px;
 `;
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: auto 300px;
-  // border-bottom: 3px solid rgb(241 241 241);
-
   @media (max-width: 1000px) {
-    flex-direction: column;
-    // border-bottom: 3px solid rgb(241 241 241);
   }
 
   &::after {
     content: "";
-    width: 1000px;
+    // width: 3000px;
     height: 6px;
     display: block;
-    margin: 26px auto;
+    padding: 0 3000px;
+    margin: 135px -3000px;
     background: #eee;
+  }
+`;
+
+export const Box = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 100px auto;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
   }
 `;
 
@@ -89,12 +102,12 @@ export const SubTitle = styled.p`
   }
 `;
 
-export const Star = styled.p`
-  margin-top: 3px;
-  text-align: center;
-`;
-
 export const Text = styled.p`
   margin-top: 3px;
+  text-align: left;
+`;
+
+export const Review = styled.p`
+  margin: 10px 50px;
   text-align: left;
 `;

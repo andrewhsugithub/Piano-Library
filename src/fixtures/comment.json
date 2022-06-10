@@ -3,7 +3,7 @@
         "comment": "Nulla metus metus sed euismod volutpat velit class aptent taciti sociosqu ad litora torquent per conubia nostra.",
         "job": "Engineer",
         "name": "Amelie Craig",
-        "star_count": "5",
+        "rating": "5",
         "profile": "/images/landing-page/1.jpg"
     },
     {
@@ -11,7 +11,7 @@
         "comment": "Nulla metus metus sed euismod volutpat velit class aptent taciti sociosqu ad litora torquent per conubia nostra.",
         "job": "Music Teacher",
         "name": "Thomas Carey",
-        "star_count": "4",
+        "rating": "4",
         "profile": "/images/landing-page/2.jpg"
     },
 
@@ -20,7 +20,7 @@
         "comment": "Nulla metus metus sed euismod volutpat velit class aptent taciti sociosqu ad litora torquent per conubia nostra.",
         "job": "No job",
         "name": "Alex Smith",
-        "star_count": "5",
+        "rating": "5",
         "profile": "/images/landing-page/3.jpg"
     }
 ]

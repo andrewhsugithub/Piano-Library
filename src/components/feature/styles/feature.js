@@ -4,20 +4,30 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  border-bottom: 8px solid rgb(241 241 241);
+  // border-bottom: 8px solid rgb(241 241 241);
   text-align: left;
-  padding: 165px 45px;
+  // padding: 165px 45px;
+  margin-left: 1200px;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  width: 640px;
+  height: auto;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+
+  @media (max-width: 1000px) {
+    margin-left: 300px;
+  }
 `;
 
 export const Title = styled.h1`
   color: black;
-  max-width: 640px;
+  // max-width: 640px;
   font-weight: bold;
   font-size: 50px;
   font-weight: 700;
   text-align: center;
-  margin-top: 0;
-  margin-right: 15%;
 
   @media (max-width: 600px) {
     font-size: 35px;

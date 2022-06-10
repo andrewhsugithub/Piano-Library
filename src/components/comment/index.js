@@ -6,9 +6,10 @@ import {
   SubTitle,
   Description,
   Pane,
-  Star,
+  Box,
   Image,
   Text,
+  Review,
 } from "./styles/comment";
 
 export default function Comment({ children, ...restProps }) {
@@ -21,6 +22,10 @@ export default function Comment({ children, ...restProps }) {
 
 Comment.Container = function CommentContainer({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
+};
+
+Comment.Box = function CommentBox({ children, ...restProps }) {
+  return <Box {...restProps}>{children}</Box>;
 };
 
 Comment.MainTitle = function CommentMainTitle({ children, ...restProps }) {
@@ -43,9 +48,10 @@ Comment.Image = function CommentImage({ children, ...restProps }) {
   return <Image {...restProps}>{children}</Image>;
 };
 
-Comment.Star = function CommentStar({ children, ...restProps }) {
-  return <Star {...restProps}>{children}</Star>;
-};
 Comment.Text = function CommentText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
+};
+
+Comment.Review = function CommentReview({ children, ...restProps }) {
+  return <Review {...restProps}>{children}</Review>;
 };

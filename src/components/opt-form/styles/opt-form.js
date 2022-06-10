@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 
 export const Container = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ export const Button = styled.button`
 
 export const Text = styled.p`
   font-size: 19.2px;
-  color: white;
+  color: black;
   text-align: center;
 
   @media (max-width: 600px) {
