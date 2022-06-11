@@ -5,37 +5,37 @@ export const Inner = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  max-width: 1000px;
+  // max-width: 1000px;
   margin: auto;
-  width: 100%;
+  width: 95%;
   height: 250px;
   // border: 1px solid black;
   border-radius: 50px;
   background-color: turquoise;
 
-  @media (max-width: 1000px) {
-    flex-direction: column;
-  }
+  // @media (max-width: 900px) {
+  //   flex-direction: column;
+  // }
 `;
 
 export const Pane = styled.div`
-    width: 85%;
-    margin: 0, 20px;
-    display: flex;
-    flex-direction: row;
+  width: 85%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
-    @media (max-width: 1000px) {
-        flex-direction: row;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Description = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @media (max-width: 1000px) {
-        flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Image = styled.img`
@@ -47,16 +47,17 @@ export const Image = styled.img`
 `;
 
 export const Item = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   margin-bottom: 20px;
-  padding-right: 20px;
+  // padding-right: 20px;
 `;
 
 export const Container = styled.div`
   margin: auto 300px;
-  @media (max-width: 1000px) {
+  @media (min-width: 475px) {
+    margin: auto 40px;
   }
 
   &::after {
@@ -70,22 +71,14 @@ export const Container = styled.div`
   }
 `;
 
-export const Box = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 100px auto;
-
-  @media (max-width: 1000px) {
-    flex-direction: column;
-  }
-`;
-
 export const MainTitle = styled.h2`
   text-align: center;
   font-weight: bold;
   font-size: 64px;
   margin-bottom: 10px;
+  @media (max-width: 900px) {
+    text-align: center;
+    font-size: 50px;
 `;
 
 export const SubTitle = styled.p`
@@ -103,11 +96,15 @@ export const SubTitle = styled.p`
 `;
 
 export const Text = styled.p`
+  white-space: nowrap;
   margin-top: 3px;
   text-align: left;
+  @media (min-width: 200px) {
+    font-size: 14px;
 `;
 
 export const Review = styled.p`
+  white-space: pre-wrap;
   margin: 10px 50px;
   text-align: left;
 `;

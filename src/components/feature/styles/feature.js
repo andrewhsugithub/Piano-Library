@@ -7,7 +7,9 @@ export const Container = styled.div`
   // border-bottom: 8px solid rgb(241 241 241);
   text-align: left;
   // padding: 165px 45px;
-  margin-left: 1200px;
+  margin-right: 50px;
+  margin-left: auto;
+  // float: left;
   margin-top: 200px;
   margin-bottom: 200px;
   width: 640px;
@@ -17,7 +19,8 @@ export const Container = styled.div`
   backdrop-filter: blur(10px);
 
   @media (max-width: 1000px) {
-    margin-left: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -40,6 +43,7 @@ export const SubTitle = styled.h2`
   font-weight: light;
   margin: 16px auto;
   margin-right: 20%;
+  text-align: center;
   @media (max-width: 600px) {
     font-size: 18px;
   }

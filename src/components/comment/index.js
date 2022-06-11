@@ -6,7 +6,6 @@ import {
   SubTitle,
   Description,
   Pane,
-  Box,
   Image,
   Text,
   Review,
@@ -22,10 +21,6 @@ export default function Comment({ children, ...restProps }) {
 
 Comment.Container = function CommentContainer({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
-};
-
-Comment.Box = function CommentBox({ children, ...restProps }) {
-  return <Box {...restProps}>{children}</Box>;
 };
 
 Comment.MainTitle = function CommentMainTitle({ children, ...restProps }) {
