@@ -5,9 +5,8 @@ import { IsUserRedirect, ProtectedRoute } from "./helpers/routes";
 import { useAuthListener } from "./hooks";
 
 export default function App() {
-  // const user = useAuthListener();
-  // console.log(user);
-  const user = null;
+  const user = useAuthListener().user;
+  // const user = null;
 
   return (
     <Router>
@@ -40,7 +39,7 @@ export default function App() {
           path={ROUTES.BROWSE}
           element={
             <ProtectedRoute user={user} path={ROUTES.BROWSE}>
-              <Main />
+              <Browse />
             </ProtectedRoute>
           }
         />
