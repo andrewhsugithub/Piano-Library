@@ -1,11 +1,41 @@
-﻿// import { HeaderContainer } from "../containers/header";
+﻿import { Header } from "../components";
+import { useContext } from "react";
+import * as ROUTES from "../constants/routes";
+import logo from "../logo.svg";
+import { FirebaseContext } from "../context/firebase";
 import "../components/editing/editingstyle.css";
 import "../components/editing/editingmain.js";
 
 export default function Main() {
+  const { firebase } = useContext(FirebaseContext);
+  const user = firebase.auth().currentUser || {};
+
   return (
     <>
-      {/* <HeaderContainer /> */}
+      <Header src="joker1" dontShowOnSmallViewPort>
+        <Header.Frame>
+          <Header.Group>
+            <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+          </Header.Group>
+          <Header.Group>
+            <Header.Profile>
+              <Header.Picture src={user.photoURL} />
+              <Header.Dropdown>
+                <Header.Group>
+                  <Header.Picture src={user.photoURL} />
+                  <Header.TextLink>{user.displayName}</Header.TextLink>
+                </Header.Group>
+                <Header.Group>
+                  <Header.TextLink onClick={() => firebase.auth().signOut()}>
+                    Sign out
+                  </Header.TextLink>
+                </Header.Group>
+              </Header.Dropdown>
+            </Header.Profile>
+          </Header.Group>
+        </Header.Frame>
+      </Header>
+
       <div id="blackmask"></div>
       <div id="mode-viewer">
         <p>E</p>

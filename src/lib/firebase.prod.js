@@ -12,7 +12,6 @@ const config = {
   appId: "1:567301018962:web:600056042aa2777af5968b",
   measurementId: "G-K48W0QF7RN",
 };
-
 const firebase = Firebase.initializeApp(config);
 
 // seedDatabase(firebase);

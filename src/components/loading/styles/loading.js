@@ -1,4 +1,4 @@
-﻿import styled, { createGlobalStyle } from "styled-components/macro";
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const LockBody = createGlobalStyle`
   body {
@@ -20,7 +20,7 @@ export const Spinner = styled.div`
   z-index: 999;
 
   :after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;

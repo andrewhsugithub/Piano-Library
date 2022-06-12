@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Browse, Signin, Signup, Main, Synthesia } from "./pages";
+import { Home, Browse, SignIn, SignUp, Main } from "./pages";
 import * as ROUTES from "./constants/routes";
 import { IsUserRedirect, ProtectedRoute } from "./helpers/routes";
 import { useAuthListener } from "./hooks";
@@ -7,6 +7,7 @@ import { useAuthListener } from "./hooks";
 export default function App() {
   const user = useAuthListener().user;
   // const user = null;
+  console.log(user);
 
   return (
     <Router>
@@ -19,7 +20,7 @@ export default function App() {
               loggedInPath={ROUTES.BROWSE}
               path={ROUTES.SIGN_IN}
             >
-              <Signin />
+              <SignIn />
             </IsUserRedirect>
           }
         />
@@ -31,10 +32,14 @@ export default function App() {
               loggedInPath={ROUTES.BROWSE}
               path={ROUTES.SIGN_UP}
             >
-              <Signup />
+              <SignUp />
             </IsUserRedirect>
           }
         />
+        {/* <Route element={<ProtectedRoute user={user} path={ROUTES.BROWSE} />}>
+          <Route path={ROUTES.BROWSE} element={<Browse />} />
+        </Route> */}
+
         <Route
           path={ROUTES.BROWSE}
           element={
@@ -43,6 +48,16 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path={ROUTES.MAIN}
+          element={
+            <ProtectedRoute user={user} path={ROUTES.MAIN}>
+              <Main />
+            </ProtectedRoute>
+          }
+        />
+
         {/* <ProtectedRoute user={user} path={ROUTES.BROWSE}>
           <Browse />
         </ProtectedRoute> */}
@@ -56,14 +71,6 @@ export default function App() {
             >
               <Home />
             </IsUserRedirect>
-          }
-        />
-        <Route
-          path={ROUTES.MAIN}
-          element={
-            <ProtectedRoute user={user} path={ROUTES.MAIN}>
-              <Main />
-            </ProtectedRoute>
           }
         />
       </Routes>

@@ -1,4 +1,4 @@
-﻿import { Navigate, useLocation } from "react-router-dom";
+﻿import { Navigate, useLocation, Outlet } from "react-router";
 export function IsUserRedirect({ user, loggedInPath, children }) {
   if (!user) {
     return children;
@@ -13,12 +13,20 @@ export function IsUserRedirect({ user, loggedInPath, children }) {
 export function ProtectedRoute({ user, children }) {
   const location = useLocation();
   // return user ? children : <Navigate to="/signin" state={{ from: location }} />;
+  // return user ? (
+  //   <Outlet />
+  // ) : (
+  //   <Navigate to="/signin" state={{ from: location }} />
+  // );
 
   if (user) {
+    // console.log("inside");
+    // return <Outlet />;
     return children;
   }
 
   if (!user) {
+    // console.log("bye bye");
     return (
       <Navigate
         to={{
@@ -29,5 +37,5 @@ export function ProtectedRoute({ user, children }) {
     );
   }
 
-  return null;
+  // return null;
 }

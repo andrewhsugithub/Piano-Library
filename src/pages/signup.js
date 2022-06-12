@@ -1,4 +1,4 @@
-﻿import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FirebaseContext } from "../context/firebase";
 import { Form } from "../components";
@@ -17,7 +17,7 @@ export default function SignUp() {
 
   const isInvalid = firstName === "" || password === "" || emailAddress === "";
 
-  const handleSignUp = (event) => {
+  const handleSignup = (event) => {
     event.preventDefault();
 
     return firebase
@@ -48,7 +48,7 @@ export default function SignUp() {
           <Form.Title>Sign Up</Form.Title>
           {error && <Form.Error>{error}</Form.Error>}
 
-          <Form.Base onSubmit={handleSignUp} method="POST">
+          <Form.Base onSubmit={handleSignup} method="POST">
             <Form.Input
               placeholder="First name"
               value={firstName}
@@ -69,7 +69,7 @@ export default function SignUp() {
             <Form.Submit
               disabled={isInvalid}
               type="submit"
-              // data-testid="sign-up"
+              data-testid="sign-up"
             >
               Sign Up
             </Form.Submit>
