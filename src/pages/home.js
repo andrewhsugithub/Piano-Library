@@ -7,7 +7,13 @@ import { HeaderContainer } from "../containers/header";
 
 export default function Home() {
   return (
-    <>
+    <div
+      style={{
+        backgroundColor: "white",
+        max_width: "1500px",
+        min_width: "200px",
+      }}
+    >
       <HeaderContainer>
         <Feature>
           <Feature.Title>
@@ -32,6 +38,6 @@ export default function Home() {
       <CommentContainer />
       <ContactContainer />
       <FooterContainer />
-    </>
+    </div>
   );
 }

@@ -944,7 +944,7 @@ const PlacePiano = () => {
 /*************************************************************************************************** */
 /** Main */
 
-function main() {
+const main = () => {
     // beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
 
     let black_mask = document.getElementById("blackmask");
@@ -985,7 +985,7 @@ function main() {
 
     // add new sound
     ClickAndHold.apply(document.body, Act);
-}
+};
 
 window.addEventListener("load", (e) => {
     main();

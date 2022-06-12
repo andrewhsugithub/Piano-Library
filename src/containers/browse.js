@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Fuse from "fuse.js";
 import { Card, Header, Loading, Player } from "../components";
 import * as ROUTES from "../constants/routes";
-import logo from "../logo.svg";
+import logo_white from "../logo_white.svg";
 import { FirebaseContext } from "../context/firebase";
 import { SelectProfileContainer } from "./profiles";
 import { FooterContainer } from "./footer";
@@ -91,7 +91,7 @@ export function BrowseContainer({ slides }) {
       <Header src="joker1" dontShowOnSmallViewPort>
         <Header.Frame>
           <Header.Group>
-            <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.Logo to={ROUTES.HOME} src={logo_white} alt="Netflix" />
             <Header.TextLink
               active={category === "series" ? "true" : "false"}
               onClick={() => setCategory("series")}
@@ -162,6 +162,7 @@ export function BrowseContainer({ slides }) {
             <Card.Feature category={category}>
               <Player>
                 <Player.Button />
+                <Player.Transcribe to={ROUTES.MAIN} />
                 <Player.Video src="/videos/bunny.mp4" />
               </Player>
             </Card.Feature>

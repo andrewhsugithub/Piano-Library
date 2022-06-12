@@ -1,6 +1,14 @@
-import React, { useState, useContext, createContext } from 'react';
-import ReactDOM from 'react-dom';
-import { Container, Button, Overlay, Inner, Close } from './styles/player';
+import React, { useState, useContext, createContext } from "react";
+import ReactDOM from "react-dom";
+import {
+  Container,
+  Button,
+  Overlay,
+  Inner,
+  Close,
+  Transcribe,
+} from "./styles/player";
+import { Link as ReachRouterLink } from "react-router-dom";
 
 export const PlayerContext = createContext();
 
@@ -36,8 +44,19 @@ Player.Button = function PlayerButton({ ...restProps }) {
   const { showPlayer, setShowPlayer } = useContext(PlayerContext);
 
   return (
-    <Button onClick={() => setShowPlayer((showPlayer) => !showPlayer)} {...restProps}>
+    <Button
+      onClick={() => setShowPlayer((showPlayer) => !showPlayer)}
+      {...restProps}
+    >
       Play
     </Button>
+  );
+};
+
+Player.Transcribe = function PlayerTranscribe({ to, ...restProps }) {
+  return (
+    <ReachRouterLink to={to} style={{ textDecoration: "none" }}>
+      <Transcribe {...restProps}>Transcribe</Transcribe>
+    </ReachRouterLink>
   );
 };
