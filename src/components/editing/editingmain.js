@@ -1,13 +1,18 @@
-﻿/* Control */
+﻿// import * as ROUTES from "../constants/routes";
+// import logo_white from "../logo_white.svg";
+
+/* midi */
+var midi = null;
+
+/* Control */
 var MODE = "EDIT_MODE";
 
 /* time para*/
-const BEAT_DIVITION = 4;
-const TIME_SIGNATURE_NUMERATOR = 4;
-const beats = 30;
+var BEAT_DIVITION = 4;
+var BEATS_PER_MEASURE = 4;
 
 /* margin param */
-const TOP_MARGIN = 300;
+const TOP_MARGIN = 450;
 const LEFT_MARGIN = 300;
 
 /* cell param */
@@ -53,15 +58,118 @@ const SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER = 3;
 const SOUND_HEIGHT_GRADIENT_WHITE_DISTANCEFROMBORDER = 12;
 const SOUND_WIDTH_GRADIENT_COLOR_DISTANCEFROMBORDER = 5;
 const SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER = 15;
+const SOUND_DEFAULT_VELOCITY = 60;
 
-/* [note, start, end, velocity] */
-let SOUND_LIST = [
-    [2, 10, 20, 30],
-    [6, 15, 19, 90],
-]; // from midi
+/* tools */
+var previous_velocity_input_time = null;
 
 /* lookup table */
-let table = new Array(88).fill(0).map(() => new Array(0));
+// let table = new Array(88).fill(0).map(() => new Array(0));
+
+/*************************************************************************************************** */
+/** Example */
+const midi_example = {
+    measures: 30,
+    beats_per_measure: 4,
+    beat_divition: 4,
+    sounds: [
+        [],
+        [],
+        [
+            [10, 40, 70],
+            [60, 65, 20],
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+            [30, 40, 90]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+            [100, 105, 120]
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+    ],
+};
 
 /*************************************************************************************************** */
 /** Class */
@@ -96,8 +204,8 @@ class ClickAndHold {
     }
 
     _onHoldStart(e) {
-        let modeviewer = document.getElementById("mode-viewer");
-        modeviewer.style.backgroundColor = "red";
+        let modeviewer = document.getElementById(" ");
+        // modeviewer.style.backgroundColor = "red";
 
         if (MODE === "EDIT_MODE") {
             //console.log("event:   ", e.);
@@ -113,7 +221,7 @@ class ClickAndHold {
         console.log("event:   ", e);
 
         let modeviewer = document.getElementById("mode-viewer");
-        modeviewer.style.backgroundColor = "chartreuse";
+        // modeviewer.style.backgroundColor = "green";
 
         // console.log(e.pageX, e.pageY);
         if (
@@ -165,7 +273,7 @@ class PointAt {
         );
 
         /* no sound in that note */
-        if (table[this.cell_row - 1].length == 0) {
+        if (midi.sounds[this.cell_row - 1].length == 0) {
             this.is_sound = false;
             this.current_sound = null;
             this.previous_sound = null;
@@ -174,15 +282,15 @@ class PointAt {
         }
 
         const upperBound_result = upperBound(
-            table[this.cell_row - 1],
+            midi.sounds[this.cell_row - 1],
             this.cell_column
         );
 
         this.is_sound =
-            table[this.cell_row - 1][upperBound_result - 1] === undefined ?
+            midi.sounds[this.cell_row - 1][upperBound_result - 1] === undefined ?
             false :
             this.cell_column <=
-            table[this.cell_row - 1][upperBound_result - 1][1];
+            midi.sounds[this.cell_row - 1][upperBound_result - 1][1];
 
         if (this.is_sound) {
             /* sound */
@@ -190,17 +298,17 @@ class PointAt {
             /* current */
             this.current_sound = {
                 note: this.cell_row,
-                start: table[this.cell_row - 1][upperBound_result - 1][0],
-                end: table[this.cell_row - 1][upperBound_result - 1][1],
+                start: midi.sounds[this.cell_row - 1][upperBound_result - 1][0],
+                end: midi.sounds[this.cell_row - 1][upperBound_result - 1][1],
                 index: upperBound_result - 1,
             };
 
             /* previous */
-            if (table[this.cell_row - 1][upperBound_result - 2] !== undefined) {
+            if (midi.sounds[this.cell_row - 1][upperBound_result - 2] !== undefined) {
                 this.previous_sound = {
                     note: this.cell_row,
-                    start: table[this.cell_row - 1][upperBound_result - 2][0],
-                    end: table[this.cell_row - 1][upperBound_result - 2][1],
+                    start: midi.sounds[this.cell_row - 1][upperBound_result - 2][0],
+                    end: midi.sounds[this.cell_row - 1][upperBound_result - 2][1],
                     index: upperBound_result - 2,
                 };
             }
@@ -211,22 +319,22 @@ class PointAt {
             this.current_sound = null;
 
             /* previous */
-            if (table[this.cell_row - 1][upperBound_result - 1] !== undefined) {
+            if (midi.sounds[this.cell_row - 1][upperBound_result - 1] !== undefined) {
                 this.previous_sound = {
                     note: this.cell_row,
-                    start: table[this.cell_row - 1][upperBound_result - 1][0],
-                    end: table[this.cell_row - 1][upperBound_result - 1][1],
+                    start: midi.sounds[this.cell_row - 1][upperBound_result - 1][0],
+                    end: midi.sounds[this.cell_row - 1][upperBound_result - 1][1],
                     index: upperBound_result - 1,
                 };
             }
         }
 
         /* next */
-        if (table[this.cell_row - 1][upperBound_result] !== undefined) {
+        if (midi.sounds[this.cell_row - 1][upperBound_result] !== undefined) {
             this.next_sound = {
                 note: this.cell_row,
-                start: table[this.cell_row - 1][upperBound_result][0],
-                end: table[this.cell_row - 1][upperBound_result][1],
+                start: midi.sounds[this.cell_row - 1][upperBound_result][0],
+                end: midi.sounds[this.cell_row - 1][upperBound_result][1],
                 index: upperBound_result + 1,
             };
         }
@@ -253,22 +361,22 @@ class PointAt {
 /** Function */
 
 /* Make grid */
-const MakeGrid = (beats) => {
+const DrawGrid = (measures) => {
     /* draw panel */
-    DrawPanel(beats);
+    DrawPanel(measures);
 
     /* draw vertical lines */
-    for (let i = 1; i <= beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR; i++)
+    for (let i = 1; i <= midi.measures * BEAT_DIVITION * BEATS_PER_MEASURE; i++)
         DrawVerticalLine(i);
 
     /* draw horizontal lines */
-    for (let j = 1; j <= 89; j++) DrawHorizontalLine(j, beats);
+    for (let j = 1; j <= 89; j++) DrawHorizontalLine(j, midi.measures);
 
     // CreateNewCell(i, j); // create cells
     // console.log(i.toString()+"_"+j.toString())
 };
 
-const DrawPanel = (beats) => {
+const DrawPanel = (measures) => {
     let panel = document.createElement("div");
 
     /* identity information */
@@ -277,16 +385,16 @@ const DrawPanel = (beats) => {
     /* style */
     panel.style.backgroundColor = CELL_COLOR;
     panel.style.width =
-        (beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR * CELL_WIDTH).toString() +
+        (measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH).toString() +
         "px";
     panel.style.height = (CELL_HEIGHT * 88).toString() + "px";
     panel.setAttribute("draggable", false);
 
     /* position */
     panel.style.position = "absolute";
-    panel.style.left = LEFT_MARGIN.toString() + "px";
+    panel.style.left = "0px";
     panel.style.top = TOP_MARGIN.toString() + "px";
-    panel.style.zIndex = "0";
+    panel.style.zIndex = "1";
 
     /* prevent drag */
     panel.addEventListener("dragstart", (e) => {
@@ -294,10 +402,10 @@ const DrawPanel = (beats) => {
     });
 
     /* appnd to editer-container */
-    document.getElementById("editer-container").appendChild(panel);
+    document.getElementById("grid-container").appendChild(panel);
 };
 
-const DrawHorizontalLine = (y, beats) => {
+const DrawHorizontalLine = (y, measures) => {
     let H_line = document.createElement("div"); // create div
 
     /* identity information */
@@ -306,16 +414,16 @@ const DrawHorizontalLine = (y, beats) => {
     /* style */
     H_line.style.backgroundColor = H_LINE_COLOR;
     H_line.style.width =
-        (beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR * CELL_WIDTH).toString() +
+        (measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH).toString() +
         "px";
     H_line.style.height = "2px";
     H_line.setAttribute("draggable", false);
 
     /* position */
     H_line.style.position = "absolute";
-    H_line.style.left = LEFT_MARGIN.toString() + "px";
+    H_line.style.left = "0px";
     H_line.style.top = ((y - 1) * CELL_HEIGHT + TOP_MARGIN).toString() + "px";
-    H_line.style.zIndex = "1";
+    H_line.style.zIndex = "2";
 
     /* prevent drag */
     H_line.addEventListener("dragstart", (e) => {
@@ -323,7 +431,7 @@ const DrawHorizontalLine = (y, beats) => {
     });
 
     /* appnd to editer-container */
-    document.getElementById("editer-container").appendChild(H_line);
+    document.getElementById("grid-container").appendChild(H_line);
 };
 
 /* Draw Line */
@@ -340,12 +448,12 @@ const DrawVerticalLine = (x) => {
     V_line.setAttribute("draggable", false);
 
     /* position */
-    let left = (x - 1) * CELL_WIDTH - 1 + LEFT_MARGIN;
-    let top = LINE_TOP;
+    let left = (x - 1) * CELL_WIDTH - 1;
+    let top = TOP_MARGIN;
     V_line.style.position = "absolute";
     V_line.style.left = left.toString() + "px";
     V_line.style.top = top.toString() + "px";
-    V_line.style.zIndex = "2";
+    V_line.style.zIndex = "3";
 
     /* distinct beat and measure */
     if ((x - 1) % BEAT_DIVITION == 0) {
@@ -355,7 +463,7 @@ const DrawVerticalLine = (x) => {
         V_line.style.top = BEAT_TOP.toString() + "px";
     }
 
-    if ((x - 1) % (BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR) == 0) {
+    if ((x - 1) % (BEAT_DIVITION * BEATS_PER_MEASURE) == 0) {
         // one measure
         V_line.style.height = BAR_LENGTH.toString() + "px";
         V_line.style.backgroundColor = BAR_COLOR;
@@ -366,7 +474,10 @@ const DrawVerticalLine = (x) => {
         const measure_number = document.createElement("div");
 
         const p_number = document.createElement("p");
-        p_number.innerHTML = (x - 1) / (BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR);
+        p_number.innerHTML = (
+            (x - 1) / (BEAT_DIVITION * BEATS_PER_MEASURE) +
+            1
+        ).toString();
         p_number.style.color = MEASURE_NUMBER_FONTCOLOR;
         p_number.style.fontSize = MEASURE_NUMBER_FONTSIZE.toString() + "px";
         p_number.style.position = "relative";
@@ -384,6 +495,7 @@ const DrawVerticalLine = (x) => {
         measure_number.style.backgroundColor = MEASURE_NUMBER_BACKGROUNDCOLOR;
         measure_number.style.borderRadius = MEASURE_NUMBER_BORDERRADIUS;
         measure_number.style.zIndex = "4";
+
         measure_number.appendChild(p_number);
         V_line.appendChild(measure_number);
     }
@@ -394,7 +506,7 @@ const DrawVerticalLine = (x) => {
     });
 
     /* append to editer-container */
-    document.getElementById("editer-container").appendChild(V_line);
+    document.getElementById("grid-container").appendChild(V_line);
 };
 
 /* Create sound */
@@ -420,7 +532,7 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
     new_sound.classList.add("sound");
 
     const soundrgb = CalculateColor(velocity).map((x) => x.toString());
-    console.log(`rgb:  ${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]}`);
+    // console.log(`rgb:  ${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]}`);
 
     /* style */
     // new_sound.style.backgroundColor = `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
@@ -430,7 +542,7 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
     );
     new_sound.style.width = width.toString() + "px";
     new_sound.style.height = CELL_HEIGHT.toString() + "px";
-    new_sound.style.zIndex = "4";
+    new_sound.style.zIndex = "6";
     new_sound.draggable = false;
     new_sound.style.border =
         "1px solid " + `rgb(${soundrgb[0]}, ${soundrgb[1]}, ${soundrgb[2]})`;
@@ -440,10 +552,8 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
 
     /* position */
     new_sound.style.position = "absolute";
-    new_sound.style.left =
-        ((start - 1) * CELL_WIDTH + LEFT_MARGIN).toString() + "px";
-    new_sound.style.top =
-        ((note - 1) * CELL_HEIGHT + TOP_MARGIN).toString() + "px";
+    new_sound.style.left = ((start - 1) * CELL_WIDTH).toString() + "px";
+    new_sound.style.top = ((note - 1) * CELL_HEIGHT).toString() + "px";
 
     /* extra data */
     new_sound.dataset.lookuptable_index = null;
@@ -458,7 +568,7 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
     velocity_toolbox.style.padding = "0px";
     velocity_toolbox.style.backgroundColor = "#e5e5e5";
     velocity_toolbox.style.boxShadow = "0px 5px 10px 0px rgba(0,0,0,0.2)";
-    velocity_toolbox.style.zIndex = "5";
+    velocity_toolbox.style.zIndex = "7";
     velocity_toolbox.style.width = (CELL_WIDTH * 10).toString() + "px";
     velocity_toolbox.style.height = (CELL_HEIGHT * 0.75).toString() + "px";
     velocity_toolbox.style.border = "0px"; //"1px solid darkgoldenrod";
@@ -487,7 +597,7 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
     number_box.style.margin = "0px";
     number_box.style.padding = "0px";
     number_box.innerHTML = "60";
-    number_box.style.zIndex = "5";
+    number_box.style.zIndex = "7";
     number_box.style.backgroundColor = "#e6e6e6";
     number_box.style.textAlign = "center";
     number_box.style.borderRadius = "10%";
@@ -502,15 +612,20 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
 
             // let node_start_end = new_sound.id.split("_").map(x => parseInt(x));
             // console.log("NOTE:  ",node_start_end);
-            let index = upperBound(table[note - 1], start) - 1;
+            let index = upperBound(midi.sounds[note - 1], start) - 1;
             new_sound.dataset.lookuptable_index = index.toString();
-            console.log("INDEX:  ", new_sound.dataset.lookuptable_index);
+            // console.log("INDEX:  ", new_sound.dataset.lookuptable_index);
         }
     });
 
     new_sound.addEventListener("mouseout", (e) => {
-        // setTimeout(()=>{velocity_toolbox.style.display = "none";}, 10000);
-        console.log(JSON.stringify(table[note - 1]));
+        setTimeout(() => {
+            if (previous_velocity_input_time === null) {
+                velocity_toolbox.style.display = "none";
+            }
+        }, 3600);
+
+        console.log(JSON.stringify(midi.sounds[note - 1]));
     });
 
     range_bar.addEventListener("input", (e) => {
@@ -527,7 +642,15 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
 
         number_box.style.Color = `rgb(${red}, ${green}, ${blue})`;
 
-        table[note - 1][new_sound.dataset.lookuptable_index][2] =
+        if (previous_velocity_input_time != null) {
+            clearTimeout(previous_velocity_input_time);
+        }
+        previous_velocity_input_time = setTimeout(() => {
+            previous_velocity_input_time = null;
+            velocity_toolbox.style.display = "none";
+        }, 3600);
+
+        midi.sounds[note - 1][new_sound.dataset.lookuptable_index][2] =
             parseInt(velocity);
     });
 
@@ -536,17 +659,15 @@ const CreateSoundDiv = (note, start, end, velocity = 60) => {
         e.preventDefault();
     });
 
-    range_bar.addEventListener("mouseout", (e) => {
-        setTimeout(() => {
-            velocity_toolbox.style.display = "none";
-        }, 7000);
+    // range_bar.addEventListener("mouseout", (e) => {
 
-        console.log(JSON.stringify(table[note - 1]));
-    });
+    //     console.log(JSON.stringify(midi.sounds[note-1]));
+
+    // })
 
     // append to editer-container
     // console.log("("+x+","+y+")", "width:", width);
-    document.getElementById("editer-container").appendChild(new_sound);
+    document.getElementById("sounds-container").appendChild(new_sound);
 };
 
 /* Draw new sound */
@@ -567,18 +688,8 @@ const AddNewSoundDiv = (note, start, end, bound_above, bound_below) => {
     CreateSoundDiv(note, start, end);
 
     /* add new sound to lookup table */
-    LookupTableInsert(note, start, end, 60);
+    InsertNewSound(note, start, end, SOUND_DEFAULT_VELOCITY);
 };
-
-// /* [note, start, end] to [x, y, width] */
-// const DecodeSoundRecordtoPosition = (note, start, end) =>{
-//     let head_cell = document.getElementById(start.toString()+"_"+note.toString()); // the cell when at the head
-//     let x = head_cell.style.left;
-//     let y = head_cell.style.top;
-//     let width = (end - start + 1)*CELL_WIDTH;
-//     // console.log(x, y, width);
-//     return [x, y, width];
-// }
 
 /* calculate which cell given position */
 const PageXYtoCellColumnRow = (pageX, pageY) => {
@@ -614,7 +725,7 @@ const isInPanel = (pageX, pageY) => {
     // console.log(x_relate, y_relate);
     if (
         x_relate > 0 &&
-        x_relate < beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR * CELL_WIDTH &&
+        x_relate < midi.measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH &&
         y_relate > 0 &&
         y_relate < CELL_HEIGHT * 88
     ) {
@@ -636,12 +747,12 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
     let mousedown_point_at = new PointAt(start_pageX, start_pageY);
     mousedown_point_at.set_up();
 
-    console.log(
-        "start: ",
-        mousedown_point_at.cell_column,
-        mousedown_point_at.cell_row
-    );
-    console.log("end: ", mouseup_cell_column, mouseup_cell_row);
+    // console.log(
+    //     "start: ",
+    //     mousedown_point_at.cell_column,
+    //     mousedown_point_at.cell_row
+    // );
+    // console.log("end: ", mouseup_cell_column, mouseup_cell_row);
 
     /* bounds changes of sound's length in case crash other sound */
     const bound_above =
@@ -653,14 +764,14 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
         0 :
         mousedown_point_at.previous_sound.end;
 
-    console.log(
-        "is_sound: ",
-        mousedown_point_at.is_sound,
-        "  bound_above: ",
-        bound_above,
-        "  bound_below: ",
-        bound_below
-    );
+    // console.log(
+    //     "is_sound: ",
+    //     mousedown_point_at.is_sound,
+    //     "  bound_above: ",
+    //     bound_above,
+    //     "  bound_below: ",
+    //     bound_below
+    // );
 
     console.log("_____________________________________________");
 
@@ -686,7 +797,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
             mousedown_point_at.current_sound.end
         ) {
             if (mouseup_cell_column < mousedown_point_at.cell_column) {
-                console.log("______HEAD_______1");
+                // console.log("______HEAD_______1");
                 ChangeSoundLength(
                     mousedown_point_at.current_sound,
                     "head",
@@ -694,7 +805,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
                     bound_below
                 );
             } else {
-                console.log("______TAIL_______1");
+                // console.log("______TAIL_______1");
                 ChangeSoundLength(
                     mousedown_point_at.current_sound,
                     "tail",
@@ -707,7 +818,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
             if (
                 mousedown_point_at.cell_column == mousedown_point_at.current_sound.start
             ) {
-                console.log("______HEAD_______");
+                // console.log("______HEAD_______");
                 ChangeSoundLength(
                     mousedown_point_at.current_sound,
                     "head",
@@ -720,7 +831,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
             if (
                 mousedown_point_at.cell_column == mousedown_point_at.current_sound.end
             ) {
-                console.log("______TAIL_______");
+                // console.log("______TAIL_______");
                 ChangeSoundLength(
                     mousedown_point_at.current_sound,
                     "tail",
@@ -734,7 +845,7 @@ const Act = (start_pageX, start_pageY, end_pageX, end_pageY) => {
     mousedown_point_at = null;
 
     console.log("==============================================================");
-    console.log(JSON.stringify(table));
+    console.log(JSON.stringify(midi.sounds));
     console.log("==============================================================");
     // AddNewSoundDiv(mousedown_cell_column, mousedown_cell_row, mouseup_cell_column);
 };
@@ -744,9 +855,9 @@ const ChangeSoundLength = (current_sound, mode, end, bound) => {
     const current_sound_div = document.getElementById(
         current_sound.note + "_" + current_sound.start + "_" + current_sound.end
     );
-    console.log("end CHANGE:", end);
+    // console.log("end CHANGE:", end);
     const color = CalculateColor(
-        table[current_sound.note - 1][current_sound.index][2]
+        midi.sounds[current_sound.note - 1][current_sound.index][2]
     );
 
     if (mode === "head") {
@@ -780,8 +891,8 @@ const ChangeSoundLength = (current_sound, mode, end, bound) => {
             "_" +
             current_sound.end.toString();
 
-        /* update lookup table */
-        table[current_sound.note - 1][current_sound.index][0] = new_start;
+        /* update midi.sound */
+        midi.sounds[current_sound.note - 1][current_sound.index][0] = new_start;
 
         console.log("Change---head: ", current_sound.start, "->", new_start);
     } else if (mode === "tail") {
@@ -811,10 +922,10 @@ const ChangeSoundLength = (current_sound, mode, end, bound) => {
             "_" +
             new_end.toString();
 
-        /* update lookup table */
-        table[current_sound.note - 1][current_sound.index][1] = new_end;
+        /* update midi.sounds */
+        midi.sounds[current_sound.note - 1][current_sound.index][1] = new_end;
 
-        console.log("Change---tail: ", current_sound.end, "->", new_end);
+        // console.log("Change---tail: ", current_sound.end, "->", new_end);
     }
 };
 
@@ -824,7 +935,7 @@ const RemoveSound = (current_sound) => {
         current_sound.note + "_" + current_sound.start + "_" + current_sound.end
     );
     current_sound_div.remove();
-    table[current_sound.note - 1].splice(current_sound.index, 1);
+    midi.sounds[current_sound.note - 1].splice(current_sound.index, 1);
 };
 
 /* costume binary search */
@@ -848,11 +959,11 @@ const upperBound = (array, item) => {
     return CostumeBinarySearch(array, (j) => item < j);
 };
 
-/* insert note to lookup table */
-const LookupTableInsert = (note, start, end, velocity) => {
+/* insert note to midi.sounds */
+const InsertNewSound = (note, start, end, velocity) => {
     // console.log(note, n1, n2);
-    table[note - 1].push([start, end, velocity]);
-    table[note - 1].sort(function(a, b) {
+    midi.sounds[note - 1].push([start, end, velocity]);
+    midi.sounds[note - 1].sort(function(a, b) {
         return a[0] - b[0];
     });
 };
@@ -874,26 +985,26 @@ const CalculateColor = (velocity) => {
 
 const ModeSwitch = () => {
     document.addEventListener("keydown", (e) => {
-        // console.log(e.code);
         if (e.shiftKey && e.code === "KeyV") {
             let mode_div = document.getElementById("mode-viewer");
             let black_mask = document.getElementById("blackmask");
             if (MODE === "EDIT_MODE") {
                 MODE = "VELOCITY_MODE";
-                mode_div.children[0].innerHTML = "V";
+                mode_div.children[0].innerHTML = "Velocity mode";
+                mode_div.style.backgroundColor = "orangered";
                 black_mask.style.display = "block";
             } else {
                 MODE = "EDIT_MODE";
-                mode_div.children[0].innerHTML = "E";
+                mode_div.children[0].innerHTML = "Edit mode";
+                mode_div.style.backgroundColor = "chartreuse";
                 black_mask.style.display = "none";
             }
         }
     });
 };
 
-const SquareGradientColor = (rgba_outside, rgba_inside) => {
+const SquareGradientColor = (rgba_outside, rgba_inside, color_hint) => {
     const transparentcolor = rgba_outside.replace(/(\d+)(?!.*\d)/i, "0");
-    // console.log(transparentcolor);
 
     return `
     linear-gradient(to top, ${rgba_outside} ${SOUND_HEIGHT_GRADIENT_COLOR_DISTANCEFROMBORDER}px,
@@ -906,24 +1017,6 @@ const SquareGradientColor = (rgba_outside, rgba_inside) => {
                             ${transparentcolor} ${SOUND_WIDTH_GRADIENT_WHITE_DISTANCEFROMBORDER}px),
     ${rgba_inside}
     `;
-};
-
-const modeviewer_resize = () => {
-    let mode_div = document.getElementById("mode-viewer");
-    let size1 = Math.min(window.innerHeight, window.innerWidth);
-    mode_div.style.height = Math.ceil(size1 * 0.1).toString() + "px";
-    mode_div.style.width = Math.ceil(size1 * 0.1).toString() + "px";
-    mode_div.children[0].style.fontSize =
-        Math.ceil(size1 * 0.06).toString() + "px";
-    // mode_div.children[0].style.textAlign = "top";
-    console.log(size1);
-
-    window.addEventListener("resize", (e) => {
-        let s = Math.min(window.innerHeight, window.innerWidth);
-        mode_div.style.height = Math.ceil(s * 0.1).toString() + "px";
-        mode_div.style.width = Math.ceil(s * 0.1).toString() + "px";
-        mode_div.children[0].style.fontSize = Math.ceil(s * 0.06).toString() + "px";
-    });
 };
 
 const PlacePiano = () => {
@@ -941,17 +1034,238 @@ const PlacePiano = () => {
     // piano.style.border = "5px solid red";
 };
 
+const CreateMenuBar = () => {
+    const menu_bar = document.createElement("div");
+    menu_bar.id = "menu_bar";
+    menu_bar.style.position = "fixed";
+    menu_bar.style.top = "0px";
+    menu_bar.style.left = "0px";
+    menu_bar.style.width = "100%";
+    menu_bar.style.height = (window.innerHeight * 0.1).toString() + "px";
+    menu_bar.style.backgroundColor = "rgba(110, 100, 120, 0.6)";
+    menu_bar.style.border = "0px";
+    menu_bar.style.boxShadow = "0px 2px 10px black";
+    menu_bar.style.zIndex = "10";
+    menu_bar.style.transition = " top 0.3s";
+
+    var prevScrollpos = window.pageYOffset;
+    window.addEventListener("scroll", (e) => {
+        const currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("menu_bar").style.top = "0px";
+        } else {
+            document.getElementById("menu_bar").style.top =
+                "-" + menu_bar.style.height;
+        }
+        prevScrollpos = currentScrollPos;
+    });
+
+    document.body.appendChild(menu_bar);
+
+    CreateLogoBox();
+    CreatLogInBox();
+    CreateSaveButton();
+    CreateModeViewer();
+};
+
+const ResponseToWindowResize = () => {
+    const modeviewer = document.getElementById("mode-viewer");
+    const menu_bar = document.getElementById("menu_bar");
+    const savebutton = document.getElementById("save_button");
+
+    window.addEventListener("resize", (e) => {
+        modeviewer.children[0].style.fontSize =
+            Math.ceil(window.innerHeight * 0.06).toString() + "px";
+
+        menu_bar.style.height =
+            Math.ceil(window.innerHeight * 0.1).toString() + "px";
+
+        savebutton.children[0].style.fontSize =
+            Math.ceil(window.innerHeight * 0.05).toString() + "px";
+    });
+};
+
+/* container for grid */
+const CreateGridContainer = (measures) => {
+    const gridcontainer = document.createElement("div");
+
+    /* indentify information */
+    gridcontainer.id = "grid-container";
+
+    /* style */
+    gridcontainer.style.backgroud = "transparent";
+    gridcontainer.style.width =
+        (measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH).toString() +
+        "px";
+    gridcontainer.style.height = "100%";
+    gridcontainer.setAttribute("draggable", false);
+    // gridcontainer.style.border = "10px dashed yellow";
+
+    /* position */
+    gridcontainer.style.position = "absolute";
+    gridcontainer.style.left = LEFT_MARGIN.toString() + "px";
+    gridcontainer.style.top = "0px";
+    gridcontainer.style.zIndex = "0";
+
+    document.getElementById("editer-container").appendChild(gridcontainer);
+};
+
+/* container for sounds */
+const CreateSoundsContainer = (measures) => {
+    const soundscontainer = document.createElement("div");
+
+    /* indentify information */
+    soundscontainer.id = "sounds-container";
+
+    /* style */
+    soundscontainer.style.backgroud = "transparent";
+    soundscontainer.style.width =
+        (measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH).toString() +
+        "px";
+    soundscontainer.style.height = (CELL_HEIGHT * 88).toString() + "px";
+    soundscontainer.setAttribute("draggable", false);
+    // soundscontainer.style.border = "5px solid green";
+
+    /* position */
+    soundscontainer.style.position = "absolute";
+    soundscontainer.style.left = LEFT_MARGIN.toString() + "px";
+    soundscontainer.style.top = TOP_MARGIN.toString() + "px";
+    soundscontainer.style.zIndex = "5";
+
+    document.getElementById("editer-container").appendChild(soundscontainer);
+};
+
+const LoadMidiJSONtoObject = () => {
+    /*
+                        write load json to object code here
+                    */
+    midi = midi_example;
+};
+
+const CreateSaveButton = () => {
+    const savebutton = document.createElement("div");
+    const button_p = document.createElement("p");
+    savebutton.id = "save_button";
+    savebutton.style.position = "absolute";
+    savebutton.style.width = "20%";
+    savebutton.style.height = "70%";
+    savebutton.style.top = "15%";
+    savebutton.style.right = "10%";
+    savebutton.style.backgroundColor = "goldenrod";
+    savebutton.style.border = "3px outset gold";
+    savebutton.style.display = "flex";
+    savebutton.style.justifyContent = "center";
+    savebutton.style.alignItems = "center";
+
+    button_p.innerHTML = "Save";
+    button_p.style.fontSize =
+        Math.ceil(window.innerHeight * 0.05).toString() + "px";
+    button_p.style.fontWeight = "bold";
+
+    savebutton.appendChild(button_p);
+
+    savebutton.addEventListener("click", (e) => {
+        console.log("CLICKED!!!!!");
+        SaveMidi();
+    });
+
+    document.getElementById("menu_bar").appendChild(savebutton);
+};
+
+const CreateLogoBox = () => {
+    const logobox = document.createElement("div");
+    const logoimg = document.createElement("img");
+    const logoa = document.createElement("a");
+
+    logobox.id = "logo-box";
+    logobox.style.position = "absolute";
+    logobox.style.width = "10%";
+    logobox.style.height = "70%";
+    logobox.style.top = "15%";
+    logobox.style.left = "3%";
+    logobox.style.backgroundColor = "transparent";
+    logobox.style.border = "0px";
+    logobox.style.display = "flex";
+    logobox.style.justifyContent = "center";
+    logobox.style.alignItems = "center";
+    logobox.innerHTML = "Logo Will Put Here";
+    logobox.style.textAlign = "center";
+    logobox.style.fontSize = "90%";
+    logobox.style.border = "1px solid black";
+
+    logoimg.src = "http://localhost:3000/images/logo.png";
+    logoa.href = "http://localhost:3000";
+
+    logobox.appendChild(logoa);
+    logoa.appendChild(logoimg);
+
+    document.getElementById("menu_bar").appendChild(logobox);
+};
+
+const CreateModeViewer = () => {
+    const modeviewer = document.createElement("div");
+    const mode_p = document.createElement("p");
+    modeviewer.id = "mode-viewer";
+    modeviewer.style.position = "absolute";
+    modeviewer.style.width = "30%";
+    modeviewer.style.height = "95%";
+    modeviewer.style.top = "2.5%";
+    modeviewer.style.left = "30%";
+    modeviewer.style.backgroundColor = "chartreuse";
+    modeviewer.style.border = "0px";
+    modeviewer.style.display = "flex";
+    modeviewer.style.justifyContent = "center";
+    modeviewer.style.alignItems = "center";
+
+    mode_p.innerHTML = "Edit mode";
+    mode_p.style.fontSize =
+        Math.ceil(window.innerHeight * 0.06).toString() + "px";
+    mode_p.style.fontWeight = "bold";
+
+    modeviewer.appendChild(mode_p);
+    document.getElementById("menu_bar").appendChild(modeviewer);
+};
+
+const CreatLogInBox = () => {
+    const loginbox = document.createElement("div");
+
+    loginbox.id = "logo-box";
+    loginbox.style.position = "absolute";
+    loginbox.style.width = "5%";
+    loginbox.style.height = "70%";
+    loginbox.style.top = "15%";
+    loginbox.style.right = "3%";
+    loginbox.style.backgroundColor = "transparent";
+    loginbox.style.border = "0px";
+    loginbox.style.display = "flex";
+    loginbox.style.justifyContent = "center";
+    loginbox.style.alignItems = "center";
+    loginbox.innerHTML = "LogIn";
+    loginbox.style.textAlign = "center";
+    loginbox.style.fontSize = "90%";
+    loginbox.style.border = "1px solid black";
+
+    document.getElementById("menu_bar").appendChild(loginbox);
+};
+
+const SaveMidi = () => {
+    /*
+                        save object back to json code
+                    */
+};
+
 /*************************************************************************************************** */
 /** Main */
 
 const main = () => {
-    // beats = parseInt(document.querySelector("#measures").innerHTML); // how any measure
+    /* load json */
+    LoadMidiJSONtoObject();
 
     let black_mask = document.getElementById("blackmask");
     black_mask.style.width =
         (
             2 * LEFT_MARGIN +
-            beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR * CELL_WIDTH
+            midi.measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH
         ).toString() + "px";
     black_mask.style.height =
         (2 * TOP_MARGIN + CELL_HEIGHT * 88).toString() + "px";
@@ -959,29 +1273,36 @@ const main = () => {
     document.getElementById("editer-container").style.width =
         (
             2 * LEFT_MARGIN +
-            beats * BEAT_DIVITION * TIME_SIGNATURE_NUMERATOR * CELL_WIDTH
+            midi.measures * BEAT_DIVITION * BEATS_PER_MEASURE * CELL_WIDTH
         ).toString() + "px";
+
+    /* menu bar */
+    CreateMenuBar();
+
     /* mode veiwer */
     ModeSwitch();
-
-    /* mode veiwer resize */
-    modeviewer_resize();
 
     /* piano */
     PlacePiano();
 
-    /* make grid */
-    MakeGrid(beats);
+    /* create container */
+    CreateGridContainer(midi.measures);
+    CreateSoundsContainer(midi.measures);
+
+    /* draw grid */
+    DrawGrid(midi.measures);
+
+    /* responsive */
+    ResponseToWindowResize();
 
     /* put sound on */
-    for (const sound of SOUND_LIST) {
-        CreateSoundDiv(...sound);
-
-        /* put sound list to lookup array */
-        LookupTableInsert(...sound);
-    }
-    console.log(table[1]);
-    console.log(table[10]);
+    midi.sounds.forEach((note, i) => {
+        if (note.length != 0) {
+            note.forEach((sound) => {
+                CreateSoundDiv(i + 1, ...sound);
+            });
+        }
+    });
 
     // add new sound
     ClickAndHold.apply(document.body, Act);

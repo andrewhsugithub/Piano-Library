@@ -1,7 +1,7 @@
 ﻿import { Header } from "../components";
 import { useContext } from "react";
 import * as ROUTES from "../constants/routes";
-import logo from "../logo.svg";
+import logo_white from "../logo_white.svg";
 import { FirebaseContext } from "../context/firebase";
 import "../components/editing/editingstyle.css";
 import "../components/editing/editingmain.js";
@@ -12,10 +12,10 @@ export default function Main() {
 
   return (
     <>
-      <Header src="joker1" dontShowOnSmallViewPort>
+      <Header dontShowOnSmallViewPort>
         <Header.Frame>
           <Header.Group>
-            <Header.Logo to={ROUTES.HOME} src={logo} alt="Netflix" />
+            <Header.Logo to={ROUTES.HOME} src={logo_white} alt="Netflix" />
           </Header.Group>
           <Header.Group>
             <Header.Profile>
@@ -37,9 +37,7 @@ export default function Main() {
       </Header>
 
       <div id="blackmask"></div>
-      <div id="mode-viewer">
-        <p>E</p>
-      </div>
+
       <div id="measures" style={{ display: "none" }}>
         30
       </div>
