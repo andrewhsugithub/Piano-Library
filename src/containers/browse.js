@@ -128,13 +128,10 @@ export function BrowseContainer({ slides }) {
         </Header.Frame>
 
         <Header.Feature>
-          <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
+          <Header.FeatureCallOut>Experience Our Media Library Now</Header.FeatureCallOut>
           <Header.Text>
-            Forever alone in a crowd, failed comedian Arthur Fleck seeks
-            connection as he walks the streets of Gotham City. Arthur wears two
-            masks -- the one he paints for his day job as a clown, and the guise
-            he projects in a futile attempt to feel like he's part of the world
-            around him.
+          Piano Transcription can help set the mood of the design, and help suggest what type of music the artist produces.
+          The watercolor effect, along with a neutral color palette, creates a warm, inviting feeling for this artists website, and gives you an indication of their style of music.
           </Header.Text>
           <Header.PlayButton>Play</Header.PlayButton>
         </Header.Feature>

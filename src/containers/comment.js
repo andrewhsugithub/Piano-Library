@@ -52,8 +52,7 @@ export function CommentContainer() {
         Piano Transcription Is Loved By Users
       </Comment.MainTitle>
       <Comment.SubTitle>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis eum
-        modi, adipisci facilis.
+      Even the most user-friendly products can get snubbed by people. Let’s take a look at the three major reasons why users love some products over others, and what you can do to make sure they keep coming back to you!
       </Comment.SubTitle>
       {/* <Comment.Box> */}
       <Slider {...settings}>

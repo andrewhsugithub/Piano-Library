@@ -8,15 +8,15 @@ export function JumbotronContainer() {
         Explore About Our Awesome Features
       </Jumbotron.MainTitle>
       <Jumbotron.MainSubTitle>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis eum
-        modi, adipisci facilis.
+      When people browse a website, they want easy navigation, attractive design, and relevant content. As people spend less time online,
+      however, music must leverage the website features users value most to hold audiences’ attention.
       </Jumbotron.MainSubTitle>
       <Jumbotron.MainTitle>
         Have you ever wondered to turn...
       </Jumbotron.MainTitle>
       <Jumbotron.MainSubTitle>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis eum
-        modi, adipisci facilis.
+      Want to play the piano but can't find the sheet music?
+      It's okay, you picked the right website
       </Jumbotron.MainSubTitle>
       {jumboData.map((item) => (
         <Jumbotron key={item.id} direction={item.direction}>
