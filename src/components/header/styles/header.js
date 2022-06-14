@@ -11,12 +11,17 @@ export const Background = styled.div`
       rgba(0, 0, 0, 0.35)
     ),
     url(${({ src }) =>
-        src ? `../images/misc/${src}.jpg` : "../images/misc/home-bg.jpg"})
+        src
+          ? `.. / images / misc / $ { src }.jpg `
+          : "../images/misc/home-bg.jpg"})
       top left / cover no-repeat;
 
   @media (max-width: 1100px) {
     ${({ dontShowOnSmallViewPort }) =>
-      dontShowOnSmallViewPort && `background: none;`}
+      dontShowOnSmallViewPort &&
+      `
+background: none;
+`}
   }
 `;
 
@@ -128,6 +133,7 @@ export const ButtonLink = styled(ReachRouterLink)`
 export const Picture = styled.button`
   background: url(${({ src }) => src});
   background-size: contain;
+  background-repeat: no-repeat;
   border: 0;
   width: 32px;
   height: 32px;

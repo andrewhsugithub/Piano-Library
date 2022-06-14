@@ -6,12 +6,10 @@ import logo_white from "../logo_white.svg";
 import { FirebaseContext } from "../context/firebase";
 import { SelectProfileContainer } from "./profiles";
 import { FooterContainer } from "./footer";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export function BrowseContainer({ slides }) {
-  const [category, setCategory] = useState("series");
+  // const [category, setCategory] = useState("series");
+  const category = "series";
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,47 +41,6 @@ export function BrowseContainer({ slides }) {
     }
   }, [searchTerm]);
 
-  var settings = {
-    // dots: true,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    initialSlide: 0,
-    pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-          pauseOnHover: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          initialSlide: 2,
-          pauseOnHover: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          pauseOnHover: true,
-        },
-      },
-    ],
-  };
-
   return profile.displayName ? (
     <>
       {loading ? <Loading src={user.photoURL} /> : <Loading.ReleaseBody />}
@@ -92,18 +49,13 @@ export function BrowseContainer({ slides }) {
         <Header.Frame>
           <Header.Group>
             <Header.Logo to={ROUTES.HOME} src={logo_white} alt="Netflix" />
-            <Header.TextLink
-              active={category === "series" ? "true" : "false"}
-              onClick={() => setCategory("series")}
-            >
-              Series
-            </Header.TextLink>
-            <Header.TextLink
+            <Header.TextLink>Series</Header.TextLink>
+            {/* <Header.TextLink
               active={category === "films" ? "true" : "false"}
               onClick={() => setCategory("films")}
             >
               Films
-            </Header.TextLink>
+            </Header.TextLink> */}
           </Header.Group>
           <Header.Group>
             <Header.Search
@@ -128,10 +80,15 @@ export function BrowseContainer({ slides }) {
         </Header.Frame>
 
         <Header.Feature>
-          <Header.FeatureCallOut>Experience Our Media Library Now</Header.FeatureCallOut>
+          <Header.FeatureCallOut>
+            Experience Our Media Library Now
+          </Header.FeatureCallOut>
           <Header.Text>
-          Piano Transcription can help set the mood of the design, and help suggest what type of music the artist produces.
-          The watercolor effect, along with a neutral color palette, creates a warm, inviting feeling for this artists website, and gives you an indication of their style of music.
+            Piano Transcription can help set the mood of the design, and help
+            suggest what type of music the artist produces. The watercolor
+            effect, along with a neutral color palette, creates a warm, inviting
+            feeling for this artists website, and gives you an indication of
+            their style of music.
           </Header.Text>
           <Header.PlayButton>Play</Header.PlayButton>
         </Header.Feature>
@@ -142,7 +99,6 @@ export function BrowseContainer({ slides }) {
           <Card key={`${category}-${slideItem.title.toLowerCase()}`}>
             <Card.Title>{slideItem.title}</Card.Title>
             <Card.Entities>
-              {/* <Slider {...settings}> */}
               {slideItem.data.map((item) => (
                 <Card.Item key={item.docId} item={item}>
                   <Card.Image
@@ -154,13 +110,14 @@ export function BrowseContainer({ slides }) {
                   </Card.Meta>
                 </Card.Item>
               ))}
-              {/* </Slider> */}
             </Card.Entities>
             <Card.Feature category={category}>
               <Player>
-                <Player.Button />
+                <Player.Button
+                // src={`/pages/${category}/${item.genre}/${item.slug}.html`}
+                />
                 <Player.Transcribe to={ROUTES.MAIN} />
-                <Player.Video src="/videos/bunny.mp4" />
+                {/* <Player.Audio /> */}
               </Player>
             </Card.Feature>
           </Card>

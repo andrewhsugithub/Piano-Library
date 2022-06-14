@@ -22,18 +22,13 @@ export default function Player({ children, ...restProps }) {
   );
 }
 
-Player.Video = function PlayerVideo({ src, ...restProps }) {
+Player.Audio = function PlayerAudio({ src, ...restProps }) {
   const { showPlayer, setShowPlayer } = useContext(PlayerContext);
 
   return showPlayer
     ? ReactDOM.createPortal(
         <Overlay onClick={() => setShowPlayer(false)} data-testid="player">
-          <Inner>
-            <video id="netflix-player" controls>
-              <source src={src} type="video/mp4" />
-            </video>
-            <Close />
-          </Inner>
+          <Inner></Inner>
         </Overlay>,
         document.body
       )
@@ -41,15 +36,25 @@ Player.Video = function PlayerVideo({ src, ...restProps }) {
 };
 
 Player.Button = function PlayerButton({ ...restProps }) {
-  const { showPlayer, setShowPlayer } = useContext(PlayerContext);
+  // const { showPlayer, setShowPlayer } = useContext(PlayerContext);
 
   return (
-    <Button
-      onClick={() => setShowPlayer((showPlayer) => !showPlayer)}
-      {...restProps}
+    <a
+      href="http://localhost:3000/page/midi/test2.html"
+      onClick={function () {
+        console.log("open");
+        // setShowPlayer((showPlayer) => !showPlayer);
+        window.open(
+          this.href,
+          "newWindow",
+          "toolbar=no,location=no,status=no,menubar=no,width= 293px height= 53.313px"
+        );
+      }}
+      target="_blank"
+      style={{ textDecoration: "none" }}
     >
-      Play
-    </Button>
+      <Button {...restProps}>Play</Button>
+    </a>
   );
 };
 

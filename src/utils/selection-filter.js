@@ -22,24 +22,26 @@ export default function selectionFilter({ series, films } = []) {
         data: series?.filter((item) => item.genre === "feel-good"),
       },
     ],
-    films: [
-      { title: "Drama", data: films?.filter((item) => item.genre === "drama") },
-      {
-        title: "Thriller",
-        data: films?.filter((item) => item.genre === "thriller"),
-      },
-      {
-        title: "Children",
-        data: films?.filter((item) => item.genre === "children"),
-      },
-      {
-        title: "Suspense",
-        data: films?.filter((item) => item.genre === "suspense"),
-      },
-      {
-        title: "Romance",
-        data: films?.filter((item) => item.genre === "romance"),
-      },
-    ],
   };
 }
+
+// {
+//   title: "Anime",
+//   data: series?.filter((item) => item.genre === "Anime"),
+// },
+// {
+//   title: "Classical",
+//   data: series?.filter((item) => item.genre === "Classical"),
+// },
+// {
+//   title: "English",
+//   data: series?.filter((item) => item.genre === "English"),
+// },
+// {
+//   title: "Meme",
+//   data: series?.filter((item) => item.genre === "Meme"),
+// },
+// {
+//   title: "K-pop",
+//   data: series?.filter((item) => item.genre === "Korea"),
+// },
