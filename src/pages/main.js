@@ -12,9 +12,9 @@ export default function Main() {
 
   return (
     <>
-      <Header dontShowOnSmallViewPort>
+      {/* <Header dontShowOnSmallViewPort>
         <Header.Frame>
-          <Header.Group>
+        <Header.Group>
             <Header.Logo to={ROUTES.HOME} src={logo_white} alt="Netflix" />
           </Header.Group>
           <Header.Group>
@@ -34,20 +34,44 @@ export default function Main() {
             </Header.Profile>
           </Header.Group>
         </Header.Frame>
-      </Header>
+      </Header> */}
 
+      <div id="menu_bar" onload={() => location.reload()}>
+        <div id="logo">
+          <a href={ROUTES.HOME}>
+            <img src={logo_white} alt="Netflix" />
+          </a>
+        </div>
+        <div id="save_button"></div>
+        <div id="mode-viewer"></div>
+        <div id="user">
+          <Header.Group>
+            <Header.Profile>
+              <Header.Picture src={user.photoURL} />
+              <Header.Dropdown>
+                <Header.Group>
+                  <Header.Picture src={user.photoURL} />
+                  <Header.TextLink>{user.displayName}</Header.TextLink>
+                </Header.Group>
+                <Header.Group>
+                  <Header.TextLink onClick={() => firebase.auth().signOut()}>
+                    Sign out
+                  </Header.TextLink>
+                </Header.Group>
+              </Header.Dropdown>
+            </Header.Profile>
+          </Header.Group>
+        </div>
+      </div>
       <div id="blackmask"></div>
 
-      <a href=""><div id="logo"><img src="" alt="Logo" height="100%"/></div></a>
-      <a href=""><div id="user"><img src="" alt="user" height="100%"/></div></a>
-
       <div id="editer-container">
-        <div id="blackmask"></div>
         <div id="piano">
           <img src="../images/main-page/pianokey.jpg" alt="piano" />
         </div>
+        <div id="sounds-container"></div>
+        <div id="grid-container"></div>
       </div>
-      
     </>
   );
 }
