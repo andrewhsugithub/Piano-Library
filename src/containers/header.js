@@ -1,6 +1,6 @@
 ﻿import { Header } from "../components";
 import * as ROUTES from "../constants/routes";
-import logo from "../logo_.svg";
+import logo from "../logo_white.svg";
 
 export function HeaderContainer({ children }) {
   return (
