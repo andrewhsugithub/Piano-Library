@@ -437,6 +437,9 @@ const CreateSaveButton = () => {
     savebutton.style.display = "flex";
     savebutton.style.justifyContent = "center";
     savebutton.style.alignItems = "center";
+    savebutton.innerHTML = "Save";
+    savebutton.style.fontSize =
+        Math.ceil(window.innerHeight * 0.05).toString() + "px";
 
     button_p.innerHTML = "Save";
     button_p.style.fontSize =
@@ -1440,10 +1443,14 @@ const PlacePiano = () => {
 };
 
 const LoadMidiJSONtoObject = () => {
-    const MIDIDATASTRING = document.getElementById("midi_input").value;
-    // console.log(MIDIDATASTRING);
-    midi = JSON.parse(MIDIDATASTRING).MidiData[0];
-    console.log(midi);
+    try {
+        const MIDIDATASTRING = document.getElementById("midi_input").value;
+        // console.log(MIDIDATASTRING);
+        midi = JSON.parse(MIDIDATASTRING).MidiData[0];
+        console.log(midi);
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 const updateMidi = () => {

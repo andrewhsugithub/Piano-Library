@@ -28,6 +28,7 @@ export function BrowseContainer({ slides }) {
 
   useEffect(() => {
     setSlideRows(slides[category]);
+    console.log(slideRows);
   }, [slides, category]);
 
   useEffect((slug) => {

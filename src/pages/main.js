@@ -81,11 +81,12 @@ export default function Main() {
             <input
               type="submit"
               id="midi_submit"
-              value="Save"
+              value=""
               style={{
                 width: "100%",
                 height: "100%",
                 backgroundColor: "transparent",
+                border: "none",
               }}
             ></input>
           </form>

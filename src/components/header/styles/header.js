@@ -11,9 +11,7 @@ export const Background = styled.div`
       rgba(0, 0, 0, 0.35)
     ),
     url(${({ src }) =>
-        src
-          ? `.. / images / misc / $ { src }.jpg `
-          : "../images/misc/home-bg.jpg"})
+        src ? `../images/misc/${src}.jpg` : "../images/misc/home-bg.jpg"})
       top left / cover no-repeat;
 
   @media (max-width: 1100px) {
