@@ -1,47 +1,47 @@
-export default function selectionFilter({ series, films } = []) {
+export default function selectionFilter({ series } = []) {
   return {
     series: [
       {
-        title: "Documentaries",
-        data: series?.filter((item) => item.genre === "documentaries"),
+        title: "Anime",
+        data: series?.filter((item) => item.genre === "Anime"),
       },
       {
-        title: "Comedies",
-        data: series?.filter((item) => item.genre === "comedies"),
+        title: "Classical",
+        data: series?.filter((item) => item.genre === "Classical"),
       },
       {
-        title: "Children",
-        data: series?.filter((item) => item.genre === "children"),
+        title: "English",
+        data: series?.filter((item) => item.genre === "English"),
       },
       {
-        title: "Crime",
-        data: series?.filter((item) => item.genre === "crime"),
+        title: "Meme",
+        data: series?.filter((item) => item.genre === "Meme"),
       },
       {
-        title: "Feel Good",
-        data: series?.filter((item) => item.genre === "feel-good"),
+        title: "K-pop",
+        data: series?.filter((item) => item.genre === "Korea"),
       },
     ],
   };
 }
 
 // {
-//   title: "Anime",
-//   data: series?.filter((item) => item.genre === "Anime"),
+//   title: "Documentaries",
+//   data: series?.filter((item) => item.genre === "documentaries"),
 // },
 // {
-//   title: "Classical",
-//   data: series?.filter((item) => item.genre === "Classical"),
+//   title: "Comedies",
+//   data: series?.filter((item) => item.genre === "comedies"),
 // },
 // {
-//   title: "English",
-//   data: series?.filter((item) => item.genre === "English"),
+//   title: "Children",
+//   data: series?.filter((item) => item.genre === "children"),
 // },
 // {
-//   title: "Meme",
-//   data: series?.filter((item) => item.genre === "Meme"),
+//   title: "Crime",
+//   data: series?.filter((item) => item.genre === "crime"),
 // },
 // {
-//   title: "K-pop",
-//   data: series?.filter((item) => item.genre === "Korea"),
+//   title: "Feel Good",
+//   data: series?.filter((item) => item.genre === "feel-good"),
 // },

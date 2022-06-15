@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.22.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+
+    <!-- polyfill -->
+    <script src="../inc/shim/Base64.js" type="text/javascript"></script>
+    <script src="../inc/shim/Base64binary.js" type="text/javascript"></script>
+    <script src="../inc/shim/WebAudioAPI.js" type="text/javascript"></script>
+    <!-- midi.js package -->
+    <script src="../js/midi/audioDetect.js" type="text/javascript"></script>
+    <script src="../js/midi/gm.js" type="text/javascript"></script>
+    <script src="../js/midi/loader.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.audiotag.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webaudio.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webmidi.js" type="text/javascript"></script>
+    <!-- utils -->
+    <script src="../js/util/dom_request_xhr.js" type="text/javascript"></script>
+    <script src="../js/util/dom_request_script.js" type="text/javascript"></script>
+
+</head>
+
+<body style="width: 293px; height: 53.313px;">
+    <midi-player src="/midi/Classical/Beethoven_-_Für_Elise_(Bagatelle_No_25,_WoO_59).mid" sound-font>
+    </midi-player>
+    <button onclick="function play(){MIDI.Player.loadFile('/midi/Classical/Beethoven_-_Für_Elise_(Bagatelle_No_25,_WoO_59).mid', onsuccess).play(); }"></button>
+</body>
+
+</html>

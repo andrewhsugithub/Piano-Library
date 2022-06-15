@@ -14,6 +14,8 @@ export function BrowseContainer({ slides }) {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [slideRows, setSlideRows] = useState([]);
+  const [slug, setSlug] = useState("");
+  const [genre, setGenre] = useState("");
 
   const { firebase } = useContext(FirebaseContext);
   const user = firebase.auth().currentUser || {};
@@ -27,6 +29,14 @@ export function BrowseContainer({ slides }) {
   useEffect(() => {
     setSlideRows(slides[category]);
   }, [slides, category]);
+
+  useEffect((slug) => {
+    setSlug(slug);
+  }, []);
+
+  useEffect((genre) => {
+    setGenre(genre);
+  }, []);
 
   useEffect(() => {
     const fuse = new Fuse(slideRows, {
@@ -103,6 +113,11 @@ export function BrowseContainer({ slides }) {
                 <Card.Item key={item.docId} item={item}>
                   <Card.Image
                     src={`/images/${category}/${item.genre}/${item.slug}/small.jpg`}
+                    onClick={() => {
+                      setSlug(item.slug);
+                      setGenre(item.genre);
+                      console.log(slug, genre);
+                    }}
                   />
                   <Card.Meta>
                     <Card.SubTitle>{item.title}</Card.SubTitle>
@@ -114,10 +129,10 @@ export function BrowseContainer({ slides }) {
             <Card.Feature category={category}>
               <Player>
                 <Player.Button
-                // src={`/pages/${category}/${item.genre}/${item.slug}.html`}
+                  to={`/pages_for_midi/midi/${category}/${genre}/${slug}.html`}
+                  src={`/midi/${genre}/${slug}.mid`}
                 />
                 <Player.Transcribe to={ROUTES.MAIN} />
-                {/* <Player.Audio /> */}
               </Player>
             </Card.Feature>
           </Card>

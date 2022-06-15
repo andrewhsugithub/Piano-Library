@@ -9,6 +9,7 @@ import {
   Transcribe,
 } from "./styles/player";
 import { Link as ReachRouterLink } from "react-router-dom";
+import MIDISounds from "midi-sounds-react";
 
 export const PlayerContext = createContext();
 
@@ -35,17 +36,17 @@ Player.Audio = function PlayerAudio({ src, ...restProps }) {
     : null;
 };
 
-Player.Button = function PlayerButton({ ...restProps }) {
+Player.Button = function PlayerButton({ to, src, ...restProps }) {
   // const { showPlayer, setShowPlayer } = useContext(PlayerContext);
 
   return (
-    <a
-      href="http://localhost:3000/page/midi/test2.html"
+    <ReachRouterLink
+      to={to}
       onClick={function () {
-        console.log("open");
+        console.log(to);
         // setShowPlayer((showPlayer) => !showPlayer);
         window.open(
-          this.href,
+          this.to,
           "newWindow",
           "toolbar=no,location=no,status=no,menubar=no,width= 293px height= 53.313px"
         );
@@ -53,8 +54,16 @@ Player.Button = function PlayerButton({ ...restProps }) {
       target="_blank"
       style={{ textDecoration: "none" }}
     >
+      {/* <>
+        <MIDISounds
+          ref={(ref) => (this.midiSounds = ref)}
+          appElementName="root"
+          instruments={[0]}
+        /> */}
       <Button {...restProps}>Play</Button>
-    </a>
+      {/* //{" "}
+      </> */}
+    </ReachRouterLink>
   );
 };
 

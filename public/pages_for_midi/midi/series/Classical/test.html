@@ -1,0 +1,1969 @@
+﻿<html>
+
+<head>
+    <!--
+	<script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+	-->
+    <script src="../npm/dist/WebAudioFontPlayer.js"></script>
+    <script src="MIDIFile.js"></script>
+    <script type="text/javascript" src="https://surikov.github.io/webaudiofontdata/sound/0000_JCLive_sf2_file.js"></script>
+</head>
+
+<body>
+    <div id="cntls">
+        <h2 id="wrng">Refresh browser page to load another song</h2>
+        <p id="tmr"><button onclick="go();">Play</button></p>
+        <p><input id="position" type="range" min="0" max="100" value="0" step="1"></p>
+        <a href="#" onclick="handleExample('/midi/Classical/Beethoven_-_Für_Elise_(Bagatelle_No_25,_WoO_59).mid');">open</a>
+        <h3>Channels</h3>
+        <p><select id="selins0">
+                <option value="0" selected="">0: Acoustic Grand Piano: Piano</option>
+                <option value="1">1: Acoustic Grand Piano: Piano</option>
+                <option value="2">2: Acoustic Grand Piano: Piano</option>
+                <option value="3">3: Acoustic Grand Piano: Piano</option>
+                <option value="4">4: Acoustic Grand Piano: Piano</option>
+                <option value="5">5: Acoustic Grand Piano: Piano</option>
+                <option value="6">6: Acoustic Grand Piano: Piano</option>
+                <option value="7">7: Acoustic Grand Piano: Piano</option>
+                <option value="8">8: Acoustic Grand Piano: Piano</option>
+                <option value="9">9: Acoustic Grand Piano: Piano</option>
+                <option value="10">10: Acoustic Grand Piano: Piano</option>
+                <option value="11">11: Bright Acoustic Piano: Piano</option>
+                <option value="12">12: Bright Acoustic Piano: Piano</option>
+                <option value="13">13: Bright Acoustic Piano: Piano</option>
+                <option value="14">14: Bright Acoustic Piano: Piano</option>
+                <option value="15">15: Bright Acoustic Piano: Piano</option>
+                <option value="16">16: Bright Acoustic Piano: Piano</option>
+                <option value="17">17: Bright Acoustic Piano: Piano</option>
+                <option value="18">18: Bright Acoustic Piano: Piano</option>
+                <option value="19">19: Bright Acoustic Piano: Piano</option>
+                <option value="20">20: Bright Acoustic Piano: Piano</option>
+                <option value="21">21: Bright Acoustic Piano: Piano</option>
+                <option value="22">22: Electric Grand Piano: Piano</option>
+                <option value="23">23: Electric Grand Piano: Piano</option>
+                <option value="24">24: Electric Grand Piano: Piano</option>
+                <option value="25">25: Electric Grand Piano: Piano</option>
+                <option value="26">26: Electric Grand Piano: Piano</option>
+                <option value="27">27: Electric Grand Piano: Piano</option>
+                <option value="28">28: Electric Grand Piano: Piano</option>
+                <option value="29">29: Electric Grand Piano: Piano</option>
+                <option value="30">30: Electric Grand Piano: Piano</option>
+                <option value="31">31: Electric Grand Piano: Piano</option>
+                <option value="32">32: Honky-tonk Piano: Piano</option>
+                <option value="33">33: Honky-tonk Piano: Piano</option>
+                <option value="34">34: Honky-tonk Piano: Piano</option>
+                <option value="35">35: Honky-tonk Piano: Piano</option>
+                <option value="36">36: Honky-tonk Piano: Piano</option>
+                <option value="37">37: Honky-tonk Piano: Piano</option>
+                <option value="38">38: Honky-tonk Piano: Piano</option>
+                <option value="39">39: Honky-tonk Piano: Piano</option>
+                <option value="40">40: Honky-tonk Piano: Piano</option>
+                <option value="41">41: Honky-tonk Piano: Piano</option>
+                <option value="42">42: Honky-tonk Piano: Piano</option>
+                <option value="43">43: Electric Piano 1: Piano</option>
+                <option value="44">44: Electric Piano 1: Piano</option>
+                <option value="45">45: Electric Piano 1: Piano</option>
+                <option value="46">46: Electric Piano 1: Piano</option>
+                <option value="47">47: Electric Piano 1: Piano</option>
+                <option value="48">48: Electric Piano 1: Piano</option>
+                <option value="49">49: Electric Piano 1: Piano</option>
+                <option value="50">50: Electric Piano 1: Piano</option>
+                <option value="51">51: Electric Piano 1: Piano</option>
+                <option value="52">52: Electric Piano 1: Piano</option>
+                <option value="53">53: Electric Piano 1: Piano</option>
+                <option value="54">54: Electric Piano 1: Piano</option>
+                <option value="55">55: Electric Piano 1: Piano</option>
+                <option value="56">56: Electric Piano 1: Piano</option>
+                <option value="57">57: Electric Piano 1: Piano</option>
+                <option value="58">58: Electric Piano 2: Piano</option>
+                <option value="59">59: Electric Piano 2: Piano</option>
+                <option value="60">60: Electric Piano 2: Piano</option>
+                <option value="61">61: Electric Piano 2: Piano</option>
+                <option value="62">62: Electric Piano 2: Piano</option>
+                <option value="63">63: Electric Piano 2: Piano</option>
+                <option value="64">64: Electric Piano 2: Piano</option>
+                <option value="65">65: Electric Piano 2: Piano</option>
+                <option value="66">66: Electric Piano 2: Piano</option>
+                <option value="67">67: Electric Piano 2: Piano</option>
+                <option value="68">68: Electric Piano 2: Piano</option>
+                <option value="69">69: Electric Piano 2: Piano</option>
+                <option value="70">70: Harpsichord: Piano</option>
+                <option value="71">71: Harpsichord: Piano</option>
+                <option value="72">72: Harpsichord: Piano</option>
+                <option value="73">73: Harpsichord: Piano</option>
+                <option value="74">74: Harpsichord: Piano</option>
+                <option value="75">75: Harpsichord: Piano</option>
+                <option value="76">76: Harpsichord: Piano</option>
+                <option value="77">77: Harpsichord: Piano</option>
+                <option value="78">78: Harpsichord: Piano</option>
+                <option value="79">79: Harpsichord: Piano</option>
+                <option value="80">80: Harpsichord: Piano</option>
+                <option value="81">81: Clavinet: Piano</option>
+                <option value="82">82: Clavinet: Piano</option>
+                <option value="83">83: Clavinet: Piano</option>
+                <option value="84">84: Clavinet: Piano</option>
+                <option value="85">85: Clavinet: Piano</option>
+                <option value="86">86: Clavinet: Piano</option>
+                <option value="87">87: Clavinet: Piano</option>
+                <option value="88">88: Clavinet: Piano</option>
+                <option value="89">89: Celesta: Chromatic Percussion</option>
+                <option value="90">90: Celesta: Chromatic Percussion</option>
+                <option value="91">91: Celesta: Chromatic Percussion</option>
+                <option value="92">92: Celesta: Chromatic Percussion</option>
+                <option value="93">93: Celesta: Chromatic Percussion</option>
+                <option value="94">94: Celesta: Chromatic Percussion</option>
+                <option value="95">95: Celesta: Chromatic Percussion</option>
+                <option value="96">96: Celesta: Chromatic Percussion</option>
+                <option value="97">97: Celesta: Chromatic Percussion</option>
+                <option value="98">98: Celesta: Chromatic Percussion</option>
+                <option value="99">99: Glockenspiel: Chromatic Percussion</option>
+                <option value="100">100: Glockenspiel: Chromatic Percussion</option>
+                <option value="101">101: Glockenspiel: Chromatic Percussion</option>
+                <option value="102">102: Glockenspiel: Chromatic Percussion</option>
+                <option value="103">103: Glockenspiel: Chromatic Percussion</option>
+                <option value="104">104: Glockenspiel: Chromatic Percussion</option>
+                <option value="105">105: Glockenspiel: Chromatic Percussion</option>
+                <option value="106">106: Glockenspiel: Chromatic Percussion</option>
+                <option value="107">107: Music Box: Chromatic Percussion</option>
+                <option value="108">108: Music Box: Chromatic Percussion</option>
+                <option value="109">109: Music Box: Chromatic Percussion</option>
+                <option value="110">110: Music Box: Chromatic Percussion</option>
+                <option value="111">111: Music Box: Chromatic Percussion</option>
+                <option value="112">112: Music Box: Chromatic Percussion</option>
+                <option value="113">113: Music Box: Chromatic Percussion</option>
+                <option value="114">114: Music Box: Chromatic Percussion</option>
+                <option value="115">115: Music Box: Chromatic Percussion</option>
+                <option value="116">116: Vibraphone: Chromatic Percussion</option>
+                <option value="117">117: Vibraphone: Chromatic Percussion</option>
+                <option value="118">118: Vibraphone: Chromatic Percussion</option>
+                <option value="119">119: Vibraphone: Chromatic Percussion</option>
+                <option value="120">120: Vibraphone: Chromatic Percussion</option>
+                <option value="121">121: Vibraphone: Chromatic Percussion</option>
+                <option value="122">122: Vibraphone: Chromatic Percussion</option>
+                <option value="123">123: Vibraphone: Chromatic Percussion</option>
+                <option value="124">124: Marimba: Chromatic Percussion</option>
+                <option value="125">125: Marimba: Chromatic Percussion</option>
+                <option value="126">126: Marimba: Chromatic Percussion</option>
+                <option value="127">127: Marimba: Chromatic Percussion</option>
+                <option value="128">128: Marimba: Chromatic Percussion</option>
+                <option value="129">129: Marimba: Chromatic Percussion</option>
+                <option value="130">130: Marimba: Chromatic Percussion</option>
+                <option value="131">131: Marimba: Chromatic Percussion</option>
+                <option value="132">132: Marimba: Chromatic Percussion</option>
+                <option value="133">133: Xylophone: Chromatic Percussion</option>
+                <option value="134">134: Xylophone: Chromatic Percussion</option>
+                <option value="135">135: Xylophone: Chromatic Percussion</option>
+                <option value="136">136: Xylophone: Chromatic Percussion</option>
+                <option value="137">137: Xylophone: Chromatic Percussion</option>
+                <option value="138">138: Xylophone: Chromatic Percussion</option>
+                <option value="139">139: Xylophone: Chromatic Percussion</option>
+                <option value="140">140: Xylophone: Chromatic Percussion</option>
+                <option value="141">141: Tubular Bells: Chromatic Percussion</option>
+                <option value="142">142: Tubular Bells: Chromatic Percussion</option>
+                <option value="143">143: Tubular Bells: Chromatic Percussion</option>
+                <option value="144">144: Tubular Bells: Chromatic Percussion</option>
+                <option value="145">145: Tubular Bells: Chromatic Percussion</option>
+                <option value="146">146: Tubular Bells: Chromatic Percussion</option>
+                <option value="147">147: Tubular Bells: Chromatic Percussion</option>
+                <option value="148">148: Tubular Bells: Chromatic Percussion</option>
+                <option value="149">149: Tubular Bells: Chromatic Percussion</option>
+                <option value="150">150: Tubular Bells: Chromatic Percussion</option>
+                <option value="151">151: Tubular Bells: Chromatic Percussion</option>
+                <option value="152">152: Dulcimer: Chromatic Percussion</option>
+                <option value="153">153: Dulcimer: Chromatic Percussion</option>
+                <option value="154">154: Dulcimer: Chromatic Percussion</option>
+                <option value="155">155: Dulcimer: Chromatic Percussion</option>
+                <option value="156">156: Dulcimer: Chromatic Percussion</option>
+                <option value="157">157: Dulcimer: Chromatic Percussion</option>
+                <option value="158">158: Dulcimer: Chromatic Percussion</option>
+                <option value="159">159: Dulcimer: Chromatic Percussion</option>
+                <option value="160">160: Drawbar Organ: Organ</option>
+                <option value="161">161: Drawbar Organ: Organ</option>
+                <option value="162">162: Drawbar Organ: Organ</option>
+                <option value="163">163: Drawbar Organ: Organ</option>
+                <option value="164">164: Drawbar Organ: Organ</option>
+                <option value="165">165: Drawbar Organ: Organ</option>
+                <option value="166">166: Drawbar Organ: Organ</option>
+                <option value="167">167: Drawbar Organ: Organ</option>
+                <option value="168">168: Drawbar Organ: Organ</option>
+                <option value="169">169: Drawbar Organ: Organ</option>
+                <option value="170">170: Percussive Organ: Organ</option>
+                <option value="171">171: Percussive Organ: Organ</option>
+                <option value="172">172: Percussive Organ: Organ</option>
+                <option value="173">173: Percussive Organ: Organ</option>
+                <option value="174">174: Percussive Organ: Organ</option>
+                <option value="175">175: Percussive Organ: Organ</option>
+                <option value="176">176: Percussive Organ: Organ</option>
+                <option value="177">177: Percussive Organ: Organ</option>
+                <option value="178">178: Percussive Organ: Organ</option>
+                <option value="179">179: Percussive Organ: Organ</option>
+                <option value="180">180: Rock Organ: Organ</option>
+                <option value="181">181: Rock Organ: Organ</option>
+                <option value="182">182: Rock Organ: Organ</option>
+                <option value="183">183: Rock Organ: Organ</option>
+                <option value="184">184: Rock Organ: Organ</option>
+                <option value="185">185: Rock Organ: Organ</option>
+                <option value="186">186: Rock Organ: Organ</option>
+                <option value="187">187: Rock Organ: Organ</option>
+                <option value="188">188: Rock Organ: Organ</option>
+                <option value="189">189: Rock Organ: Organ</option>
+                <option value="190">190: Church Organ: Organ</option>
+                <option value="191">191: Church Organ: Organ</option>
+                <option value="192">192: Church Organ: Organ</option>
+                <option value="193">193: Church Organ: Organ</option>
+                <option value="194">194: Church Organ: Organ</option>
+                <option value="195">195: Church Organ: Organ</option>
+                <option value="196">196: Church Organ: Organ</option>
+                <option value="197">197: Church Organ: Organ</option>
+                <option value="198">198: Church Organ: Organ</option>
+                <option value="199">199: Church Organ: Organ</option>
+                <option value="200">200: Reed Organ: Organ</option>
+                <option value="201">201: Reed Organ: Organ</option>
+                <option value="202">202: Reed Organ: Organ</option>
+                <option value="203">203: Reed Organ: Organ</option>
+                <option value="204">204: Reed Organ: Organ</option>
+                <option value="205">205: Reed Organ: Organ</option>
+                <option value="206">206: Reed Organ: Organ</option>
+                <option value="207">207: Reed Organ: Organ</option>
+                <option value="208">208: Reed Organ: Organ</option>
+                <option value="209">209: Reed Organ: Organ</option>
+                <option value="210">210: Reed Organ: Organ</option>
+                <option value="211">211: Accordion: Organ</option>
+                <option value="212">212: Accordion: Organ</option>
+                <option value="213">213: Accordion: Organ</option>
+                <option value="214">214: Accordion: Organ</option>
+                <option value="215">215: Accordion: Organ</option>
+                <option value="216">216: Accordion: Organ</option>
+                <option value="217">217: Accordion: Organ</option>
+                <option value="218">218: Accordion: Organ</option>
+                <option value="219">219: Accordion: Organ</option>
+                <option value="220">220: Accordion: Organ</option>
+                <option value="221">221: Accordion: Organ</option>
+                <option value="222">222: Accordion: Organ</option>
+                <option value="223">223: Harmonica: Organ</option>
+                <option value="224">224: Harmonica: Organ</option>
+                <option value="225">225: Harmonica: Organ</option>
+                <option value="226">226: Harmonica: Organ</option>
+                <option value="227">227: Harmonica: Organ</option>
+                <option value="228">228: Harmonica: Organ</option>
+                <option value="229">229: Harmonica: Organ</option>
+                <option value="230">230: Harmonica: Organ</option>
+                <option value="231">231: Tango Accordion: Organ</option>
+                <option value="232">232: Tango Accordion: Organ</option>
+                <option value="233">233: Tango Accordion: Organ</option>
+                <option value="234">234: Tango Accordion: Organ</option>
+                <option value="235">235: Tango Accordion: Organ</option>
+                <option value="236">236: Tango Accordion: Organ</option>
+                <option value="237">237: Tango Accordion: Organ</option>
+                <option value="238">238: Tango Accordion: Organ</option>
+                <option value="239">239: Tango Accordion: Organ</option>
+                <option value="240">240: Tango Accordion: Organ</option>
+                <option value="241">241: Tango Accordion: Organ</option>
+                <option value="242">242: Tango Accordion: Organ</option>
+                <option value="243">243: Tango Accordion: Organ</option>
+                <option value="244">244: Acoustic Guitar (nylon): Guitar</option>
+                <option value="245">245: Acoustic Guitar (nylon): Guitar</option>
+                <option value="246">246: Acoustic Guitar (nylon): Guitar</option>
+                <option value="247">247: Acoustic Guitar (nylon): Guitar</option>
+                <option value="248">248: Acoustic Guitar (nylon): Guitar</option>
+                <option value="249">249: Acoustic Guitar (nylon): Guitar</option>
+                <option value="250">250: Acoustic Guitar (nylon): Guitar</option>
+                <option value="251">251: Acoustic Guitar (nylon): Guitar</option>
+                <option value="252">252: Acoustic Guitar (nylon): Guitar</option>
+                <option value="253">253: Acoustic Guitar (nylon): Guitar</option>
+                <option value="254">254: Acoustic Guitar (nylon): Guitar</option>
+                <option value="255">255: Acoustic Guitar (nylon): Guitar</option>
+                <option value="256">256: Acoustic Guitar (steel): Guitar</option>
+                <option value="257">257: Acoustic Guitar (steel): Guitar</option>
+                <option value="258">258: Acoustic Guitar (steel): Guitar</option>
+                <option value="259">259: Acoustic Guitar (steel): Guitar</option>
+                <option value="260">260: Acoustic Guitar (steel): Guitar</option>
+                <option value="261">261: Acoustic Guitar (steel): Guitar</option>
+                <option value="262">262: Acoustic Guitar (steel): Guitar</option>
+                <option value="263">263: Acoustic Guitar (steel): Guitar</option>
+                <option value="264">264: Acoustic Guitar (steel): Guitar</option>
+                <option value="265">265: Acoustic Guitar (steel): Guitar</option>
+                <option value="266">266: Acoustic Guitar (steel): Guitar</option>
+                <option value="267">267: Acoustic Guitar (steel): Guitar</option>
+                <option value="268">268: Acoustic Guitar (steel): Guitar</option>
+                <option value="269">269: Acoustic Guitar (steel): Guitar</option>
+                <option value="270">270: Acoustic Guitar (steel): Guitar</option>
+                <option value="271">271: Acoustic Guitar (steel): Guitar</option>
+                <option value="272">272: Acoustic Guitar (steel): Guitar</option>
+                <option value="273">273: Acoustic Guitar (steel): Guitar</option>
+                <option value="274">274: Electric Guitar (jazz): Guitar</option>
+                <option value="275">275: Electric Guitar (jazz): Guitar</option>
+                <option value="276">276: Electric Guitar (jazz): Guitar</option>
+                <option value="277">277: Electric Guitar (jazz): Guitar</option>
+                <option value="278">278: Electric Guitar (jazz): Guitar</option>
+                <option value="279">279: Electric Guitar (jazz): Guitar</option>
+                <option value="280">280: Electric Guitar (jazz): Guitar</option>
+                <option value="281">281: Electric Guitar (jazz): Guitar</option>
+                <option value="282">282: Electric Guitar (jazz): Guitar</option>
+                <option value="283">283: Electric Guitar (jazz): Guitar</option>
+                <option value="284">284: Electric Guitar (jazz): Guitar</option>
+                <option value="285">285: Electric Guitar (jazz): Guitar</option>
+                <option value="286">286: Electric Guitar (clean): Guitar</option>
+                <option value="287">287: Electric Guitar (clean): Guitar</option>
+                <option value="288">288: Electric Guitar (clean): Guitar</option>
+                <option value="289">289: Electric Guitar (clean): Guitar</option>
+                <option value="290">290: Electric Guitar (clean): Guitar</option>
+                <option value="291">291: Electric Guitar (clean): Guitar</option>
+                <option value="292">292: Electric Guitar (clean): Guitar</option>
+                <option value="293">293: Electric Guitar (clean): Guitar</option>
+                <option value="294">294: Electric Guitar (clean): Guitar</option>
+                <option value="295">295: Electric Guitar (clean): Guitar</option>
+                <option value="296">296: Electric Guitar (clean): Guitar</option>
+                <option value="297">297: Electric Guitar (clean): Guitar</option>
+                <option value="298">298: Electric Guitar (clean): Guitar</option>
+                <option value="299">299: Electric Guitar (muted): Guitar</option>
+                <option value="300">300: Electric Guitar (muted): Guitar</option>
+                <option value="301">301: Electric Guitar (muted): Guitar</option>
+                <option value="302">302: Electric Guitar (muted): Guitar</option>
+                <option value="303">303: Electric Guitar (muted): Guitar</option>
+                <option value="304">304: Electric Guitar (muted): Guitar</option>
+                <option value="305">305: Electric Guitar (muted): Guitar</option>
+                <option value="306">306: Electric Guitar (muted): Guitar</option>
+                <option value="307">307: Electric Guitar (muted): Guitar</option>
+                <option value="308">308: Electric Guitar (muted): Guitar</option>
+                <option value="309">309: Electric Guitar (muted): Guitar</option>
+                <option value="310">310: Electric Guitar (muted): Guitar</option>
+                <option value="311">311: Electric Guitar (muted): Guitar</option>
+                <option value="312">312: Electric Guitar (muted): Guitar</option>
+                <option value="313">313: Electric Guitar (muted): Guitar</option>
+                <option value="314">314: Electric Guitar (muted): Guitar</option>
+                <option value="315">315: Overdriven Guitar: Guitar</option>
+                <option value="316">316: Overdriven Guitar: Guitar</option>
+                <option value="317">317: Overdriven Guitar: Guitar</option>
+                <option value="318">318: Overdriven Guitar: Guitar</option>
+                <option value="319">319: Overdriven Guitar: Guitar</option>
+                <option value="320">320: Overdriven Guitar: Guitar</option>
+                <option value="321">321: Overdriven Guitar: Guitar</option>
+                <option value="322">322: Overdriven Guitar: Guitar</option>
+                <option value="323">323: Overdriven Guitar: Guitar</option>
+                <option value="324">324: Overdriven Guitar: Guitar</option>
+                <option value="325">325: Overdriven Guitar: Guitar</option>
+                <option value="326">326: Overdriven Guitar: Guitar</option>
+                <option value="327">327: Overdriven Guitar: Guitar</option>
+                <option value="328">328: Overdriven Guitar: Guitar</option>
+                <option value="329">329: Overdriven Guitar: Guitar</option>
+                <option value="330">330: Overdriven Guitar: Guitar</option>
+                <option value="331">331: Overdriven Guitar: Guitar</option>
+                <option value="332">332: Overdriven Guitar: Guitar</option>
+                <option value="333">333: Distortion Guitar: Guitar</option>
+                <option value="334">334: Distortion Guitar: Guitar</option>
+                <option value="335">335: Distortion Guitar: Guitar</option>
+                <option value="336">336: Distortion Guitar: Guitar</option>
+                <option value="337">337: Distortion Guitar: Guitar</option>
+                <option value="338">338: Distortion Guitar: Guitar</option>
+                <option value="339">339: Distortion Guitar: Guitar</option>
+                <option value="340">340: Distortion Guitar: Guitar</option>
+                <option value="341">341: Distortion Guitar: Guitar</option>
+                <option value="342">342: Distortion Guitar: Guitar</option>
+                <option value="343">343: Distortion Guitar: Guitar</option>
+                <option value="344">344: Distortion Guitar: Guitar</option>
+                <option value="345">345: Distortion Guitar: Guitar</option>
+                <option value="346">346: Distortion Guitar: Guitar</option>
+                <option value="347">347: Distortion Guitar: Guitar</option>
+                <option value="348">348: Distortion Guitar: Guitar</option>
+                <option value="349">349: Distortion Guitar: Guitar</option>
+                <option value="350">350: Distortion Guitar: Guitar</option>
+                <option value="351">351: Distortion Guitar: Guitar</option>
+                <option value="352">352: Distortion Guitar: Guitar</option>
+                <option value="353">353: Distortion Guitar: Guitar</option>
+                <option value="354">354: Guitar Harmonics: Guitar</option>
+                <option value="355">355: Guitar Harmonics: Guitar</option>
+                <option value="356">356: Guitar Harmonics: Guitar</option>
+                <option value="357">357: Guitar Harmonics: Guitar</option>
+                <option value="358">358: Guitar Harmonics: Guitar</option>
+                <option value="359">359: Guitar Harmonics: Guitar</option>
+                <option value="360">360: Guitar Harmonics: Guitar</option>
+                <option value="361">361: Guitar Harmonics: Guitar</option>
+                <option value="362">362: Guitar Harmonics: Guitar</option>
+                <option value="363">363: Guitar Harmonics: Guitar</option>
+                <option value="364">364: Guitar Harmonics: Guitar</option>
+                <option value="365">365: Guitar Harmonics: Guitar</option>
+                <option value="366">366: Acoustic Bass: Bass</option>
+                <option value="367">367: Acoustic Bass: Bass</option>
+                <option value="368">368: Acoustic Bass: Bass</option>
+                <option value="369">369: Acoustic Bass: Bass</option>
+                <option value="370">370: Acoustic Bass: Bass</option>
+                <option value="371">371: Acoustic Bass: Bass</option>
+                <option value="372">372: Acoustic Bass: Bass</option>
+                <option value="373">373: Acoustic Bass: Bass</option>
+                <option value="374">374: Acoustic Bass: Bass</option>
+                <option value="375">375: Electric Bass (finger): Bass</option>
+                <option value="376">376: Electric Bass (finger): Bass</option>
+                <option value="377">377: Electric Bass (finger): Bass</option>
+                <option value="378">378: Electric Bass (finger): Bass</option>
+                <option value="379">379: Electric Bass (finger): Bass</option>
+                <option value="380">380: Electric Bass (finger): Bass</option>
+                <option value="381">381: Electric Bass (finger): Bass</option>
+                <option value="382">382: Electric Bass (finger): Bass</option>
+                <option value="383">383: Electric Bass (finger): Bass</option>
+                <option value="384">384: Electric Bass (pick): Bass</option>
+                <option value="385">385: Electric Bass (pick): Bass</option>
+                <option value="386">386: Electric Bass (pick): Bass</option>
+                <option value="387">387: Electric Bass (pick): Bass</option>
+                <option value="388">388: Electric Bass (pick): Bass</option>
+                <option value="389">389: Electric Bass (pick): Bass</option>
+                <option value="390">390: Electric Bass (pick): Bass</option>
+                <option value="391">391: Electric Bass (pick): Bass</option>
+                <option value="392">392: Electric Bass (pick): Bass</option>
+                <option value="393">393: Fretless Bass: Bass</option>
+                <option value="394">394: Fretless Bass: Bass</option>
+                <option value="395">395: Fretless Bass: Bass</option>
+                <option value="396">396: Fretless Bass: Bass</option>
+                <option value="397">397: Fretless Bass: Bass</option>
+                <option value="398">398: Fretless Bass: Bass</option>
+                <option value="399">399: Fretless Bass: Bass</option>
+                <option value="400">400: Fretless Bass: Bass</option>
+                <option value="401">401: Slap Bass 1: Bass</option>
+                <option value="402">402: Slap Bass 1: Bass</option>
+                <option value="403">403: Slap Bass 1: Bass</option>
+                <option value="404">404: Slap Bass 1: Bass</option>
+                <option value="405">405: Slap Bass 1: Bass</option>
+                <option value="406">406: Slap Bass 1: Bass</option>
+                <option value="407">407: Slap Bass 1: Bass</option>
+                <option value="408">408: Slap Bass 1: Bass</option>
+                <option value="409">409: Slap Bass 2: Bass</option>
+                <option value="410">410: Slap Bass 2: Bass</option>
+                <option value="411">411: Slap Bass 2: Bass</option>
+                <option value="412">412: Slap Bass 2: Bass</option>
+                <option value="413">413: Slap Bass 2: Bass</option>
+                <option value="414">414: Slap Bass 2: Bass</option>
+                <option value="415">415: Slap Bass 2: Bass</option>
+                <option value="416">416: Slap Bass 2: Bass</option>
+                <option value="417">417: Slap Bass 2: Bass</option>
+                <option value="418">418: Synth Bass 1: Bass</option>
+                <option value="419">419: Synth Bass 1: Bass</option>
+                <option value="420">420: Synth Bass 1: Bass</option>
+                <option value="421">421: Synth Bass 1: Bass</option>
+                <option value="422">422: Synth Bass 1: Bass</option>
+                <option value="423">423: Synth Bass 1: Bass</option>
+                <option value="424">424: Synth Bass 1: Bass</option>
+                <option value="425">425: Synth Bass 1: Bass</option>
+                <option value="426">426: Synth Bass 1: Bass</option>
+                <option value="427">427: Synth Bass 1: Bass</option>
+                <option value="428">428: Synth Bass 1: Bass</option>
+                <option value="429">429: Synth Bass 1: Bass</option>
+                <option value="430">430: Synth Bass 1: Bass</option>
+                <option value="431">431: Synth Bass 1: Bass</option>
+                <option value="432">432: Synth Bass 1: Bass</option>
+                <option value="433">433: Synth Bass 1: Bass</option>
+                <option value="434">434: Synth Bass 2: Bass</option>
+                <option value="435">435: Synth Bass 2: Bass</option>
+                <option value="436">436: Synth Bass 2: Bass</option>
+                <option value="437">437: Synth Bass 2: Bass</option>
+                <option value="438">438: Synth Bass 2: Bass</option>
+                <option value="439">439: Synth Bass 2: Bass</option>
+                <option value="440">440: Synth Bass 2: Bass</option>
+                <option value="441">441: Synth Bass 2: Bass</option>
+                <option value="442">442: Synth Bass 2: Bass</option>
+                <option value="443">443: Synth Bass 2: Bass</option>
+                <option value="444">444: Synth Bass 2: Bass</option>
+                <option value="445">445: Synth Bass 2: Bass</option>
+                <option value="446">446: Synth Bass 2: Bass</option>
+                <option value="447">447: Violin: Strings</option>
+                <option value="448">448: Violin: Strings</option>
+                <option value="449">449: Violin: Strings</option>
+                <option value="450">450: Violin: Strings</option>
+                <option value="451">451: Violin: Strings</option>
+                <option value="452">452: Violin: Strings</option>
+                <option value="453">453: Violin: Strings</option>
+                <option value="454">454: Violin: Strings</option>
+                <option value="455">455: Violin: Strings</option>
+                <option value="456">456: Violin: Strings</option>
+                <option value="457">457: Violin: Strings</option>
+                <option value="458">458: Viola: Strings</option>
+                <option value="459">459: Viola: Strings</option>
+                <option value="460">460: Viola: Strings</option>
+                <option value="461">461: Viola: Strings</option>
+                <option value="462">462: Viola: Strings</option>
+                <option value="463">463: Viola: Strings</option>
+                <option value="464">464: Viola: Strings</option>
+                <option value="465">465: Viola: Strings</option>
+                <option value="466">466: Cello: Strings</option>
+                <option value="467">467: Cello: Strings</option>
+                <option value="468">468: Cello: Strings</option>
+                <option value="469">469: Cello: Strings</option>
+                <option value="470">470: Cello: Strings</option>
+                <option value="471">471: Cello: Strings</option>
+                <option value="472">472: Cello: Strings</option>
+                <option value="473">473: Cello: Strings</option>
+                <option value="474">474: Cello: Strings</option>
+                <option value="475">475: Contrabass: Strings</option>
+                <option value="476">476: Contrabass: Strings</option>
+                <option value="477">477: Contrabass: Strings</option>
+                <option value="478">478: Contrabass: Strings</option>
+                <option value="479">479: Contrabass: Strings</option>
+                <option value="480">480: Contrabass: Strings</option>
+                <option value="481">481: Contrabass: Strings</option>
+                <option value="482">482: Contrabass: Strings</option>
+                <option value="483">483: Tremolo Strings: Strings</option>
+                <option value="484">484: Tremolo Strings: Strings</option>
+                <option value="485">485: Tremolo Strings: Strings</option>
+                <option value="486">486: Tremolo Strings: Strings</option>
+                <option value="487">487: Tremolo Strings: Strings</option>
+                <option value="488">488: Tremolo Strings: Strings</option>
+                <option value="489">489: Tremolo Strings: Strings</option>
+                <option value="490">490: Tremolo Strings: Strings</option>
+                <option value="491">491: Tremolo Strings: Strings</option>
+                <option value="492">492: Pizzicato Strings: Strings</option>
+                <option value="493">493: Pizzicato Strings: Strings</option>
+                <option value="494">494: Pizzicato Strings: Strings</option>
+                <option value="495">495: Pizzicato Strings: Strings</option>
+                <option value="496">496: Pizzicato Strings: Strings</option>
+                <option value="497">497: Pizzicato Strings: Strings</option>
+                <option value="498">498: Pizzicato Strings: Strings</option>
+                <option value="499">499: Pizzicato Strings: Strings</option>
+                <option value="500">500: Orchestral Harp: Strings</option>
+                <option value="501">501: Orchestral Harp: Strings</option>
+                <option value="502">502: Orchestral Harp: Strings</option>
+                <option value="503">503: Orchestral Harp: Strings</option>
+                <option value="504">504: Orchestral Harp: Strings</option>
+                <option value="505">505: Orchestral Harp: Strings</option>
+                <option value="506">506: Orchestral Harp: Strings</option>
+                <option value="507">507: Orchestral Harp: Strings</option>
+                <option value="508">508: Timpani: Strings</option>
+                <option value="509">509: Timpani: Strings</option>
+                <option value="510">510: Timpani: Strings</option>
+                <option value="511">511: Timpani: Strings</option>
+                <option value="512">512: Timpani: Strings</option>
+                <option value="513">513: Timpani: Strings</option>
+                <option value="514">514: Timpani: Strings</option>
+                <option value="515">515: Timpani: Strings</option>
+                <option value="516">516: Timpani: Strings</option>
+                <option value="517">517: String Ensemble 1: Ensemble</option>
+                <option value="518">518: String Ensemble 1: Ensemble</option>
+                <option value="519">519: String Ensemble 1: Ensemble</option>
+                <option value="520">520: String Ensemble 1: Ensemble</option>
+                <option value="521">521: String Ensemble 1: Ensemble</option>
+                <option value="522">522: String Ensemble 1: Ensemble</option>
+                <option value="523">523: String Ensemble 1: Ensemble</option>
+                <option value="524">524: String Ensemble 1: Ensemble</option>
+                <option value="525">525: String Ensemble 1: Ensemble</option>
+                <option value="526">526: String Ensemble 1: Ensemble</option>
+                <option value="527">527: String Ensemble 1: Ensemble</option>
+                <option value="528">528: String Ensemble 1: Ensemble</option>
+                <option value="529">529: String Ensemble 1: Ensemble</option>
+                <option value="530">530: String Ensemble 1: Ensemble</option>
+                <option value="531">531: String Ensemble 1: Ensemble</option>
+                <option value="532">532: String Ensemble 1: Ensemble</option>
+                <option value="533">533: String Ensemble 1: Ensemble</option>
+                <option value="534">534: String Ensemble 1: Ensemble</option>
+                <option value="535">535: String Ensemble 1: Ensemble</option>
+                <option value="536">536: String Ensemble 1: Ensemble</option>
+                <option value="537">537: String Ensemble 1: Ensemble</option>
+                <option value="538">538: String Ensemble 1: Ensemble</option>
+                <option value="539">539: String Ensemble 1: Ensemble</option>
+                <option value="540">540: String Ensemble 1: Ensemble</option>
+                <option value="541">541: String Ensemble 1: Ensemble</option>
+                <option value="542">542: String Ensemble 1: Ensemble</option>
+                <option value="543">543: String Ensemble 1: Ensemble</option>
+                <option value="544">544: String Ensemble 2: Ensemble</option>
+                <option value="545">545: String Ensemble 2: Ensemble</option>
+                <option value="546">546: String Ensemble 2: Ensemble</option>
+                <option value="547">547: String Ensemble 2: Ensemble</option>
+                <option value="548">548: String Ensemble 2: Ensemble</option>
+                <option value="549">549: String Ensemble 2: Ensemble</option>
+                <option value="550">550: String Ensemble 2: Ensemble</option>
+                <option value="551">551: String Ensemble 2: Ensemble</option>
+                <option value="552">552: String Ensemble 2: Ensemble</option>
+                <option value="553">553: Synth Strings 1: Ensemble</option>
+                <option value="554">554: Synth Strings 1: Ensemble</option>
+                <option value="555">555: Synth Strings 1: Ensemble</option>
+                <option value="556">556: Synth Strings 1: Ensemble</option>
+                <option value="557">557: Synth Strings 1: Ensemble</option>
+                <option value="558">558: Synth Strings 1: Ensemble</option>
+                <option value="559">559: Synth Strings 1: Ensemble</option>
+                <option value="560">560: Synth Strings 1: Ensemble</option>
+                <option value="561">561: Synth Strings 1: Ensemble</option>
+                <option value="562">562: Synth Strings 1: Ensemble</option>
+                <option value="563">563: Synth Strings 1: Ensemble</option>
+                <option value="564">564: Synth Strings 1: Ensemble</option>
+                <option value="565">565: Synth Strings 1: Ensemble</option>
+                <option value="566">566: Synth Strings 1: Ensemble</option>
+                <option value="567">567: Synth Strings 2: Ensemble</option>
+                <option value="568">568: Synth Strings 2: Ensemble</option>
+                <option value="569">569: Synth Strings 2: Ensemble</option>
+                <option value="570">570: Synth Strings 2: Ensemble</option>
+                <option value="571">571: Synth Strings 2: Ensemble</option>
+                <option value="572">572: Synth Strings 2: Ensemble</option>
+                <option value="573">573: Synth Strings 2: Ensemble</option>
+                <option value="574">574: Synth Strings 2: Ensemble</option>
+                <option value="575">575: Synth Strings 2: Ensemble</option>
+                <option value="576">576: Choir Aahs: Ensemble</option>
+                <option value="577">577: Choir Aahs: Ensemble</option>
+                <option value="578">578: Choir Aahs: Ensemble</option>
+                <option value="579">579: Choir Aahs: Ensemble</option>
+                <option value="580">580: Choir Aahs: Ensemble</option>
+                <option value="581">581: Choir Aahs: Ensemble</option>
+                <option value="582">582: Choir Aahs: Ensemble</option>
+                <option value="583">583: Choir Aahs: Ensemble</option>
+                <option value="584">584: Choir Aahs: Ensemble</option>
+                <option value="585">585: Choir Aahs: Ensemble</option>
+                <option value="586">586: Choir Aahs: Ensemble</option>
+                <option value="587">587: Choir Aahs: Ensemble</option>
+                <option value="588">588: Voice Oohs: Ensemble</option>
+                <option value="589">589: Voice Oohs: Ensemble</option>
+                <option value="590">590: Voice Oohs: Ensemble</option>
+                <option value="591">591: Voice Oohs: Ensemble</option>
+                <option value="592">592: Voice Oohs: Ensemble</option>
+                <option value="593">593: Voice Oohs: Ensemble</option>
+                <option value="594">594: Voice Oohs: Ensemble</option>
+                <option value="595">595: Voice Oohs: Ensemble</option>
+                <option value="596">596: Voice Oohs: Ensemble</option>
+                <option value="597">597: Voice Oohs: Ensemble</option>
+                <option value="598">598: Voice Oohs: Ensemble</option>
+                <option value="599">599: Voice Oohs: Ensemble</option>
+                <option value="600">600: Synth Choir: Ensemble</option>
+                <option value="601">601: Synth Choir: Ensemble</option>
+                <option value="602">602: Synth Choir: Ensemble</option>
+                <option value="603">603: Synth Choir: Ensemble</option>
+                <option value="604">604: Synth Choir: Ensemble</option>
+                <option value="605">605: Synth Choir: Ensemble</option>
+                <option value="606">606: Synth Choir: Ensemble</option>
+                <option value="607">607: Synth Choir: Ensemble</option>
+                <option value="608">608: Orchestra Hit: Ensemble</option>
+                <option value="609">609: Orchestra Hit: Ensemble</option>
+                <option value="610">610: Orchestra Hit: Ensemble</option>
+                <option value="611">611: Orchestra Hit: Ensemble</option>
+                <option value="612">612: Orchestra Hit: Ensemble</option>
+                <option value="613">613: Orchestra Hit: Ensemble</option>
+                <option value="614">614: Orchestra Hit: Ensemble</option>
+                <option value="615">615: Orchestra Hit: Ensemble</option>
+                <option value="616">616: Orchestra Hit: Ensemble</option>
+                <option value="617">617: Trumpet: Brass</option>
+                <option value="618">618: Trumpet: Brass</option>
+                <option value="619">619: Trumpet: Brass</option>
+                <option value="620">620: Trumpet: Brass</option>
+                <option value="621">621: Trumpet: Brass</option>
+                <option value="622">622: Trumpet: Brass</option>
+                <option value="623">623: Trumpet: Brass</option>
+                <option value="624">624: Trombone: Brass</option>
+                <option value="625">625: Trombone: Brass</option>
+                <option value="626">626: Trombone: Brass</option>
+                <option value="627">627: Trombone: Brass</option>
+                <option value="628">628: Trombone: Brass</option>
+                <option value="629">629: Trombone: Brass</option>
+                <option value="630">630: Trombone: Brass</option>
+                <option value="631">631: Trombone: Brass</option>
+                <option value="632">632: Tuba: Brass</option>
+                <option value="633">633: Tuba: Brass</option>
+                <option value="634">634: Tuba: Brass</option>
+                <option value="635">635: Tuba: Brass</option>
+                <option value="636">636: Tuba: Brass</option>
+                <option value="637">637: Tuba: Brass</option>
+                <option value="638">638: Tuba: Brass</option>
+                <option value="639">639: Tuba: Brass</option>
+                <option value="640">640: Muted Trumpet: Brass</option>
+                <option value="641">641: Muted Trumpet: Brass</option>
+                <option value="642">642: Muted Trumpet: Brass</option>
+                <option value="643">643: Muted Trumpet: Brass</option>
+                <option value="644">644: Muted Trumpet: Brass</option>
+                <option value="645">645: Muted Trumpet: Brass</option>
+                <option value="646">646: Muted Trumpet: Brass</option>
+                <option value="647">647: Muted Trumpet: Brass</option>
+                <option value="648">648: French Horn: Brass</option>
+                <option value="649">649: French Horn: Brass</option>
+                <option value="650">650: French Horn: Brass</option>
+                <option value="651">651: French Horn: Brass</option>
+                <option value="652">652: French Horn: Brass</option>
+                <option value="653">653: French Horn: Brass</option>
+                <option value="654">654: French Horn: Brass</option>
+                <option value="655">655: French Horn: Brass</option>
+                <option value="656">656: French Horn: Brass</option>
+                <option value="657">657: French Horn: Brass</option>
+                <option value="658">658: French Horn: Brass</option>
+                <option value="659">659: Brass Section: Brass</option>
+                <option value="660">660: Brass Section: Brass</option>
+                <option value="661">661: Brass Section: Brass</option>
+                <option value="662">662: Brass Section: Brass</option>
+                <option value="663">663: Brass Section: Brass</option>
+                <option value="664">664: Brass Section: Brass</option>
+                <option value="665">665: Brass Section: Brass</option>
+                <option value="666">666: Brass Section: Brass</option>
+                <option value="667">667: Brass Section: Brass</option>
+                <option value="668">668: Brass Section: Brass</option>
+                <option value="669">669: Brass Section: Brass</option>
+                <option value="670">670: Brass Section: Brass</option>
+                <option value="671">671: Synth Brass 1: Brass</option>
+                <option value="672">672: Synth Brass 1: Brass</option>
+                <option value="673">673: Synth Brass 1: Brass</option>
+                <option value="674">674: Synth Brass 1: Brass</option>
+                <option value="675">675: Synth Brass 1: Brass</option>
+                <option value="676">676: Synth Brass 1: Brass</option>
+                <option value="677">677: Synth Brass 1: Brass</option>
+                <option value="678">678: Synth Brass 1: Brass</option>
+                <option value="679">679: Synth Brass 1: Brass</option>
+                <option value="680">680: Synth Brass 1: Brass</option>
+                <option value="681">681: Synth Brass 1: Brass</option>
+                <option value="682">682: Synth Brass 1: Brass</option>
+                <option value="683">683: Synth Brass 2: Brass</option>
+                <option value="684">684: Synth Brass 2: Brass</option>
+                <option value="685">685: Synth Brass 2: Brass</option>
+                <option value="686">686: Synth Brass 2: Brass</option>
+                <option value="687">687: Synth Brass 2: Brass</option>
+                <option value="688">688: Synth Brass 2: Brass</option>
+                <option value="689">689: Synth Brass 2: Brass</option>
+                <option value="690">690: Synth Brass 2: Brass</option>
+                <option value="691">691: Synth Brass 2: Brass</option>
+                <option value="692">692: Synth Brass 2: Brass</option>
+                <option value="693">693: Synth Brass 2: Brass</option>
+                <option value="694">694: Synth Brass 2: Brass</option>
+                <option value="695">695: Soprano Sax: Reed</option>
+                <option value="696">696: Soprano Sax: Reed</option>
+                <option value="697">697: Soprano Sax: Reed</option>
+                <option value="698">698: Soprano Sax: Reed</option>
+                <option value="699">699: Soprano Sax: Reed</option>
+                <option value="700">700: Soprano Sax: Reed</option>
+                <option value="701">701: Soprano Sax: Reed</option>
+                <option value="702">702: Soprano Sax: Reed</option>
+                <option value="703">703: Alto Sax: Reed</option>
+                <option value="704">704: Alto Sax: Reed</option>
+                <option value="705">705: Alto Sax: Reed</option>
+                <option value="706">706: Alto Sax: Reed</option>
+                <option value="707">707: Alto Sax: Reed</option>
+                <option value="708">708: Alto Sax: Reed</option>
+                <option value="709">709: Alto Sax: Reed</option>
+                <option value="710">710: Alto Sax: Reed</option>
+                <option value="711">711: Alto Sax: Reed</option>
+                <option value="712">712: Tenor Sax: Reed</option>
+                <option value="713">713: Tenor Sax: Reed</option>
+                <option value="714">714: Tenor Sax: Reed</option>
+                <option value="715">715: Tenor Sax: Reed</option>
+                <option value="716">716: Tenor Sax: Reed</option>
+                <option value="717">717: Tenor Sax: Reed</option>
+                <option value="718">718: Tenor Sax: Reed</option>
+                <option value="719">719: Tenor Sax: Reed</option>
+                <option value="720">720: Tenor Sax: Reed</option>
+                <option value="721">721: Baritone Sax: Reed</option>
+                <option value="722">722: Baritone Sax: Reed</option>
+                <option value="723">723: Baritone Sax: Reed</option>
+                <option value="724">724: Baritone Sax: Reed</option>
+                <option value="725">725: Baritone Sax: Reed</option>
+                <option value="726">726: Baritone Sax: Reed</option>
+                <option value="727">727: Baritone Sax: Reed</option>
+                <option value="728">728: Baritone Sax: Reed</option>
+                <option value="729">729: Oboe: Reed</option>
+                <option value="730">730: Oboe: Reed</option>
+                <option value="731">731: Oboe: Reed</option>
+                <option value="732">732: Oboe: Reed</option>
+                <option value="733">733: Oboe: Reed</option>
+                <option value="734">734: Oboe: Reed</option>
+                <option value="735">735: Oboe: Reed</option>
+                <option value="736">736: Oboe: Reed</option>
+                <option value="737">737: English Horn: Reed</option>
+                <option value="738">738: English Horn: Reed</option>
+                <option value="739">739: English Horn: Reed</option>
+                <option value="740">740: English Horn: Reed</option>
+                <option value="741">741: English Horn: Reed</option>
+                <option value="742">742: English Horn: Reed</option>
+                <option value="743">743: English Horn: Reed</option>
+                <option value="744">744: English Horn: Reed</option>
+                <option value="745">745: Bassoon: Reed</option>
+                <option value="746">746: Bassoon: Reed</option>
+                <option value="747">747: Bassoon: Reed</option>
+                <option value="748">748: Bassoon: Reed</option>
+                <option value="749">749: Bassoon: Reed</option>
+                <option value="750">750: Bassoon: Reed</option>
+                <option value="751">751: Bassoon: Reed</option>
+                <option value="752">752: Bassoon: Reed</option>
+                <option value="753">753: Bassoon: Reed</option>
+                <option value="754">754: Clarinet: Reed</option>
+                <option value="755">755: Clarinet: Reed</option>
+                <option value="756">756: Clarinet: Reed</option>
+                <option value="757">757: Clarinet: Reed</option>
+                <option value="758">758: Clarinet: Reed</option>
+                <option value="759">759: Clarinet: Reed</option>
+                <option value="760">760: Clarinet: Reed</option>
+                <option value="761">761: Clarinet: Reed</option>
+                <option value="762">762: Piccolo: Pipe</option>
+                <option value="763">763: Piccolo: Pipe</option>
+                <option value="764">764: Piccolo: Pipe</option>
+                <option value="765">765: Piccolo: Pipe</option>
+                <option value="766">766: Piccolo: Pipe</option>
+                <option value="767">767: Piccolo: Pipe</option>
+                <option value="768">768: Piccolo: Pipe</option>
+                <option value="769">769: Piccolo: Pipe</option>
+                <option value="770">770: Piccolo: Pipe</option>
+                <option value="771">771: Flute: Pipe</option>
+                <option value="772">772: Flute: Pipe</option>
+                <option value="773">773: Flute: Pipe</option>
+                <option value="774">774: Flute: Pipe</option>
+                <option value="775">775: Flute: Pipe</option>
+                <option value="776">776: Flute: Pipe</option>
+                <option value="777">777: Flute: Pipe</option>
+                <option value="778">778: Flute: Pipe</option>
+                <option value="779">779: Flute: Pipe</option>
+                <option value="780">780: Flute: Pipe</option>
+                <option value="781">781: Recorder: Pipe</option>
+                <option value="782">782: Recorder: Pipe</option>
+                <option value="783">783: Recorder: Pipe</option>
+                <option value="784">784: Recorder: Pipe</option>
+                <option value="785">785: Recorder: Pipe</option>
+                <option value="786">786: Recorder: Pipe</option>
+                <option value="787">787: Recorder: Pipe</option>
+                <option value="788">788: Recorder: Pipe</option>
+                <option value="789">789: Pan Flute: Pipe</option>
+                <option value="790">790: Pan Flute: Pipe</option>
+                <option value="791">791: Pan Flute: Pipe</option>
+                <option value="792">792: Pan Flute: Pipe</option>
+                <option value="793">793: Pan Flute: Pipe</option>
+                <option value="794">794: Pan Flute: Pipe</option>
+                <option value="795">795: Pan Flute: Pipe</option>
+                <option value="796">796: Pan Flute: Pipe</option>
+                <option value="797">797: Pan Flute: Pipe</option>
+                <option value="798">798: Pan Flute: Pipe</option>
+                <option value="799">799: Pan Flute: Pipe</option>
+                <option value="800">800: Blown bottle: Pipe</option>
+                <option value="801">801: Blown bottle: Pipe</option>
+                <option value="802">802: Blown bottle: Pipe</option>
+                <option value="803">803: Blown bottle: Pipe</option>
+                <option value="804">804: Blown bottle: Pipe</option>
+                <option value="805">805: Blown bottle: Pipe</option>
+                <option value="806">806: Blown bottle: Pipe</option>
+                <option value="807">807: Blown bottle: Pipe</option>
+                <option value="808">808: Blown bottle: Pipe</option>
+                <option value="809">809: Blown bottle: Pipe</option>
+                <option value="810">810: Blown bottle: Pipe</option>
+                <option value="811">811: Shakuhachi: Pipe</option>
+                <option value="812">812: Shakuhachi: Pipe</option>
+                <option value="813">813: Shakuhachi: Pipe</option>
+                <option value="814">814: Shakuhachi: Pipe</option>
+                <option value="815">815: Shakuhachi: Pipe</option>
+                <option value="816">816: Shakuhachi: Pipe</option>
+                <option value="817">817: Shakuhachi: Pipe</option>
+                <option value="818">818: Shakuhachi: Pipe</option>
+                <option value="819">819: Shakuhachi: Pipe</option>
+                <option value="820">820: Shakuhachi: Pipe</option>
+                <option value="821">821: Whistle: Pipe</option>
+                <option value="822">822: Whistle: Pipe</option>
+                <option value="823">823: Whistle: Pipe</option>
+                <option value="824">824: Whistle: Pipe</option>
+                <option value="825">825: Whistle: Pipe</option>
+                <option value="826">826: Whistle: Pipe</option>
+                <option value="827">827: Whistle: Pipe</option>
+                <option value="828">828: Whistle: Pipe</option>
+                <option value="829">829: Ocarina: Pipe</option>
+                <option value="830">830: Ocarina: Pipe</option>
+                <option value="831">831: Ocarina: Pipe</option>
+                <option value="832">832: Ocarina: Pipe</option>
+                <option value="833">833: Ocarina: Pipe</option>
+                <option value="834">834: Ocarina: Pipe</option>
+                <option value="835">835: Ocarina: Pipe</option>
+                <option value="836">836: Ocarina: Pipe</option>
+                <option value="837">837: Lead 1 (square): Synth Lead</option>
+                <option value="838">838: Lead 1 (square): Synth Lead</option>
+                <option value="839">839: Lead 1 (square): Synth Lead</option>
+                <option value="840">840: Lead 1 (square): Synth Lead</option>
+                <option value="841">841: Lead 1 (square): Synth Lead</option>
+                <option value="842">842: Lead 1 (square): Synth Lead</option>
+                <option value="843">843: Lead 1 (square): Synth Lead</option>
+                <option value="844">844: Lead 1 (square): Synth Lead</option>
+                <option value="845">845: Lead 1 (square): Synth Lead</option>
+                <option value="846">846: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="847">847: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="848">848: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="849">849: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="850">850: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="851">851: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="852">852: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="853">853: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="854">854: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="855">855: Lead 2 (sawtooth): Synth Lead</option>
+                <option value="856">856: Lead 3 (calliope): Synth Lead</option>
+                <option value="857">857: Lead 3 (calliope): Synth Lead</option>
+                <option value="858">858: Lead 3 (calliope): Synth Lead</option>
+                <option value="859">859: Lead 3 (calliope): Synth Lead</option>
+                <option value="860">860: Lead 3 (calliope): Synth Lead</option>
+                <option value="861">861: Lead 3 (calliope): Synth Lead</option>
+                <option value="862">862: Lead 3 (calliope): Synth Lead</option>
+                <option value="863">863: Lead 3 (calliope): Synth Lead</option>
+                <option value="864">864: Lead 3 (calliope): Synth Lead</option>
+                <option value="865">865: Lead 3 (calliope): Synth Lead</option>
+                <option value="866">866: Lead 3 (calliope): Synth Lead</option>
+                <option value="867">867: Lead 3 (calliope): Synth Lead</option>
+                <option value="868">868: Lead 4 (chiff): Synth Lead</option>
+                <option value="869">869: Lead 4 (chiff): Synth Lead</option>
+                <option value="870">870: Lead 4 (chiff): Synth Lead</option>
+                <option value="871">871: Lead 4 (chiff): Synth Lead</option>
+                <option value="872">872: Lead 4 (chiff): Synth Lead</option>
+                <option value="873">873: Lead 4 (chiff): Synth Lead</option>
+                <option value="874">874: Lead 4 (chiff): Synth Lead</option>
+                <option value="875">875: Lead 4 (chiff): Synth Lead</option>
+                <option value="876">876: Lead 4 (chiff): Synth Lead</option>
+                <option value="877">877: Lead 4 (chiff): Synth Lead</option>
+                <option value="878">878: Lead 5 (charang): Synth Lead</option>
+                <option value="879">879: Lead 5 (charang): Synth Lead</option>
+                <option value="880">880: Lead 5 (charang): Synth Lead</option>
+                <option value="881">881: Lead 5 (charang): Synth Lead</option>
+                <option value="882">882: Lead 5 (charang): Synth Lead</option>
+                <option value="883">883: Lead 5 (charang): Synth Lead</option>
+                <option value="884">884: Lead 5 (charang): Synth Lead</option>
+                <option value="885">885: Lead 5 (charang): Synth Lead</option>
+                <option value="886">886: Lead 5 (charang): Synth Lead</option>
+                <option value="887">887: Lead 5 (charang): Synth Lead</option>
+                <option value="888">888: Lead 5 (charang): Synth Lead</option>
+                <option value="889">889: Lead 5 (charang): Synth Lead</option>
+                <option value="890">890: Lead 5 (charang): Synth Lead</option>
+                <option value="891">891: Lead 5 (charang): Synth Lead</option>
+                <option value="892">892: Lead 6 (voice): Synth Lead</option>
+                <option value="893">893: Lead 6 (voice): Synth Lead</option>
+                <option value="894">894: Lead 6 (voice): Synth Lead</option>
+                <option value="895">895: Lead 6 (voice): Synth Lead</option>
+                <option value="896">896: Lead 6 (voice): Synth Lead</option>
+                <option value="897">897: Lead 6 (voice): Synth Lead</option>
+                <option value="898">898: Lead 6 (voice): Synth Lead</option>
+                <option value="899">899: Lead 6 (voice): Synth Lead</option>
+                <option value="900">900: Lead 6 (voice): Synth Lead</option>
+                <option value="901">901: Lead 6 (voice): Synth Lead</option>
+                <option value="902">902: Lead 6 (voice): Synth Lead</option>
+                <option value="903">903: Lead 7 (fifths): Synth Lead</option>
+                <option value="904">904: Lead 7 (fifths): Synth Lead</option>
+                <option value="905">905: Lead 7 (fifths): Synth Lead</option>
+                <option value="906">906: Lead 7 (fifths): Synth Lead</option>
+                <option value="907">907: Lead 7 (fifths): Synth Lead</option>
+                <option value="908">908: Lead 7 (fifths): Synth Lead</option>
+                <option value="909">909: Lead 7 (fifths): Synth Lead</option>
+                <option value="910">910: Lead 7 (fifths): Synth Lead</option>
+                <option value="911">911: Lead 7 (fifths): Synth Lead</option>
+                <option value="912">912: Lead 7 (fifths): Synth Lead</option>
+                <option value="913">913: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="914">914: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="915">915: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="916">916: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="917">917: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="918">918: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="919">919: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="920">920: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="921">921: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="922">922: Lead 8 (bass + lead): Synth Lead</option>
+                <option value="923">923: Pad 1 (new age): Synth Pad</option>
+                <option value="924">924: Pad 1 (new age): Synth Pad</option>
+                <option value="925">925: Pad 1 (new age): Synth Pad</option>
+                <option value="926">926: Pad 1 (new age): Synth Pad</option>
+                <option value="927">927: Pad 1 (new age): Synth Pad</option>
+                <option value="928">928: Pad 1 (new age): Synth Pad</option>
+                <option value="929">929: Pad 1 (new age): Synth Pad</option>
+                <option value="930">930: Pad 1 (new age): Synth Pad</option>
+                <option value="931">931: Pad 1 (new age): Synth Pad</option>
+                <option value="932">932: Pad 1 (new age): Synth Pad</option>
+                <option value="933">933: Pad 1 (new age): Synth Pad</option>
+                <option value="934">934: Pad 1 (new age): Synth Pad</option>
+                <option value="935">935: Pad 1 (new age): Synth Pad</option>
+                <option value="936">936: Pad 1 (new age): Synth Pad</option>
+                <option value="937">937: Pad 1 (new age): Synth Pad</option>
+                <option value="938">938: Pad 1 (new age): Synth Pad</option>
+                <option value="939">939: Pad 1 (new age): Synth Pad</option>
+                <option value="940">940: Pad 1 (new age): Synth Pad</option>
+                <option value="941">941: Pad 1 (new age): Synth Pad</option>
+                <option value="942">942: Pad 1 (new age): Synth Pad</option>
+                <option value="943">943: Pad 1 (new age): Synth Pad</option>
+                <option value="944">944: Pad 2 (warm): Synth Pad</option>
+                <option value="945">945: Pad 2 (warm): Synth Pad</option>
+                <option value="946">946: Pad 2 (warm): Synth Pad</option>
+                <option value="947">947: Pad 2 (warm): Synth Pad</option>
+                <option value="948">948: Pad 2 (warm): Synth Pad</option>
+                <option value="949">949: Pad 2 (warm): Synth Pad</option>
+                <option value="950">950: Pad 2 (warm): Synth Pad</option>
+                <option value="951">951: Pad 2 (warm): Synth Pad</option>
+                <option value="952">952: Pad 2 (warm): Synth Pad</option>
+                <option value="953">953: Pad 2 (warm): Synth Pad</option>
+                <option value="954">954: Pad 3 (polysynth): Synth Pad</option>
+                <option value="955">955: Pad 3 (polysynth): Synth Pad</option>
+                <option value="956">956: Pad 3 (polysynth): Synth Pad</option>
+                <option value="957">957: Pad 3 (polysynth): Synth Pad</option>
+                <option value="958">958: Pad 3 (polysynth): Synth Pad</option>
+                <option value="959">959: Pad 3 (polysynth): Synth Pad</option>
+                <option value="960">960: Pad 3 (polysynth): Synth Pad</option>
+                <option value="961">961: Pad 3 (polysynth): Synth Pad</option>
+                <option value="962">962: Pad 3 (polysynth): Synth Pad</option>
+                <option value="963">963: Pad 3 (polysynth): Synth Pad</option>
+                <option value="964">964: Pad 3 (polysynth): Synth Pad</option>
+                <option value="965">965: Pad 4 (choir): Synth Pad</option>
+                <option value="966">966: Pad 4 (choir): Synth Pad</option>
+                <option value="967">967: Pad 4 (choir): Synth Pad</option>
+                <option value="968">968: Pad 4 (choir): Synth Pad</option>
+                <option value="969">969: Pad 4 (choir): Synth Pad</option>
+                <option value="970">970: Pad 4 (choir): Synth Pad</option>
+                <option value="971">971: Pad 4 (choir): Synth Pad</option>
+                <option value="972">972: Pad 4 (choir): Synth Pad</option>
+                <option value="973">973: Pad 4 (choir): Synth Pad</option>
+                <option value="974">974: Pad 4 (choir): Synth Pad</option>
+                <option value="975">975: Pad 4 (choir): Synth Pad</option>
+                <option value="976">976: Pad 5 (bowed): Synth Pad</option>
+                <option value="977">977: Pad 5 (bowed): Synth Pad</option>
+                <option value="978">978: Pad 5 (bowed): Synth Pad</option>
+                <option value="979">979: Pad 5 (bowed): Synth Pad</option>
+                <option value="980">980: Pad 5 (bowed): Synth Pad</option>
+                <option value="981">981: Pad 5 (bowed): Synth Pad</option>
+                <option value="982">982: Pad 5 (bowed): Synth Pad</option>
+                <option value="983">983: Pad 5 (bowed): Synth Pad</option>
+                <option value="984">984: Pad 5 (bowed): Synth Pad</option>
+                <option value="985">985: Pad 5 (bowed): Synth Pad</option>
+                <option value="986">986: Pad 6 (metallic): Synth Pad</option>
+                <option value="987">987: Pad 6 (metallic): Synth Pad</option>
+                <option value="988">988: Pad 6 (metallic): Synth Pad</option>
+                <option value="989">989: Pad 6 (metallic): Synth Pad</option>
+                <option value="990">990: Pad 6 (metallic): Synth Pad</option>
+                <option value="991">991: Pad 6 (metallic): Synth Pad</option>
+                <option value="992">992: Pad 6 (metallic): Synth Pad</option>
+                <option value="993">993: Pad 6 (metallic): Synth Pad</option>
+                <option value="994">994: Pad 6 (metallic): Synth Pad</option>
+                <option value="995">995: Pad 6 (metallic): Synth Pad</option>
+                <option value="996">996: Pad 6 (metallic): Synth Pad</option>
+                <option value="997">997: Pad 7 (halo): Synth Pad</option>
+                <option value="998">998: Pad 7 (halo): Synth Pad</option>
+                <option value="999">999: Pad 7 (halo): Synth Pad</option>
+                <option value="1000">1000: Pad 7 (halo): Synth Pad</option>
+                <option value="1001">1001: Pad 7 (halo): Synth Pad</option>
+                <option value="1002">1002: Pad 7 (halo): Synth Pad</option>
+                <option value="1003">1003: Pad 7 (halo): Synth Pad</option>
+                <option value="1004">1004: Pad 7 (halo): Synth Pad</option>
+                <option value="1005">1005: Pad 7 (halo): Synth Pad</option>
+                <option value="1006">1006: Pad 7 (halo): Synth Pad</option>
+                <option value="1007">1007: Pad 7 (halo): Synth Pad</option>
+                <option value="1008">1008: Pad 8 (sweep): Synth Pad</option>
+                <option value="1009">1009: Pad 8 (sweep): Synth Pad</option>
+                <option value="1010">1010: Pad 8 (sweep): Synth Pad</option>
+                <option value="1011">1011: Pad 8 (sweep): Synth Pad</option>
+                <option value="1012">1012: Pad 8 (sweep): Synth Pad</option>
+                <option value="1013">1013: Pad 8 (sweep): Synth Pad</option>
+                <option value="1014">1014: Pad 8 (sweep): Synth Pad</option>
+                <option value="1015">1015: Pad 8 (sweep): Synth Pad</option>
+                <option value="1016">1016: Pad 8 (sweep): Synth Pad</option>
+                <option value="1017">1017: FX 1 (rain): Synth Effects</option>
+                <option value="1018">1018: FX 1 (rain): Synth Effects</option>
+                <option value="1019">1019: FX 1 (rain): Synth Effects</option>
+                <option value="1020">1020: FX 1 (rain): Synth Effects</option>
+                <option value="1021">1021: FX 1 (rain): Synth Effects</option>
+                <option value="1022">1022: FX 1 (rain): Synth Effects</option>
+                <option value="1023">1023: FX 1 (rain): Synth Effects</option>
+                <option value="1024">1024: FX 1 (rain): Synth Effects</option>
+                <option value="1025">1025: FX 1 (rain): Synth Effects</option>
+                <option value="1026">1026: FX 1 (rain): Synth Effects</option>
+                <option value="1027">1027: FX 1 (rain): Synth Effects</option>
+                <option value="1028">1028: FX 1 (rain): Synth Effects</option>
+                <option value="1029">1029: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1030">1030: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1031">1031: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1032">1032: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1033">1033: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1034">1034: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1035">1035: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1036">1036: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1037">1037: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1038">1038: FX 2 (soundtrack): Synth Effects</option>
+                <option value="1039">1039: FX 3 (crystal): Synth Effects</option>
+                <option value="1040">1040: FX 3 (crystal): Synth Effects</option>
+                <option value="1041">1041: FX 3 (crystal): Synth Effects</option>
+                <option value="1042">1042: FX 3 (crystal): Synth Effects</option>
+                <option value="1043">1043: FX 3 (crystal): Synth Effects</option>
+                <option value="1044">1044: FX 3 (crystal): Synth Effects</option>
+                <option value="1045">1045: FX 3 (crystal): Synth Effects</option>
+                <option value="1046">1046: FX 3 (crystal): Synth Effects</option>
+                <option value="1047">1047: FX 3 (crystal): Synth Effects</option>
+                <option value="1048">1048: FX 3 (crystal): Synth Effects</option>
+                <option value="1049">1049: FX 3 (crystal): Synth Effects</option>
+                <option value="1050">1050: FX 3 (crystal): Synth Effects</option>
+                <option value="1051">1051: FX 3 (crystal): Synth Effects</option>
+                <option value="1052">1052: FX 3 (crystal): Synth Effects</option>
+                <option value="1053">1053: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1054">1054: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1055">1055: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1056">1056: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1057">1057: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1058">1058: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1059">1059: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1060">1060: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1061">1061: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1062">1062: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1063">1063: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1064">1064: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1065">1065: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1066">1066: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1067">1067: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1068">1068: FX 4 (atmosphere): Synth Effects</option>
+                <option value="1069">1069: FX 5 (brightness): Synth Effects</option>
+                <option value="1070">1070: FX 5 (brightness): Synth Effects</option>
+                <option value="1071">1071: FX 5 (brightness): Synth Effects</option>
+                <option value="1072">1072: FX 5 (brightness): Synth Effects</option>
+                <option value="1073">1073: FX 5 (brightness): Synth Effects</option>
+                <option value="1074">1074: FX 5 (brightness): Synth Effects</option>
+                <option value="1075">1075: FX 5 (brightness): Synth Effects</option>
+                <option value="1076">1076: FX 5 (brightness): Synth Effects</option>
+                <option value="1077">1077: FX 5 (brightness): Synth Effects</option>
+                <option value="1078">1078: FX 5 (brightness): Synth Effects</option>
+                <option value="1079">1079: FX 5 (brightness): Synth Effects</option>
+                <option value="1080">1080: FX 5 (brightness): Synth Effects</option>
+                <option value="1081">1081: FX 5 (brightness): Synth Effects</option>
+                <option value="1082">1082: FX 5 (brightness): Synth Effects</option>
+                <option value="1083">1083: FX 5 (brightness): Synth Effects</option>
+                <option value="1084">1084: FX 6 (goblins): Synth Effects</option>
+                <option value="1085">1085: FX 6 (goblins): Synth Effects</option>
+                <option value="1086">1086: FX 6 (goblins): Synth Effects</option>
+                <option value="1087">1087: FX 6 (goblins): Synth Effects</option>
+                <option value="1088">1088: FX 6 (goblins): Synth Effects</option>
+                <option value="1089">1089: FX 6 (goblins): Synth Effects</option>
+                <option value="1090">1090: FX 6 (goblins): Synth Effects</option>
+                <option value="1091">1091: FX 6 (goblins): Synth Effects</option>
+                <option value="1092">1092: FX 6 (goblins): Synth Effects</option>
+                <option value="1093">1093: FX 6 (goblins): Synth Effects</option>
+                <option value="1094">1094: FX 6 (goblins): Synth Effects</option>
+                <option value="1095">1095: FX 7 (echoes): Synth Effects</option>
+                <option value="1096">1096: FX 7 (echoes): Synth Effects</option>
+                <option value="1097">1097: FX 7 (echoes): Synth Effects</option>
+                <option value="1098">1098: FX 7 (echoes): Synth Effects</option>
+                <option value="1099">1099: FX 7 (echoes): Synth Effects</option>
+                <option value="1100">1100: FX 7 (echoes): Synth Effects</option>
+                <option value="1101">1101: FX 7 (echoes): Synth Effects</option>
+                <option value="1102">1102: FX 7 (echoes): Synth Effects</option>
+                <option value="1103">1103: FX 7 (echoes): Synth Effects</option>
+                <option value="1104">1104: FX 7 (echoes): Synth Effects</option>
+                <option value="1105">1105: FX 7 (echoes): Synth Effects</option>
+                <option value="1106">1106: FX 7 (echoes): Synth Effects</option>
+                <option value="1107">1107: FX 7 (echoes): Synth Effects</option>
+                <option value="1108">1108: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1109">1109: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1110">1110: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1111">1111: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1112">1112: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1113">1113: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1114">1114: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1115">1115: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1116">1116: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1117">1117: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1118">1118: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1119">1119: FX 8 (sci-fi): Synth Effects</option>
+                <option value="1120">1120: Sitar: Ethnic</option>
+                <option value="1121">1121: Sitar: Ethnic</option>
+                <option value="1122">1122: Sitar: Ethnic</option>
+                <option value="1123">1123: Sitar: Ethnic</option>
+                <option value="1124">1124: Sitar: Ethnic</option>
+                <option value="1125">1125: Sitar: Ethnic</option>
+                <option value="1126">1126: Sitar: Ethnic</option>
+                <option value="1127">1127: Sitar: Ethnic</option>
+                <option value="1128">1128: Sitar: Ethnic</option>
+                <option value="1129">1129: Banjo: Ethnic</option>
+                <option value="1130">1130: Banjo: Ethnic</option>
+                <option value="1131">1131: Banjo: Ethnic</option>
+                <option value="1132">1132: Banjo: Ethnic</option>
+                <option value="1133">1133: Banjo: Ethnic</option>
+                <option value="1134">1134: Banjo: Ethnic</option>
+                <option value="1135">1135: Banjo: Ethnic</option>
+                <option value="1136">1136: Banjo: Ethnic</option>
+                <option value="1137">1137: Shamisen: Ethnic</option>
+                <option value="1138">1138: Shamisen: Ethnic</option>
+                <option value="1139">1139: Shamisen: Ethnic</option>
+                <option value="1140">1140: Shamisen: Ethnic</option>
+                <option value="1141">1141: Shamisen: Ethnic</option>
+                <option value="1142">1142: Shamisen: Ethnic</option>
+                <option value="1143">1143: Shamisen: Ethnic</option>
+                <option value="1144">1144: Shamisen: Ethnic</option>
+                <option value="1145">1145: Shamisen: Ethnic</option>
+                <option value="1146">1146: Shamisen: Ethnic</option>
+                <option value="1147">1147: Koto: Ethnic</option>
+                <option value="1148">1148: Koto: Ethnic</option>
+                <option value="1149">1149: Koto: Ethnic</option>
+                <option value="1150">1150: Koto: Ethnic</option>
+                <option value="1151">1151: Koto: Ethnic</option>
+                <option value="1152">1152: Koto: Ethnic</option>
+                <option value="1153">1153: Koto: Ethnic</option>
+                <option value="1154">1154: Koto: Ethnic</option>
+                <option value="1155">1155: Koto: Ethnic</option>
+                <option value="1156">1156: Koto: Ethnic</option>
+                <option value="1157">1157: Koto: Ethnic</option>
+                <option value="1158">1158: Kalimba: Ethnic</option>
+                <option value="1159">1159: Kalimba: Ethnic</option>
+                <option value="1160">1160: Kalimba: Ethnic</option>
+                <option value="1161">1161: Kalimba: Ethnic</option>
+                <option value="1162">1162: Kalimba: Ethnic</option>
+                <option value="1163">1163: Kalimba: Ethnic</option>
+                <option value="1164">1164: Kalimba: Ethnic</option>
+                <option value="1165">1165: Kalimba: Ethnic</option>
+                <option value="1166">1166: Bagpipe: Ethnic</option>
+                <option value="1167">1167: Bagpipe: Ethnic</option>
+                <option value="1168">1168: Bagpipe: Ethnic</option>
+                <option value="1169">1169: Bagpipe: Ethnic</option>
+                <option value="1170">1170: Bagpipe: Ethnic</option>
+                <option value="1171">1171: Bagpipe: Ethnic</option>
+                <option value="1172">1172: Bagpipe: Ethnic</option>
+                <option value="1173">1173: Bagpipe: Ethnic</option>
+                <option value="1174">1174: Fiddle: Ethnic</option>
+                <option value="1175">1175: Fiddle: Ethnic</option>
+                <option value="1176">1176: Fiddle: Ethnic</option>
+                <option value="1177">1177: Fiddle: Ethnic</option>
+                <option value="1178">1178: Fiddle: Ethnic</option>
+                <option value="1179">1179: Fiddle: Ethnic</option>
+                <option value="1180">1180: Fiddle: Ethnic</option>
+                <option value="1181">1181: Fiddle: Ethnic</option>
+                <option value="1182">1182: Fiddle: Ethnic</option>
+                <option value="1183">1183: Fiddle: Ethnic</option>
+                <option value="1184">1184: Fiddle: Ethnic</option>
+                <option value="1185">1185: Shanai: Ethnic</option>
+                <option value="1186">1186: Shanai: Ethnic</option>
+                <option value="1187">1187: Shanai: Ethnic</option>
+                <option value="1188">1188: Shanai: Ethnic</option>
+                <option value="1189">1189: Shanai: Ethnic</option>
+                <option value="1190">1190: Shanai: Ethnic</option>
+                <option value="1191">1191: Shanai: Ethnic</option>
+                <option value="1192">1192: Tinkle Bell: Percussive</option>
+                <option value="1193">1193: Tinkle Bell: Percussive</option>
+                <option value="1194">1194: Tinkle Bell: Percussive</option>
+                <option value="1195">1195: Tinkle Bell: Percussive</option>
+                <option value="1196">1196: Tinkle Bell: Percussive</option>
+                <option value="1197">1197: Tinkle Bell: Percussive</option>
+                <option value="1198">1198: Tinkle Bell: Percussive</option>
+                <option value="1199">1199: Tinkle Bell: Percussive</option>
+                <option value="1200">1200: Agogo: Percussive</option>
+                <option value="1201">1201: Agogo: Percussive</option>
+                <option value="1202">1202: Agogo: Percussive</option>
+                <option value="1203">1203: Agogo: Percussive</option>
+                <option value="1204">1204: Agogo: Percussive</option>
+                <option value="1205">1205: Agogo: Percussive</option>
+                <option value="1206">1206: Agogo: Percussive</option>
+                <option value="1207">1207: Agogo: Percussive</option>
+                <option value="1208">1208: Agogo: Percussive</option>
+                <option value="1209">1209: Steel Drums: Percussive</option>
+                <option value="1210">1210: Steel Drums: Percussive</option>
+                <option value="1211">1211: Steel Drums: Percussive</option>
+                <option value="1212">1212: Steel Drums: Percussive</option>
+                <option value="1213">1213: Steel Drums: Percussive</option>
+                <option value="1214">1214: Steel Drums: Percussive</option>
+                <option value="1215">1215: Steel Drums: Percussive</option>
+                <option value="1216">1216: Steel Drums: Percussive</option>
+                <option value="1217">1217: Woodblock: Percussive</option>
+                <option value="1218">1218: Woodblock: Percussive</option>
+                <option value="1219">1219: Woodblock: Percussive</option>
+                <option value="1220">1220: Woodblock: Percussive</option>
+                <option value="1221">1221: Woodblock: Percussive</option>
+                <option value="1222">1222: Woodblock: Percussive</option>
+                <option value="1223">1223: Woodblock: Percussive</option>
+                <option value="1224">1224: Woodblock: Percussive</option>
+                <option value="1225">1225: Woodblock: Percussive</option>
+                <option value="1226">1226: Woodblock: Percussive</option>
+                <option value="1227">1227: Woodblock: Percussive</option>
+                <option value="1228">1228: Taiko Drum: Percussive</option>
+                <option value="1229">1229: Taiko Drum: Percussive</option>
+                <option value="1230">1230: Taiko Drum: Percussive</option>
+                <option value="1231">1231: Taiko Drum: Percussive</option>
+                <option value="1232">1232: Taiko Drum: Percussive</option>
+                <option value="1233">1233: Taiko Drum: Percussive</option>
+                <option value="1234">1234: Taiko Drum: Percussive</option>
+                <option value="1235">1235: Taiko Drum: Percussive</option>
+                <option value="1236">1236: Taiko Drum: Percussive</option>
+                <option value="1237">1237: Taiko Drum: Percussive</option>
+                <option value="1238">1238: Taiko Drum: Percussive</option>
+                <option value="1239">1239: Taiko Drum: Percussive</option>
+                <option value="1240">1240: Taiko Drum: Percussive</option>
+                <option value="1241">1241: Melodic Tom: Percussive</option>
+                <option value="1242">1242: Melodic Tom: Percussive</option>
+                <option value="1243">1243: Melodic Tom: Percussive</option>
+                <option value="1244">1244: Melodic Tom: Percussive</option>
+                <option value="1245">1245: Melodic Tom: Percussive</option>
+                <option value="1246">1246: Melodic Tom: Percussive</option>
+                <option value="1247">1247: Melodic Tom: Percussive</option>
+                <option value="1248">1248: Melodic Tom: Percussive</option>
+                <option value="1249">1249: Melodic Tom: Percussive</option>
+                <option value="1250">1250: Melodic Tom: Percussive</option>
+                <option value="1251">1251: Melodic Tom: Percussive</option>
+                <option value="1252">1252: Synth Drum: Percussive</option>
+                <option value="1253">1253: Synth Drum: Percussive</option>
+                <option value="1254">1254: Synth Drum: Percussive</option>
+                <option value="1255">1255: Synth Drum: Percussive</option>
+                <option value="1256">1256: Synth Drum: Percussive</option>
+                <option value="1257">1257: Synth Drum: Percussive</option>
+                <option value="1258">1258: Synth Drum: Percussive</option>
+                <option value="1259">1259: Synth Drum: Percussive</option>
+                <option value="1260">1260: Synth Drum: Percussive</option>
+                <option value="1261">1261: Synth Drum: Percussive</option>
+                <option value="1262">1262: Reverse Cymbal: Percussive</option>
+                <option value="1263">1263: Reverse Cymbal: Percussive</option>
+                <option value="1264">1264: Reverse Cymbal: Percussive</option>
+                <option value="1265">1265: Reverse Cymbal: Percussive</option>
+                <option value="1266">1266: Reverse Cymbal: Percussive</option>
+                <option value="1267">1267: Reverse Cymbal: Percussive</option>
+                <option value="1268">1268: Reverse Cymbal: Percussive</option>
+                <option value="1269">1269: Reverse Cymbal: Percussive</option>
+                <option value="1270">1270: Reverse Cymbal: Percussive</option>
+                <option value="1271">1271: Reverse Cymbal: Percussive</option>
+                <option value="1272">1272: Reverse Cymbal: Percussive</option>
+                <option value="1273">1273: Guitar Fret Noise: Sound effects</option>
+                <option value="1274">1274: Guitar Fret Noise: Sound effects</option>
+                <option value="1275">1275: Guitar Fret Noise: Sound effects</option>
+                <option value="1276">1276: Guitar Fret Noise: Sound effects</option>
+                <option value="1277">1277: Guitar Fret Noise: Sound effects</option>
+                <option value="1278">1278: Guitar Fret Noise: Sound effects</option>
+                <option value="1279">1279: Guitar Fret Noise: Sound effects</option>
+                <option value="1280">1280: Guitar Fret Noise: Sound effects</option>
+                <option value="1281">1281: Guitar Fret Noise: Sound effects</option>
+                <option value="1282">1282: Guitar Fret Noise: Sound effects</option>
+                <option value="1283">1283: Breath Noise: Sound effects</option>
+                <option value="1284">1284: Breath Noise: Sound effects</option>
+                <option value="1285">1285: Breath Noise: Sound effects</option>
+                <option value="1286">1286: Breath Noise: Sound effects</option>
+                <option value="1287">1287: Breath Noise: Sound effects</option>
+                <option value="1288">1288: Breath Noise: Sound effects</option>
+                <option value="1289">1289: Breath Noise: Sound effects</option>
+                <option value="1290">1290: Breath Noise: Sound effects</option>
+                <option value="1291">1291: Breath Noise: Sound effects</option>
+                <option value="1292">1292: Breath Noise: Sound effects</option>
+                <option value="1293">1293: Seashore: Sound effects</option>
+                <option value="1294">1294: Seashore: Sound effects</option>
+                <option value="1295">1295: Seashore: Sound effects</option>
+                <option value="1296">1296: Seashore: Sound effects</option>
+                <option value="1297">1297: Seashore: Sound effects</option>
+                <option value="1298">1298: Seashore: Sound effects</option>
+                <option value="1299">1299: Seashore: Sound effects</option>
+                <option value="1300">1300: Seashore: Sound effects</option>
+                <option value="1301">1301: Seashore: Sound effects</option>
+                <option value="1302">1302: Seashore: Sound effects</option>
+                <option value="1303">1303: Seashore: Sound effects</option>
+                <option value="1304">1304: Seashore: Sound effects</option>
+                <option value="1305">1305: Seashore: Sound effects</option>
+                <option value="1306">1306: Seashore: Sound effects</option>
+                <option value="1307">1307: Seashore: Sound effects</option>
+                <option value="1308">1308: Seashore: Sound effects</option>
+                <option value="1309">1309: Seashore: Sound effects</option>
+                <option value="1310">1310: Seashore: Sound effects</option>
+                <option value="1311">1311: Bird Tweet: Sound effects</option>
+                <option value="1312">1312: Bird Tweet: Sound effects</option>
+                <option value="1313">1313: Bird Tweet: Sound effects</option>
+                <option value="1314">1314: Bird Tweet: Sound effects</option>
+                <option value="1315">1315: Bird Tweet: Sound effects</option>
+                <option value="1316">1316: Bird Tweet: Sound effects</option>
+                <option value="1317">1317: Bird Tweet: Sound effects</option>
+                <option value="1318">1318: Bird Tweet: Sound effects</option>
+                <option value="1319">1319: Bird Tweet: Sound effects</option>
+                <option value="1320">1320: Bird Tweet: Sound effects</option>
+                <option value="1321">1321: Bird Tweet: Sound effects</option>
+                <option value="1322">1322: Bird Tweet: Sound effects</option>
+                <option value="1323">1323: Bird Tweet: Sound effects</option>
+                <option value="1324">1324: Telephone Ring: Sound effects</option>
+                <option value="1325">1325: Telephone Ring: Sound effects</option>
+                <option value="1326">1326: Telephone Ring: Sound effects</option>
+                <option value="1327">1327: Telephone Ring: Sound effects</option>
+                <option value="1328">1328: Telephone Ring: Sound effects</option>
+                <option value="1329">1329: Telephone Ring: Sound effects</option>
+                <option value="1330">1330: Telephone Ring: Sound effects</option>
+                <option value="1331">1331: Telephone Ring: Sound effects</option>
+                <option value="1332">1332: Telephone Ring: Sound effects</option>
+                <option value="1333">1333: Telephone Ring: Sound effects</option>
+                <option value="1334">1334: Telephone Ring: Sound effects</option>
+                <option value="1335">1335: Telephone Ring: Sound effects</option>
+                <option value="1336">1336: Telephone Ring: Sound effects</option>
+                <option value="1337">1337: Telephone Ring: Sound effects</option>
+                <option value="1338">1338: Telephone Ring: Sound effects</option>
+                <option value="1339">1339: Helicopter: Sound effects</option>
+                <option value="1340">1340: Helicopter: Sound effects</option>
+                <option value="1341">1341: Helicopter: Sound effects</option>
+                <option value="1342">1342: Helicopter: Sound effects</option>
+                <option value="1343">1343: Helicopter: Sound effects</option>
+                <option value="1344">1344: Helicopter: Sound effects</option>
+                <option value="1345">1345: Helicopter: Sound effects</option>
+                <option value="1346">1346: Helicopter: Sound effects</option>
+                <option value="1347">1347: Helicopter: Sound effects</option>
+                <option value="1348">1348: Helicopter: Sound effects</option>
+                <option value="1349">1349: Helicopter: Sound effects</option>
+                <option value="1350">1350: Helicopter: Sound effects</option>
+                <option value="1351">1351: Helicopter: Sound effects</option>
+                <option value="1352">1352: Helicopter: Sound effects</option>
+                <option value="1353">1353: Helicopter: Sound effects</option>
+                <option value="1354">1354: Helicopter: Sound effects</option>
+                <option value="1355">1355: Helicopter: Sound effects</option>
+                <option value="1356">1356: Helicopter: Sound effects</option>
+                <option value="1357">1357: Helicopter: Sound effects</option>
+                <option value="1358">1358: Helicopter: Sound effects</option>
+                <option value="1359">1359: Helicopter: Sound effects</option>
+                <option value="1360">1360: Helicopter: Sound effects</option>
+                <option value="1361">1361: Helicopter: Sound effects</option>
+                <option value="1362">1362: Helicopter: Sound effects</option>
+                <option value="1363">1363: Helicopter: Sound effects</option>
+                <option value="1364">1364: Helicopter: Sound effects</option>
+                <option value="1365">1365: Applause: Sound effects</option>
+                <option value="1366">1366: Applause: Sound effects</option>
+                <option value="1367">1367: Applause: Sound effects</option>
+                <option value="1368">1368: Applause: Sound effects</option>
+                <option value="1369">1369: Applause: Sound effects</option>
+                <option value="1370">1370: Applause: Sound effects</option>
+                <option value="1371">1371: Applause: Sound effects</option>
+                <option value="1372">1372: Applause: Sound effects</option>
+                <option value="1373">1373: Applause: Sound effects</option>
+                <option value="1374">1374: Applause: Sound effects</option>
+                <option value="1375">1375: Applause: Sound effects</option>
+                <option value="1376">1376: Applause: Sound effects</option>
+                <option value="1377">1377: Applause: Sound effects</option>
+                <option value="1378">1378: Applause: Sound effects</option>
+                <option value="1379">1379: Applause: Sound effects</option>
+                <option value="1380">1380: Applause: Sound effects</option>
+                <option value="1381">1381: Applause: Sound effects</option>
+                <option value="1382">1382: Gunshot: Sound effects</option>
+                <option value="1383">1383: Gunshot: Sound effects</option>
+                <option value="1384">1384: Gunshot: Sound effects</option>
+                <option value="1385">1385: Gunshot: Sound effects</option>
+                <option value="1386">1386: Gunshot: Sound effects</option>
+                <option value="1387">1387: Gunshot: Sound effects</option>
+                <option value="1388">1388: Gunshot: Sound effects</option>
+                <option value="1389">1389: Gunshot: Sound effects</option>
+                <option value="1390">1390: Gunshot: Sound effects</option>
+                <option value="1391">1391: Gunshot: Sound effects</option>
+                <option value="1392">1392: Gunshot: Sound effects</option>
+                <option value="1393">1393: Gunshot: Sound effects</option>
+                <option value="1394">1394: Gunshot: Sound effects</option>
+            </select><input id="channel0" type="range" min="0" max="100" value="78.74015748031496" step="1"></p>
+        <h3>Drums</h3>
+    </div>
+    <hr>
+    <p><a href="https://surikov.github.io/webaudiofont/">source</a></p>
+    <script>
+        console.log('start');
+        var audioContext = null;
+        var player = null;
+        var reverberator = null;
+        var equalizer = null;
+        var songStart = 0;
+        var input = null;
+        var currentSongTime = 0;
+        var nextStepTime = 0;
+        var nextPositionTime = 0;
+        var loadedsong = null;
+
+        function go() {
+            document.getElementById('tmr').innerHTML = 'starting...';
+            try {
+                startPlay(loadedsong);
+                document.getElementById('tmr').innerHTML = 'playing...';
+            } catch (expt) {
+                document.getElementById('tmr').innerHTML = 'error ' + expt;
+            }
+        }
+
+        function startPlay(song) {
+            currentSongTime = 0;
+            songStart = audioContext.currentTime;
+            nextStepTime = audioContext.currentTime;
+            var stepDuration = 44 / 1000;
+            tick(song, stepDuration);
+        }
+
+        function tick(song, stepDuration) {
+            if (audioContext.currentTime > nextStepTime - stepDuration) {
+                sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
+                currentSongTime = currentSongTime + stepDuration;
+                nextStepTime = nextStepTime + stepDuration;
+                if (currentSongTime > song.duration) {
+                    currentSongTime = currentSongTime - song.duration;
+                    sendNotes(song, songStart, 0, currentSongTime, audioContext, input, player);
+                    songStart = songStart + song.duration;
+                }
+            }
+            if (nextPositionTime < audioContext.currentTime) {
+                var o = document.getElementById('position');
+                o.value = 100 * currentSongTime / song.duration;
+                document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+                nextPositionTime = audioContext.currentTime + 3;
+            }
+            window.requestAnimationFrame(function(t) {
+                tick(song, stepDuration);
+            });
+        }
+
+        function sendNotes(song, songStart, start, end, audioContext, input, player) {
+            for (var t = 0; t < song.tracks.length; t++) {
+                var track = song.tracks[t];
+                for (var i = 0; i < track.notes.length; i++) {
+                    if (track.notes[i].when >= start && track.notes[i].when < end) {
+                        var when = songStart + track.notes[i].when;
+                        var duration = track.notes[i].duration;
+                        if (duration > 3) {
+                            duration = 3;
+                        }
+                        var instr = track.info.variable;
+                        var v = track.volume / 7;
+                        player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v, track.notes[i].slides);
+                    }
+                }
+            }
+            for (var b = 0; b < song.beats.length; b++) {
+                var beat = song.beats[b];
+                for (var i = 0; i < beat.notes.length; i++) {
+                    if (beat.notes[i].when >= start && beat.notes[i].when < end) {
+                        var when = songStart + beat.notes[i].when;
+                        var duration = 1.5;
+                        var instr = beat.info.variable;
+                        var v = beat.volume / 2;
+                        player.queueWaveTable(audioContext, input, window[instr], when, beat.n, duration, v);
+                    }
+                }
+            }
+        }
+
+        function startLoad(song) {
+            console.log(song);
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContextFunc();
+            player = new WebAudioFontPlayer();
+
+            equalizer = player.createChannel(audioContext);
+            reverberator = player.createReverberator(audioContext);
+            //input = reverberator.input;
+            input = equalizer.input;
+            equalizer.output.connect(reverberator.input);
+            reverberator.output.connect(audioContext.destination);
+
+            for (var i = 0; i < song.tracks.length; i++) {
+                var nn = player.loader.findInstrument(song.tracks[i].program);
+                var info = player.loader.instrumentInfo(nn);
+                song.tracks[i].info = info;
+                song.tracks[i].id = nn;
+                player.loader.startLoad(audioContext, info.url, info.variable);
+            }
+            for (var i = 0; i < song.beats.length; i++) {
+                var nn = player.loader.findDrum(song.beats[i].n);
+                var info = player.loader.drumInfo(nn);
+                song.beats[i].info = info;
+                song.beats[i].id = nn;
+                player.loader.startLoad(audioContext, info.url, info.variable);
+            }
+            player.loader.waitLoad(function() {
+                console.log('buildControls');
+                buildControls(song);
+                resetEqlualizer();
+            });
+        }
+
+        function resetEqlualizer() {
+            equalizer.band32.gain.setTargetAtTime(2, 0, 0.0001);
+            equalizer.band64.gain.setTargetAtTime(2, 0, 0.0001);
+            equalizer.band128.gain.setTargetAtTime(1, 0, 0.0001);
+            equalizer.band256.gain.setTargetAtTime(0, 0, 0.0001);
+            equalizer.band512.gain.setTargetAtTime(-1, 0, 0.0001);
+            equalizer.band1k.gain.setTargetAtTime(5, 0, 0.0001);
+            equalizer.band2k.gain.setTargetAtTime(4, 0, 0.0001);
+            equalizer.band4k.gain.setTargetAtTime(3, 0, 0.0001);
+            equalizer.band8k.gain.setTargetAtTime(-2, 0, 0.0001);
+            equalizer.band16k.gain.setTargetAtTime(2, 0, 0.0001);
+        }
+
+        function buildControls(song) {
+            audioContext.resume();
+            var o = document.getElementById('cntls');
+            var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
+            html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
+            html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+            html = html + '<h3>Channels</h3>';
+            for (var i = 0; i < song.tracks.length; i++) {
+                var v = 100 * song.tracks[i].volume;
+                html = html + '<p>' + chooserIns(song.tracks[i].id, i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+            }
+            html = html + '<h3>Drums</h3>';
+            for (var i = 0; i < song.beats.length; i++) {
+                var v = 100 * song.beats[i].volume;
+                html = html + '<p>' + chooserDrum(song.beats[i].id, i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+            }
+            o.innerHTML = html;
+            console.log('Loaded');
+            var pos = document.getElementById('position');
+            pos.oninput = function(e) {
+                if (loadedsong) {
+                    player.cancelQueue(audioContext);
+                    var next = song.duration * pos.value / 100;
+                    songStart = songStart - (next - currentSongTime);
+                    currentSongTime = next;
+                }
+            };
+            console.log('Tracks');
+            for (var i = 0; i < song.tracks.length; i++) {
+                setVolumeAction(i, song);
+            }
+            console.log('Drums');
+            for (var i = 0; i < song.beats.length; i++) {
+                setDrVolAction(i, song);
+            }
+            loadedsong = song;
+        }
+
+        function setVolumeAction(i, song) {
+            var vlm = document.getElementById('channel' + i);
+            vlm.oninput = function(e) {
+                player.cancelQueue(audioContext);
+                var v = vlm.value / 100;
+                if (v < 0.000001) {
+                    v = 0.000001;
+                }
+                song.tracks[i].volume = v;
+            };
+            var sl = document.getElementById('selins' + i);
+            sl.onchange = function(e) {
+                var nn = sl.value;
+                var info = player.loader.instrumentInfo(nn);
+                player.loader.startLoad(audioContext, info.url, info.variable);
+                player.loader.waitLoad(function() {
+                    console.log('loaded');
+                    song.tracks[i].info = info;
+                    song.tracks[i].id = nn;
+                });
+            };
+        }
+
+        function setDrVolAction(i, song) {
+            var vlm = document.getElementById('drum' + i);
+            vlm.oninput = function(e) {
+                player.cancelQueue(audioContext);
+                var v = vlm.value / 100;
+                if (v < 0.000001) {
+                    v = 0.000001;
+                }
+                song.beats[i].volume = v;
+            };
+            var sl = document.getElementById('seldrm' + i);
+            sl.onchange = function(e) {
+                var nn = sl.value;
+                var info = player.loader.drumInfo(nn);
+                player.loader.startLoad(audioContext, info.url, info.variable);
+                player.loader.waitLoad(function() {
+                    console.log('loaded');
+                    song.beats[i].info = info;
+                    song.beats[i].id = nn;
+                });
+            };
+        }
+
+        function chooserIns(n, track) {
+            var html = '<select id="selins' + track + '">';
+            for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+                var sel = '';
+                if (i == n) {
+                    sel = ' selected';
+                }
+                html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.instrumentInfo(i).title + '</option>';
+            }
+            html = html + '</select>';
+            return html;
+        }
+
+        function chooserDrum(n, beat) {
+            var html = '<select id="seldrm' + beat + '">';
+            for (var i = 0; i < player.loader.drumKeys().length; i++) {
+                var sel = '';
+                if (i == n) {
+                    sel = ' selected';
+                }
+                html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.drumInfo(i).title + '</option>';
+            }
+            html = html + '</select>';
+            return html;
+        }
+
+        function handleFileSelect(event) {
+            console.log(event);
+            var file = event.target.files[0];
+            console.log(file);
+            var fileReader = new FileReader();
+            fileReader.onload = function(progressEvent) {
+                console.log(progressEvent);
+                var arrayBuffer = progressEvent.target.result;
+                console.log(arrayBuffer);
+                var midiFile = new MIDIFile(arrayBuffer);
+                var song = midiFile.parseSong();
+                startLoad(song);
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+
+        function handleExample(path) {
+            console.log(path);
+            var xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.open("GET", path, true);
+            xmlHttpRequest.responseType = "arraybuffer";
+            xmlHttpRequest.onload = function(e) {
+                var arrayBuffer = xmlHttpRequest.response;
+                var midiFile = new MIDIFile(arrayBuffer);
+                var song = midiFile.parseSong();
+                startLoad(song);
+            };
+            xmlHttpRequest.send(null);
+        }
+        document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
+    </script>
+    <script>
+        console.log('start');
+
+        var audioContext = null;
+        var player = null;
+        var reverberator = null;
+        var equalizer = null;
+        var songStart = 0;
+        var input = null;
+        var currentSongTime = 0;
+        var nextStepTime = 0;
+        var nextPositionTime = 0;
+        var loadedsong = null;
+
+        function go() {
+            document.getElementById('tmr').innerHTML = 'starting...';
+            try {
+                startPlay(loadedsong);
+                document.getElementById('tmr').innerHTML = 'playing...';
+            } catch (expt) {
+                document.getElementById('tmr').innerHTML = 'error ' + expt;
+            }
+        }
+
+        function startPlay(song) {
+            currentSongTime = 0;
+            songStart = audioContext.currentTime;
+            nextStepTime = audioContext.currentTime;
+            var stepDuration = 44 / 1000;
+            tick(song, stepDuration);
+        }
+
+        function tick(song, stepDuration) {
+            if (audioContext.currentTime > nextStepTime - stepDuration) {
+                sendNotes(song, songStart, currentSongTime, currentSongTime + stepDuration, audioContext, input, player);
+                currentSongTime = currentSongTime + stepDuration;
+                nextStepTime = nextStepTime + stepDuration;
+                if (currentSongTime > song.duration) {
+                    currentSongTime = currentSongTime - song.duration;
+                    sendNotes(song, songStart, 0, currentSongTime, audioContext, input, player);
+                    songStart = songStart + song.duration;
+                }
+            }
+            if (nextPositionTime < audioContext.currentTime) {
+                var o = document.getElementById('position');
+                o.value = 100 * currentSongTime / song.duration;
+                document.getElementById('tmr').innerHTML = '' + Math.round(100 * currentSongTime / song.duration) + '%';
+                nextPositionTime = audioContext.currentTime + 3;
+            }
+            window.requestAnimationFrame(function(t) {
+                tick(song, stepDuration);
+            });
+        }
+
+        function sendNotes(song, songStart, start, end, audioContext, input, player) {
+            for (var t = 0; t < song.tracks.length; t++) {
+                var track = song.tracks[t];
+                for (var i = 0; i < track.notes.length; i++) {
+                    if (track.notes[i].when >= start && track.notes[i].when < end) {
+                        var when = songStart + track.notes[i].when;
+                        var duration = track.notes[i].duration;
+                        if (duration > 3) {
+                            duration = 3;
+                        }
+                        var instr = track.info.variable;
+                        var v = track.volume / 7;
+                        player.queueWaveTable(audioContext, input, window[instr], when, track.notes[i].pitch, duration, v, track.notes[i].slides);
+                    }
+                }
+            }
+            for (var b = 0; b < song.beats.length; b++) {
+                var beat = song.beats[b];
+                for (var i = 0; i < beat.notes.length; i++) {
+                    if (beat.notes[i].when >= start && beat.notes[i].when < end) {
+                        var when = songStart + beat.notes[i].when;
+                        var duration = 1.5;
+                        var instr = beat.info.variable;
+                        var v = beat.volume / 2;
+                        player.queueWaveTable(audioContext, input, window[instr], when, beat.n, duration, v);
+                    }
+                }
+            }
+        }
+
+        function startLoad(song) {
+            console.log(song);
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            audioContext = new AudioContextFunc();
+            player = new WebAudioFontPlayer();
+
+            equalizer = player.createChannel(audioContext);
+            reverberator = player.createReverberator(audioContext);
+            //input = reverberator.input;
+            input = equalizer.input;
+            equalizer.output.connect(reverberator.input);
+            reverberator.output.connect(audioContext.destination);
+
+            for (var i = 0; i < song.tracks.length; i++) {
+                var nn = player.loader.findInstrument(song.tracks[i].program);
+                var info = player.loader.instrumentInfo(nn);
+                song.tracks[i].info = info;
+                song.tracks[i].id = nn;
+                player.loader.startLoad(audioContext, info.url, info.variable);
+            }
+            for (var i = 0; i < song.beats.length; i++) {
+                var nn = player.loader.findDrum(song.beats[i].n);
+                var info = player.loader.drumInfo(nn);
+                song.beats[i].info = info;
+                song.beats[i].id = nn;
+                player.loader.startLoad(audioContext, info.url, info.variable);
+            }
+            player.loader.waitLoad(function() {
+                console.log('buildControls');
+                buildControls(song);
+                resetEqlualizer();
+            });
+        }
+
+        function resetEqlualizer() {
+            equalizer.band32.gain.setTargetAtTime(2, 0, 0.0001);
+            equalizer.band64.gain.setTargetAtTime(2, 0, 0.0001);
+            equalizer.band128.gain.setTargetAtTime(1, 0, 0.0001);
+            equalizer.band256.gain.setTargetAtTime(0, 0, 0.0001);
+            equalizer.band512.gain.setTargetAtTime(-1, 0, 0.0001);
+            equalizer.band1k.gain.setTargetAtTime(5, 0, 0.0001);
+            equalizer.band2k.gain.setTargetAtTime(4, 0, 0.0001);
+            equalizer.band4k.gain.setTargetAtTime(3, 0, 0.0001);
+            equalizer.band8k.gain.setTargetAtTime(-2, 0, 0.0001);
+            equalizer.band16k.gain.setTargetAtTime(2, 0, 0.0001);
+        }
+
+        function buildControls(song) {
+            audioContext.resume();
+            var o = document.getElementById('cntls');
+            var html = '<h2 id="wrng">Refresh browser page to load another song</h2>';
+            html = html + '<p id="tmr"><button onclick="go();">Play</button></p>';
+            html = html + '<p><input id="position" type="range" min="0" max="100" value="0" step="1" /></p>';
+            html = html + '<h3>Channels</h3>';
+            for (var i = 0; i < song.tracks.length; i++) {
+                var v = 100 * song.tracks[i].volume;
+                html = html + '<p>' + chooserIns(song.tracks[i].id, i) + '<input id="channel' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+            }
+            html = html + '<h3>Drums</h3>';
+            for (var i = 0; i < song.beats.length; i++) {
+                var v = 100 * song.beats[i].volume;
+                html = html + '<p>' + chooserDrum(song.beats[i].id, i) + '<input id="drum' + i + '" type="range" min="0" max="100" value="' + v + '" step="1" /></p>';
+            }
+            o.innerHTML = html;
+            console.log('Loaded');
+            var pos = document.getElementById('position');
+            pos.oninput = function(e) {
+                if (loadedsong) {
+                    player.cancelQueue(audioContext);
+                    var next = song.duration * pos.value / 100;
+                    songStart = songStart - (next - currentSongTime);
+                    currentSongTime = next;
+                }
+            };
+            console.log('Tracks');
+            for (var i = 0; i < song.tracks.length; i++) {
+                setVolumeAction(i, song);
+            }
+            console.log('Drums');
+            for (var i = 0; i < song.beats.length; i++) {
+                setDrVolAction(i, song);
+            }
+            loadedsong = song;
+        }
+
+        function setVolumeAction(i, song) {
+            var vlm = document.getElementById('channel' + i);
+            vlm.oninput = function(e) {
+                player.cancelQueue(audioContext);
+                var v = vlm.value / 100;
+                if (v < 0.000001) {
+                    v = 0.000001;
+                }
+                song.tracks[i].volume = v;
+            };
+            var sl = document.getElementById('selins' + i);
+            sl.onchange = function(e) {
+                var nn = sl.value;
+                var info = player.loader.instrumentInfo(nn);
+                player.loader.startLoad(audioContext, info.url, info.variable);
+                player.loader.waitLoad(function() {
+                    console.log('loaded');
+                    song.tracks[i].info = info;
+                    song.tracks[i].id = nn;
+                });
+            };
+        }
+
+        function setDrVolAction(i, song) {
+            var vlm = document.getElementById('drum' + i);
+            vlm.oninput = function(e) {
+                player.cancelQueue(audioContext);
+                var v = vlm.value / 100;
+                if (v < 0.000001) {
+                    v = 0.000001;
+                }
+                song.beats[i].volume = v;
+            };
+            var sl = document.getElementById('seldrm' + i);
+            sl.onchange = function(e) {
+                var nn = sl.value;
+                var info = player.loader.drumInfo(nn);
+                player.loader.startLoad(audioContext, info.url, info.variable);
+                player.loader.waitLoad(function() {
+                    console.log('loaded');
+                    song.beats[i].info = info;
+                    song.beats[i].id = nn;
+                });
+            };
+        }
+
+        function chooserIns(n, track) {
+            var html = '<select id="selins' + track + '">';
+            for (var i = 0; i < player.loader.instrumentKeys().length; i++) {
+                var sel = '';
+                if (i == n) {
+                    sel = ' selected';
+                }
+                html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.instrumentInfo(i).title + '</option>';
+            }
+            html = html + '</select>';
+            return html;
+        }
+
+        function chooserDrum(n, beat) {
+            var html = '<select id="seldrm' + beat + '">';
+            for (var i = 0; i < player.loader.drumKeys().length; i++) {
+                var sel = '';
+                if (i == n) {
+                    sel = ' selected';
+                }
+                html = html + '<option value="' + i + '"' + sel + '>' + i + ': ' + player.loader.drumInfo(i).title + '</option>';
+            }
+            html = html + '</select>';
+            return html;
+        }
+
+        function handleFileSelect(event) {
+            console.log(event);
+            var file = event.target.files[0];
+            console.log(file);
+            var fileReader = new FileReader();
+            fileReader.onload = function(progressEvent) {
+                console.log(progressEvent);
+                var arrayBuffer = progressEvent.target.result;
+                console.log(arrayBuffer);
+                var midiFile = new MIDIFile(arrayBuffer);
+                var song = midiFile.parseSong();
+                startLoad(song);
+            };
+            fileReader.readAsArrayBuffer(file);
+        }
+
+        function handleExample(path) {
+            console.log(path);
+            var xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.open("GET", path, true);
+            xmlHttpRequest.responseType = "arraybuffer";
+            xmlHttpRequest.onload = function(e) {
+                var arrayBuffer = xmlHttpRequest.response;
+                var midiFile = new MIDIFile(arrayBuffer);
+                var song = midiFile.parseSong();
+                startLoad(song);
+            };
+            xmlHttpRequest.send(null);
+        }
+        document.getElementById('filesinput').addEventListener('change', handleFileSelect, false);
+    </script>
+
+
+
+    <div id="torrent-scanner-popup" style="display: none;"></div>
+</body>
+
+</html>

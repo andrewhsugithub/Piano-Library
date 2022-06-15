@@ -4,13 +4,13 @@ import "firebase/compat/auth";
 // import { seedDatabase } from "../seed";
 
 const config = {
-  apiKey: "AIzaSyDr44_QwrQVWku0IkPjIh99ltCMMQpp2W4",
-  authDomain: "piano-transcription-72342.firebaseapp.com",
-  projectId: "piano-transcription-72342",
-  storageBucket: "piano-transcription-72342.appspot.com",
-  messagingSenderId: "567301018962",
-  appId: "1:567301018962:web:600056042aa2777af5968b",
-  measurementId: "G-K48W0QF7RN",
+  apiKey: "AIzaSyAvDZD8AefYuIyWlOXCIwbcFeqQ_t7oMUM",
+  authDomain: "pianotranscription-c8eac.firebaseapp.com",
+  projectId: "pianotranscription-c8eac",
+  storageBucket: "pianotranscription-c8eac.appspot.com",
+  messagingSenderId: "97287095498",
+  appId: "1:97287095498:web:98f542ca3611f448336033",
+  measurementId: "G-M34E70GJDL",
 };
 const firebase = Firebase.initializeApp(config);
 
