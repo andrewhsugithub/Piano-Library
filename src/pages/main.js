@@ -79,10 +79,14 @@ export default function Main() {
               onChange={(e) => setMidi(e.target.value)}
             ></input>
             <input
-              id="midi_submit"
               type="submit"
+              id="midi_submit"
               value="Save"
-              style={{ width: "100%", height: "100%" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "transparent",
+              }}
             ></input>
           </form>
         </div>
