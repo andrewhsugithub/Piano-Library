@@ -4,6 +4,14 @@
 /node_modules
 /.pnp
 .pnp.js
+/public/midi/ex
+/public/images/flims
+/public/images/series/children
+/public/images/series/comedies
+/public/images/series/crime
+/public/images/series/drama
+/public/images/series/feel-good
+/src/lib/.env
 
 # testing
 /coverage

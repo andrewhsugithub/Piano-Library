@@ -1,16 +1,17 @@
 ﻿import Firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+require("dotenv").config();
 // import { seedDatabase } from "../seed";
 
 const config = {
-  apiKey: "AIzaSyAvDZD8AefYuIyWlOXCIwbcFeqQ_t7oMUM",
-  authDomain: "pianotranscription-c8eac.firebaseapp.com",
-  projectId: "pianotranscription-c8eac",
-  storageBucket: "pianotranscription-c8eac.appspot.com",
-  messagingSenderId: "97287095498",
-  appId: "1:97287095498:web:98f542ca3611f448336033",
-  measurementId: "G-M34E70GJDL",
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
+  measurementId: process.env.measurementId,
 };
 const firebase = Firebase.initializeApp(config);
 
