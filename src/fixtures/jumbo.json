@@ -1,0 +1,38 @@
+﻿[{
+        "id": 1,
+        "heading": "PERFACT DESIGN",
+        "title": "It’s Everything You’ll Ever Need.",
+        "subTitle": "In the ancient days before the internet, people had a pretty rough time getting their hands on the sheet music. Today you can get access to sheet music in seconds",
+        "image": "/images/landing-page/features-one.png",
+        "alt": "feature-one",
+        "direction": "row"
+    },
+    {
+        "id": 2,
+        "heading": "USER INTERFACE",
+        "title": "Unlimited Features Awaiting For You.",
+        "subTitle": "Only what you can 't think of, there is nothing you can't do. Sign in and explore with us.",
+        "image": "/images/landing-page/features-two.png",
+        "alt": "feature-two",
+        "direction": "row-reverse"
+    },
+    {
+        "id": 3,
+        "heading": "PERFACT DESIGN",
+        "title": "Your Favorite Music",
+        "subTitle": "Whether you want to play classical music or some modern pop music, the chances are that the score is available online.",
+        "image": "/images/landing-page/features-three.png",
+        "alt": "pop/anime/classical music/k-pop",
+        "direction": "row"
+    },
+    {
+        "id": 4,
+        "heading": "USER INTERFACE",
+        "title": "Into Music Notes",
+        "subTitle": "Convert even more of your favorite pieces to sheet at a reduced rate by purchasing one of our transcription packages. Start a new transcription or unlock one of your free transcriptions to view the full notesheet. Access it anytime, anywhere and in the format that fits your needs.",
+        "image": "/images/landing-page/features-four.png",
+        "alt": "music notes",
+        "direction": "row-reverse"
+    }
+
+]

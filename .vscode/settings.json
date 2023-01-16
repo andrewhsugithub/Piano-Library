@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.js": "javascriptreact",
+    "editingmain.js": "javascript"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "cSpell.words": ["firestore"]
+}
