@@ -11,7 +11,7 @@
 /public/images/series/crime
 /public/images/series/drama
 /public/images/series/feel-good
-/src/lib/.env
+/.env
 
 # testing
 /coverage
